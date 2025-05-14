@@ -1,0 +1,50 @@
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\MessageService\bin\Debug\net8.0\appsettings.Development.json
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\MessageService\bin\Debug\net8.0\appsettings.json
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\MessageService\bin\Debug\net8.0\MessageService.exe
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\MessageService\bin\Debug\net8.0\MessageService.deps.json
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\MessageService\bin\Debug\net8.0\MessageService.runtimeconfig.json
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\MessageService\bin\Debug\net8.0\MessageService.dll
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\MessageService\bin\Debug\net8.0\MessageService.pdb
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\MessageService\obj\Debug\net8.0\MessageService.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\MessageService\obj\Debug\net8.0\MessageService.AssemblyInfoInputs.cache
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\MessageService\obj\Debug\net8.0\MessageService.AssemblyInfo.cs
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\MessageService\obj\Debug\net8.0\MessageService.csproj.CoreCompileInputs.cache
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\MessageService\obj\Debug\net8.0\MessageService.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\MessageService\obj\Debug\net8.0\staticwebassets.build.json
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\MessageService\obj\Debug\net8.0\staticwebassets.development.json
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\MessageService\obj\Debug\net8.0\staticwebassets\msbuild.MessageService.Microsoft.AspNetCore.StaticWebAssets.props
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\MessageService\obj\Debug\net8.0\staticwebassets\msbuild.build.MessageService.props
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\MessageService\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.MessageService.props
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\MessageService\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.MessageService.props
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\MessageService\obj\Debug\net8.0\staticwebassets.pack.json
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\MessageService\obj\Debug\net8.0\scopedcss\bundle\MessageService.styles.css
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\MessageService\obj\Debug\net8.0\MessageService.dll
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\MessageService\obj\Debug\net8.0\refint\MessageService.dll
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\MessageService\obj\Debug\net8.0\MessageService.pdb
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\MessageService\obj\Debug\net8.0\MessageService.genruntimeconfig.cache
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\MessageService\obj\Debug\net8.0\ref\MessageService.dll
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\Services\MessageService\bin\Debug\net8.0\appsettings.Development.json
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\Services\MessageService\bin\Debug\net8.0\appsettings.json
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\Services\MessageService\bin\Debug\net8.0\MessageService.exe
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\Services\MessageService\bin\Debug\net8.0\MessageService.deps.json
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\Services\MessageService\bin\Debug\net8.0\MessageService.runtimeconfig.json
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\Services\MessageService\bin\Debug\net8.0\MessageService.dll
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\Services\MessageService\bin\Debug\net8.0\MessageService.pdb
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\Services\MessageService\obj\Debug\net8.0\MessageService.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\Services\MessageService\obj\Debug\net8.0\MessageService.AssemblyInfoInputs.cache
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\Services\MessageService\obj\Debug\net8.0\MessageService.AssemblyInfo.cs
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\Services\MessageService\obj\Debug\net8.0\MessageService.csproj.CoreCompileInputs.cache
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\Services\MessageService\obj\Debug\net8.0\MessageService.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\Services\MessageService\obj\Debug\net8.0\staticwebassets.build.json
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\Services\MessageService\obj\Debug\net8.0\staticwebassets.development.json
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\Services\MessageService\obj\Debug\net8.0\staticwebassets\msbuild.MessageService.Microsoft.AspNetCore.StaticWebAssets.props
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\Services\MessageService\obj\Debug\net8.0\staticwebassets\msbuild.build.MessageService.props
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\Services\MessageService\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.MessageService.props
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\Services\MessageService\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.MessageService.props
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\Services\MessageService\obj\Debug\net8.0\staticwebassets.pack.json
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\Services\MessageService\obj\Debug\net8.0\scopedcss\bundle\MessageService.styles.css
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\Services\MessageService\obj\Debug\net8.0\MessageService.dll
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\Services\MessageService\obj\Debug\net8.0\refint\MessageService.dll
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\Services\MessageService\obj\Debug\net8.0\MessageService.pdb
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\Services\MessageService\obj\Debug\net8.0\MessageService.genruntimeconfig.cache
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\Services\MessageService\obj\Debug\net8.0\ref\MessageService.dll

@@ -1,1 +1,50 @@
-".vs/" 
+# Fichiers binaires et dossiers de build
+bin/
+obj/
+*.exe
+*.dll
+*.pdb
+*.cache
+*.log
+c
+# Fichiers de configuration utilisateur
+.vscode/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Fichiers de dépendances locales
+packages/
+*.nupkg
+project.lock.json
+project.fragment.lock.json
+
+# Fichiers temporaires
+*.tmp
+*.temp
+*.bak
+*.swp
+
+# Fichiers de publication
+publish/
+*.publishsettings
+
+# Fichiers de logs
+*.log
+logs/
+
+# Fichiers spécifiques à l'environnement
+.env
+.env.*
+
+# Fichiers de gestion de version
+!.gitignore
+!.gitattributes
+
+# Fichiers de cache
+*.vs/
+.vs/
+_ReSharper*/
+*.resharper
+.idea/

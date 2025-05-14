@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "DyHcdpIbyNg=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\AR\\Technique informatique 420.BO\\Session 6\\Projet Personnels\\MessagingApp\\Services\\NotificationService\\NotificationService.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\AR\\.nuget\\packages\\microsoft.visualstudio.azure.containers.tools.targets\\1.21.0\\microsoft.visualstudio.azure.containers.tools.targets.1.21.0.nupkg.sha512"
+  ],
+  "logs": []
+}

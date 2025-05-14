@@ -1,0 +1,50 @@
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\NotificationService\bin\Debug\net8.0\appsettings.Development.json
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\NotificationService\bin\Debug\net8.0\appsettings.json
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\NotificationService\bin\Debug\net8.0\NotificationService.exe
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\NotificationService\bin\Debug\net8.0\NotificationService.deps.json
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\NotificationService\bin\Debug\net8.0\NotificationService.runtimeconfig.json
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\NotificationService\bin\Debug\net8.0\NotificationService.dll
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\NotificationService\bin\Debug\net8.0\NotificationService.pdb
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\NotificationService\obj\Debug\net8.0\NotificationService.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\NotificationService\obj\Debug\net8.0\NotificationService.AssemblyInfoInputs.cache
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\NotificationService\obj\Debug\net8.0\NotificationService.AssemblyInfo.cs
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\NotificationService\obj\Debug\net8.0\NotificationService.csproj.CoreCompileInputs.cache
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\NotificationService\obj\Debug\net8.0\NotificationService.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\NotificationService\obj\Debug\net8.0\staticwebassets.build.json
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\NotificationService\obj\Debug\net8.0\staticwebassets.development.json
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\NotificationService\obj\Debug\net8.0\staticwebassets\msbuild.NotificationService.Microsoft.AspNetCore.StaticWebAssets.props
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\NotificationService\obj\Debug\net8.0\staticwebassets\msbuild.build.NotificationService.props
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\NotificationService\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.NotificationService.props
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\NotificationService\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.NotificationService.props
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\NotificationService\obj\Debug\net8.0\staticwebassets.pack.json
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\NotificationService\obj\Debug\net8.0\scopedcss\bundle\NotificationService.styles.css
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\NotificationService\obj\Debug\net8.0\NotificationService.dll
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\NotificationService\obj\Debug\net8.0\refint\NotificationService.dll
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\NotificationService\obj\Debug\net8.0\NotificationService.pdb
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\NotificationService\obj\Debug\net8.0\NotificationService.genruntimeconfig.cache
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\NotificationService\obj\Debug\net8.0\ref\NotificationService.dll
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\Services\NotificationService\bin\Debug\net8.0\appsettings.Development.json
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\Services\NotificationService\bin\Debug\net8.0\appsettings.json
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\Services\NotificationService\bin\Debug\net8.0\NotificationService.exe
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\Services\NotificationService\bin\Debug\net8.0\NotificationService.deps.json
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\Services\NotificationService\bin\Debug\net8.0\NotificationService.runtimeconfig.json
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\Services\NotificationService\bin\Debug\net8.0\NotificationService.dll
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\Services\NotificationService\bin\Debug\net8.0\NotificationService.pdb
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\Services\NotificationService\obj\Debug\net8.0\NotificationService.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\Services\NotificationService\obj\Debug\net8.0\NotificationService.AssemblyInfoInputs.cache
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\Services\NotificationService\obj\Debug\net8.0\NotificationService.AssemblyInfo.cs
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\Services\NotificationService\obj\Debug\net8.0\NotificationService.csproj.CoreCompileInputs.cache
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\Services\NotificationService\obj\Debug\net8.0\NotificationService.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\Services\NotificationService\obj\Debug\net8.0\staticwebassets.build.json
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\Services\NotificationService\obj\Debug\net8.0\staticwebassets.development.json
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\Services\NotificationService\obj\Debug\net8.0\staticwebassets\msbuild.NotificationService.Microsoft.AspNetCore.StaticWebAssets.props
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\Services\NotificationService\obj\Debug\net8.0\staticwebassets\msbuild.build.NotificationService.props
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\Services\NotificationService\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.NotificationService.props
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\Services\NotificationService\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.NotificationService.props
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\Services\NotificationService\obj\Debug\net8.0\staticwebassets.pack.json
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\Services\NotificationService\obj\Debug\net8.0\scopedcss\bundle\NotificationService.styles.css
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\Services\NotificationService\obj\Debug\net8.0\NotificationService.dll
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\Services\NotificationService\obj\Debug\net8.0\refint\NotificationService.dll
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\Services\NotificationService\obj\Debug\net8.0\NotificationService.pdb
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\Services\NotificationService\obj\Debug\net8.0\NotificationService.genruntimeconfig.cache
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\Services\NotificationService\obj\Debug\net8.0\ref\NotificationService.dll
