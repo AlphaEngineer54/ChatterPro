@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "Ra74Welj1SI=",
+  "dgSpecHash": "IMTsTnvcty0=",
   "success": true,
   "projectFilePath": "C:\\Users\\AR\\Technique informatique 420.BO\\Session 6\\Projet Personnels\\MessagingAPP\\Services\\NotificationService\\NotificationService.csproj",
   "expectedPackageFiles": [
@@ -148,7 +148,7 @@
     "C:\\Users\\AR\\.nuget\\packages\\nuget.projectmodel\\6.11.0\\nuget.projectmodel.6.11.0.nupkg.sha512",
     "C:\\Users\\AR\\.nuget\\packages\\nuget.protocol\\6.11.0\\nuget.protocol.6.11.0.nupkg.sha512",
     "C:\\Users\\AR\\.nuget\\packages\\nuget.versioning\\6.11.0\\nuget.versioning.6.11.0.nupkg.sha512",
-    "C:\\Users\\AR\\.nuget\\packages\\rabbitmq.client\\6.2.1\\rabbitmq.client.6.2.1.nupkg.sha512",
+    "C:\\Users\\AR\\.nuget\\packages\\rabbitmq.client\\6.4.0\\rabbitmq.client.6.4.0.nupkg.sha512",
     "C:\\Users\\AR\\.nuget\\packages\\swashbuckle.aspnetcore\\8.0.0\\swashbuckle.aspnetcore.8.0.0.nupkg.sha512",
     "C:\\Users\\AR\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\8.0.0\\swashbuckle.aspnetcore.swagger.8.0.0.nupkg.sha512",
     "C:\\Users\\AR\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\8.0.0\\swashbuckle.aspnetcore.swaggergen.8.0.0.nupkg.sha512",

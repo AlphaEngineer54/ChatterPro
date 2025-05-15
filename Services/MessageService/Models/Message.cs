@@ -11,7 +11,9 @@ public partial class Message
 
     public DateTime Date { get; set; }
 
-    public int UserId { get; set; }
+    public int SenderId { get; set; }
+
+    public int ReceiverId { get; set; }
 
     public int? ConversationId { get; set; }
 

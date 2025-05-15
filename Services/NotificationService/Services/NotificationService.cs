@@ -7,18 +7,21 @@ using NotificationService.Models;
 
 namespace NotificationService.Services
 {
-    public class NotificationService
+    /// <summary>
+    /// NotificationService is responsible for managing notifications for users.
+    /// </summary>
+    public class NotificationManagerService
     {
         private readonly NotifDbContext _context;
 
         private readonly IHubContext<NotificationHubs> _hubContext;
 
-        private readonly ILogger<NotificationService> _logger;
+        private readonly ILogger<NotificationManagerService> _logger;
 
         // Constructor to initialize the NotificationService with the required dependencies
-        public NotificationService(NotifDbContext context,
+        public NotificationManagerService(NotifDbContext context,
                                    IHubContext<NotificationHubs> hubContext,
-                                   ILogger<NotificationService> logger)
+                                   ILogger<NotificationManagerService> logger)
         {
             _logger = logger;
             _context = context;
@@ -32,7 +35,7 @@ namespace NotificationService.Services
                             .Where(n => n.UserId == userId)
                             .ToListAsync();
 
-            if (notifications == null || notifications.Count == 0)
+            if (notifications.Any())
             {
                 return null;
             }
@@ -40,7 +43,22 @@ namespace NotificationService.Services
             return notifications;
         }
 
-        // Create method to add notification into database
+        // Method to get a specific notification by its ID
+        public async Task<Notification> GetNotification(int notificationId)
+        {
+            var notification = await _context.Notifications
+                            .FirstOrDefaultAsync(n => n.Id == notificationId);
+
+            if (notification == null)
+            {
+                return null;
+            }
+
+            return notification;
+        }
+
+
+        // Method to add notification into database for a PRIVATE conversation
         public async Task AddNotification(Notification newNotification)
         {
             // Add the notification to the database
@@ -51,23 +69,28 @@ namespace NotificationService.Services
             await _hubContext.Clients.User(newNotification.UserId.ToString())
                 .SendAsync("ReceiveNotification", newNotification);
 
-            // Add logging to inform that the notification was sent
-            // By using ILogger
             _logger.LogInformation($"Notification sent to user {newNotification.UserId}: {newNotification.Message}");
         }
 
+        // Method to update an notification by userId
+        public async Task UpdateNotification(int userId, Notification updatedNotification)
+        {
+             await _context.SaveChangesAsync();
+             _logger.LogInformation($"Notification updated for user {userId}");
+        }
+
         // Method to delete an notification by userId
-        public void DeleteNotification(int userId)
+        public async Task DeleteNotification(int userId)
         {
             // Delete the notification from the database
-            var notification = _context.Notifications
-                .FirstOrDefault(n => n.UserId == userId);
+            var notification = await _context.Notifications
+                .FirstOrDefaultAsync(n => n.UserId == userId);
 
             // Check if the notification exists
             if (notification != null)
             {
                 _context.Notifications.Remove(notification);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
 
                 _logger.LogInformation($"Notification deleted for user {userId}");
             }

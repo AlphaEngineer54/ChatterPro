@@ -81,7 +81,10 @@ namespace NotificationService.Controllers
                 return NotFound(new { Message = "Notification not found." });
             }
 
-            await _notificationService.UpdateNotification(notificationId, updatedNotification);
+            // Update the notification properties
+            notification.Message = updatedNotification.Message;
+
+            await _notificationService.UpdateNotification(notificationId, notification);
 
             return NoContent();
         }

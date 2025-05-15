@@ -8,8 +8,6 @@ namespace NotificationService.Models.DTO
         [StringLength(255, ErrorMessage = "Message length cannot exceed 255 characters.")]
         public string Message { get; set; } = null!;
 
-        public DateTime? CreatedAt { get; set; }
-
         [Required(ErrorMessage = "Please provide a user ID")]
         [Range(1, int.MaxValue, ErrorMessage = "User ID must be a positive integer.")]
         public int UserId { get; set; }

@@ -2439,7 +2439,7 @@
           "lib/netstandard2.0/NuGet.Versioning.dll": {}
         }
       },
-      "RabbitMQ.Client/6.2.1": {
+      "RabbitMQ.Client/6.4.0": {
         "type": "package",
         "dependencies": {
           "System.Memory": "4.5.4",
@@ -2447,12 +2447,12 @@
         },
         "compile": {
           "lib/netstandard2.0/RabbitMQ.Client.dll": {
-            "related": ".pdb;.xml"
+            "related": ".xml"
           }
         },
         "runtime": {
           "lib/netstandard2.0/RabbitMQ.Client.dll": {
-            "related": ".pdb;.xml"
+            "related": ".xml"
           }
         }
       },
@@ -7369,22 +7369,19 @@
         "nuget.versioning.nuspec"
       ]
     },
-    "RabbitMQ.Client/6.2.1": {
-      "sha512": "kdcin0uz1b9xQPvlLOoa8Y2zQsfu7nRuTrcX02dCLVzwGVlsPp9AFgu1L3kRh4wSFEOGE03OVqpWKxaDlhuowQ==",
+    "RabbitMQ.Client/6.4.0": {
+      "sha512": "1znR1gGU+xYVSpO5z8nQolcUKA/yydnxQn7Ug9+RUXxTSLMm/eE58VKGwahPBjELXvDnX0k/kBrAitFLRjx9LA==",
       "type": "package",
-      "path": "rabbitmq.client/6.2.1",
+      "path": "rabbitmq.client/6.4.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "LICENSE",
         "icon.png",
         "lib/net461/RabbitMQ.Client.dll",
-        "lib/net461/RabbitMQ.Client.pdb",
         "lib/net461/RabbitMQ.Client.xml",
         "lib/netstandard2.0/RabbitMQ.Client.dll",
-        "lib/netstandard2.0/RabbitMQ.Client.pdb",
         "lib/netstandard2.0/RabbitMQ.Client.xml",
-        "rabbitmq.client.6.2.1.nupkg.sha512",
+        "rabbitmq.client.6.4.0.nupkg.sha512",
         "rabbitmq.client.nuspec"
       ]
     },
@@ -9043,7 +9040,7 @@
       "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 8.0.7",
       "MySql.EntityFrameworkCore >= 8.0.0",
       "Newtonsoft.Json >= 13.0.3",
-      "RabbitMQ.Client >= 6.2.1",
+      "RabbitMQ.Client >= 6.4.0",
       "Swashbuckle.AspNetCore >= 8.0.0",
       "Swashbuckle.AspNetCore.Swagger >= 8.0.0"
     ]
@@ -9136,7 +9133,7 @@
           },
           "RabbitMQ.Client": {
             "target": "Package",
-            "version": "[6.2.1, )"
+            "version": "[6.4.0, )"
           },
           "Swashbuckle.AspNetCore": {
             "target": "Package",
