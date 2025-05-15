@@ -4,12 +4,12 @@ using NotificationService.Models;
 
 namespace NotificationService.Hubs
 {
+
+    /// <summary>
+    /// NotificationHubs is a SignalR hub that allows real-time communication between the server and clients.
+    /// </summary>
     public class NotificationHubs : Hub
     {
-        public async Task SendNotification(Notification newNotification)
-        {
-            // Send the notification to the specific user
-            await Clients.User(newNotification.UserId.ToString()).SendAsync("ReceiveNotification", newNotification);
-        }
+      
     }
 }
