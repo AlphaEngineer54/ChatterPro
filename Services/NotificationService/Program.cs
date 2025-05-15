@@ -9,7 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // DB
 builder.Services.AddDbContext<NotifDbContext>(options =>
-    options.UseMySQL(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseMySQL(builder.Configuration.GetConnectionString("NotificationDB")));
 
 // Services
 builder.Services.AddScoped<NotificationManagerService>();
@@ -22,6 +22,10 @@ builder.Services.AddSignalR();
 // Controllers
 builder.Services.AddControllers();
 
+// Swagger
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
 // Build
 var app = builder.Build();
 
@@ -30,5 +34,12 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
 app.MapHub<NotificationHubs>("/notifications");
+
+// Activer Swagger en mode développement
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
 
 app.Run();

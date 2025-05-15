@@ -23,7 +23,7 @@ namespace NotificationService.Controllers
         {
             var notifications = await _notificationService.GetNotifications(userId);
 
-            if (!notifications.Any())
+            if (notifications == null)
             {
                 return NotFound(new { Message = "No notifications found." });
             }
@@ -61,7 +61,23 @@ namespace NotificationService.Controllers
                 return NotFound(new { Message = "Notification not found." });
             }
 
-            await _notificationService.DeleteNotification(notificationId);
+            await _notificationService.DeleteNotification(notification);
+
+            return NoContent();
+        }
+
+        // Delete ALL notification by userId
+        [HttpDelete("all/{userId}")]
+        public async Task<IActionResult> DeleteAllNotifications(int userId)
+        {
+            var notifications = await _notificationService.GetNotifications(userId);
+
+            if (!notifications.Any())
+            {
+                return NotFound(new { Message = "No notifications found." });
+            }
+
+            await _notificationService.DeleteAllNotifications(userId);
 
             return NoContent();
         }

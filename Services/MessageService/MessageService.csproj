@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -21,9 +21,5 @@
 		<PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.1.0" />
 		<PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="8.0.16" />
 		<PackageReference Include="Microsoft.AspNetCore.Http.Connections" Version="1.2.0" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="Hubs\" />
 	</ItemGroup>
 </Project>

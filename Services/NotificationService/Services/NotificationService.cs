@@ -28,14 +28,18 @@ namespace NotificationService.Services
             _hubContext = hubContext;
         }
 
-        // Method to get all notifications for a specific user
+        /// <summary>
+        /// Method to get all notifications for a specific user.
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
         public async Task<IList<Notification>> GetNotifications(int userId)
         {
             var notifications = await _context.Notifications
                             .Where(n => n.UserId == userId)
                             .ToListAsync();
 
-            if (notifications.Any())
+            if (notifications.Count == 0)
             {
                 return null;
             }
@@ -76,28 +80,25 @@ namespace NotificationService.Services
         public async Task UpdateNotification(int userId, Notification updatedNotification)
         {
              await _context.SaveChangesAsync();
+
              _logger.LogInformation($"Notification updated for user {userId}");
         }
 
-        // Method to delete an notification by userId
-        public async Task DeleteNotification(int userId)
+        // Method to delete an notification by id
+        public async Task DeleteNotification(Notification notification)
         {
-            // Delete the notification from the database
-            var notification = await _context.Notifications
-                .FirstOrDefaultAsync(n => n.UserId == userId);
-
             // Check if the notification exists
             if (notification != null)
             {
                 _context.Notifications.Remove(notification);
                 await _context.SaveChangesAsync();
 
-                _logger.LogInformation($"Notification deleted for user {userId}");
+                _logger.LogInformation($"Notification-{notification.Id} deleted");
             }
             else
             {
                 // Log that the notification was not found
-                _logger.LogWarning($"Notification not found for user {userId}");
+                _logger.LogWarning($"Notification not found");
             }
         }
 

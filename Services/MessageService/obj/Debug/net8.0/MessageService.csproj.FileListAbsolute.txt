@@ -48,3 +48,11 @@ C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\Services\M
 C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\Services\MessageService\obj\Debug\net8.0\MessageService.pdb
 C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\Services\MessageService\obj\Debug\net8.0\MessageService.genruntimeconfig.cache
 C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\Services\MessageService\obj\Debug\net8.0\ref\MessageService.dll
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Services\MessageService\obj\Debug\net8.0\MessageService.csproj.AssemblyReference.cache
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Services\MessageService\obj\Debug\net8.0\MessageService.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Services\MessageService\obj\Debug\net8.0\MessageService.AssemblyInfoInputs.cache
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Services\MessageService\obj\Debug\net8.0\MessageService.AssemblyInfo.cs
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Services\MessageService\obj\Debug\net8.0\MessageService.csproj.CoreCompileInputs.cache
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Services\MessageService\obj\Debug\net8.0\MessageService.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Services\MessageService\obj\Debug\net8.0\MessageService.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Services\MessageService\obj\Debug\net8.0\MessageService.sourcelink.json

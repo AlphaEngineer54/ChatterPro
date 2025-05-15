@@ -83,7 +83,7 @@ namespace MessageService.Services
         public async Task<Conversation?> UpdateConversationAsync(int conversationId, UpdatedConversationDTO updatedConversation)
         {
             var existingConversation = await _context.Conversations
-                .Include(c => c.UserConversations) // Inclure les relations pour éviter les problèmes d'accès
+                .Include(c => c.Users) // Inclure les relations pour éviter les problèmes d'accès
                 .FirstOrDefaultAsync(c => c.Id == conversationId);
 
             if (existingConversation == null)
