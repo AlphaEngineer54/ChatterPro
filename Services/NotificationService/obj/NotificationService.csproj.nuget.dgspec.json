@@ -52,7 +52,7 @@
           "dependencies": {
             "Microsoft.AspNetCore.Http.Connections": {
               "target": "Package",
-              "version": "[8.0.0, )"
+              "version": "[1.2.0, )"
             },
             "Microsoft.AspNetCore.SignalR": {
               "target": "Package",
@@ -60,7 +60,7 @@
             },
             "Microsoft.AspNetCore.SignalR.Client": {
               "target": "Package",
-              "version": "[8.0.0, )"
+              "version": "[8.0.16, )"
             },
             "Microsoft.EntityFrameworkCore.Design": {
               "target": "Package",
