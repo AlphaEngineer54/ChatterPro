@@ -28,7 +28,8 @@ namespace MessageService.Controllers
             var message = new Message()
             {
                 Content = newMessage.Content,
-                UserId = newMessage.UserId,
+                ReceiverId = newMessage.ReceiverId,
+                SenderId = newMessage.SenderId,
                 ConversationId = newMessage.ConversationId, 
                 Date = DateTime.Now,
                 Status = newMessage.Status,
@@ -80,7 +81,7 @@ namespace MessageService.Controllers
             {
                 Id = messageId,
                 Content = updatedMessage.Content,
-                UserId = updatedMessage.UserId,
+                SenderId = updatedMessage.SenderId,
                 ConversationId = updatedMessage.ConversationId,
                 Status = updatedMessage.Status,
             };

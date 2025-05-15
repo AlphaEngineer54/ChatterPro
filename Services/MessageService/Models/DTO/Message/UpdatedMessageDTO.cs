@@ -12,7 +12,7 @@ namespace MessageService.Models.DTO.Message
         public string? Status { get; set; }
 
         [Required]
-        public int UserId { get; set; }
+        public int SenderId { get; set; }
 
         [Required]  
         public int ConversationId { get; set; }

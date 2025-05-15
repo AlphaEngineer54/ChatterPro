@@ -9,10 +9,6 @@ namespace MessageService.Models.DTO.Message
         public string? Content { get; set; }
 
         [Required]
-        [DataType(DataType.Date)]
-        public DateTime Date { get; set; }
-
-        [Required]
         public string? Status { get; set; }
 
         [Required]

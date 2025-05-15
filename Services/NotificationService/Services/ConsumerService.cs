@@ -32,6 +32,8 @@ namespace NotificationService.Services
             _connection = connection.CreateConnection();
             _channel = _connection.CreateModel();
             _logger = logger;
+
+            _logger.LogInformation("Connection to RabbitMQ server initialized successfully!");
         }
 
         public Task ConsumeEvent(string queueName)

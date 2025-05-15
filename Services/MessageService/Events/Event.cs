@@ -1,4 +1,4 @@
-﻿namespace UserService.Events
+﻿namespace MessageService.Events
 {
     public abstract class Event
     {

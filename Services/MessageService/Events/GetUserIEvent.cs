@@ -1,6 +1,6 @@
 ﻿namespace MessageService.Events
 {
-    public class GetUserIEvent
+    public class GetUserIEvent : Event
     {
         public int[] ids {  get; set; }
     }

@@ -1,4 +1,6 @@
-﻿using MessageService.Models;
+﻿using MessageService.Events;
+using MessageService.Interfaces;
+using MessageService.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace MessageService.Services
@@ -6,10 +8,12 @@ namespace MessageService.Services
     public class MsgService
     {
         private readonly MessageDbContext _dbContext;
+        private readonly IProducer _producer;
 
-        public MsgService(MessageDbContext dbContext)
+        public MsgService(MessageDbContext dbContext, IProducer producer)
         {
             this._dbContext = dbContext;
+            this._producer = producer;
         }
 
         // CREATE: Ajouter un nouveau message
@@ -18,6 +22,19 @@ namespace MessageService.Services
             // Ajouter le message dans la base de données
             _dbContext.Messages.Add(newMessage);
             await _dbContext.SaveChangesAsync();
+
+            // Créer l'événement de message
+            var messageEvent = new CreatedMessageEvent()
+            {
+                Message = newMessage.Content,
+                ReceiverId = newMessage.ReceiverId,
+                SenderId = newMessage.SenderId,
+            };
+
+            // Publier le message dans RabbitMQ
+            _producer.Send(newMessage, "new-message-event");
+            
+            // Retourner le message au client
             return newMessage;
         }
 
