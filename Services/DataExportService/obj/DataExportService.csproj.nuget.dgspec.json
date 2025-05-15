@@ -1,15 +1,15 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\AR\\Technique informatique 420.BO\\Session 6\\Projet Personnels\\MessagingApp\\Services\\DataExportService\\DataExportService.csproj": {}
+    "C:\\Users\\AR\\Technique informatique 420.BO\\Session 6\\Projet Personnels\\MessagingAPP\\Services\\DataExportService\\DataExportService.csproj": {}
   },
   "projects": {
-    "C:\\Users\\AR\\Technique informatique 420.BO\\Session 6\\Projet Personnels\\MessagingApp\\Services\\DataExportService\\DataExportService.csproj": {
+    "C:\\Users\\AR\\Technique informatique 420.BO\\Session 6\\Projet Personnels\\MessagingAPP\\Services\\DataExportService\\DataExportService.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\AR\\Technique informatique 420.BO\\Session 6\\Projet Personnels\\MessagingApp\\Services\\DataExportService\\DataExportService.csproj",
+        "projectUniqueName": "C:\\Users\\AR\\Technique informatique 420.BO\\Session 6\\Projet Personnels\\MessagingAPP\\Services\\DataExportService\\DataExportService.csproj",
         "projectName": "DataExportService",
-        "projectPath": "C:\\Users\\AR\\Technique informatique 420.BO\\Session 6\\Projet Personnels\\MessagingApp\\Services\\DataExportService\\DataExportService.csproj",
+        "projectPath": "C:\\Users\\AR\\Technique informatique 420.BO\\Session 6\\Projet Personnels\\MessagingAPP\\Services\\DataExportService\\DataExportService.csproj",
         "packagesPath": "C:\\Users\\AR\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\AR\\Technique informatique 420.BO\\Session 6\\Projet Personnels\\MessagingAPP\\Services\\DataExportService\\obj\\",
         "projectStyle": "PackageReference",
