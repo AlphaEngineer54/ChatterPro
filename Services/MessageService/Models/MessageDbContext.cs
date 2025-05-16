@@ -57,7 +57,8 @@ public partial class MessageDbContext : DbContext
                 .HasColumnType("date")
                 .HasColumnName("date");
             entity.Property(e => e.Status).HasMaxLength(100);
-            entity.Property(e => e.UserId).HasColumnName("user_id");
+            entity.Property(e => e.SenderId).HasColumnName("sender_id");
+            entity.Property(e => e.ReceiverId).HasColumnName("receiver_id");
 
             entity.HasOne(d => d.Conversation).WithMany(p => p.Messages)
                 .HasForeignKey(d => d.ConversationId)

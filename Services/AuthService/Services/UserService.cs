@@ -1,4 +1,5 @@
-﻿using AuthService.Models;
+﻿using AuthService.Interfaces;
+using AuthService.Models;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
 using Org.BouncyCastle.Crypto.Generators;
@@ -8,62 +9,35 @@ namespace AuthService.Services
     /// <summary>
     /// Service d'authentification pour gérer la logique la métier de l'authentification uniquement
     /// </summary>
-    /// <param name="context"></param>
-    public class UserService(AuthDbContext context)
+    /// <param name="context"></param>  
+    public class UserService
     {
-        private readonly AuthDbContext _context = context;
+        private readonly IUserRepository _userRepository;
 
-        /// <summary>
-        /// Authentiie un utilisateur via son email et son mot de passe
-        /// </summary>
-        /// <param name="user"></param>
-        /// <returns></returns>
-        public async Task<bool> AuthenficateUser(User user)
+        public UserService(IUserRepository userRepository)
         {
-            if (user == null) { return false; }
-
-            var existingUser = await this._context.Users.FirstOrDefaultAsync(u => u.Email == user.Email &&
-                                                                                  u.Password == user.Password);
-
-            return existingUser != null;
+            _userRepository = userRepository;
         }
 
-        /// <summary>
-        /// Créer un nouvel utilisateur dans la base de données
-        /// </summary>
-        /// <param name="user"></param>
-        /// <returns></returns>
+        public async Task<bool> AuthenticateUser(User user)
+        {
+            if (user == null) return false;
+            var existingUser = await _userRepository.GetByEmailAsync(user.Email);
+            return existingUser != null && existingUser.Password == user.Password;
+        }
+
         public async Task<bool> CreateUser(User user)
         {
-            if (user == null || await CheckForEmailCnflict(user)) { return false; }
-
-            await _context.Users.AddAsync(user);
-
-            var result = await this._context.SaveChangesAsync();
-
-            return result > 0;
+            if (user == null || await _userRepository.CheckForEmailConflictAsync(user.Email)) return false;
+            await _userRepository.AddAsync(user);
+            return true;
         }
 
         public async Task<bool> DeleteUser(User user)
         {
-            var foundUser = await this._context.Users.FirstOrDefaultAsync(u => u.Id == user.Id);
-
-            if (foundUser == null) 
-            { 
-                return false; 
-            }
-
-            this._context.Users.Remove(foundUser);
-            await this._context.SaveChangesAsync();
-
+            if (user == null) return false;
+            await _userRepository.DeleteAsync(user.Id);
             return true;
-        }
-
-        public async Task<bool> CheckForEmailConflict(User user)
-        {
-            var result = await this._context.Users.FirstOrDefaultAsync(u => u.Email == user.Email);
-
-            return result != null; // Si le resultat n'est pas nul, un email est en conflit avec un autre user.
         }
     }
 }

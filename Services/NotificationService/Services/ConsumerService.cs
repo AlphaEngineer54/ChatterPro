@@ -6,22 +6,13 @@ using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System.Text;
 
-using System.Text;
-using Microsoft.Extensions.DependencyInjection;
-using Newtonsoft.Json;
-using RabbitMQ.Client;
-using RabbitMQ.Client.Events;
-using NotificationService.Interfaces;
-using NotificationService.Models;
-using Microsoft.Extensions.Logging;
-
 namespace NotificationService.Services
 {
     public class ConsumerService : IConsumer, IDisposable
     {
         private readonly IServiceScopeFactory _scopeFactory;
         private readonly IConnection _connection;
-        private readonly IModel _channel;
+        private readonly IChannel _channel;
         private readonly ILogger<ConsumerService> _logger;
 
         public ConsumerService(IServiceScopeFactory scopeFactory, ILogger<ConsumerService> logger)
@@ -36,71 +27,77 @@ namespace NotificationService.Services
                 Password = "guest"
             };
 
-            _connection = factory.CreateConnection();
-            _channel = _connection.CreateModel();
+            _connection = factory.CreateConnectionAsync().Result;
+            _channel = _connection.CreateChannelAsync().Result;
             _logger = logger;
 
             _logger.LogInformation("Connection to RabbitMQ server initialized successfully!");
         }
 
-        public Task ConsumeEvent(string queueName)
+        public async Task ConsumeEvent(string queueName)
         {
-            _channel.QueueDeclare(queue: queueName,
+            await _channel.QueueDeclareAsync(queue: queueName,
                 durable: false,
                 exclusive: false,
                 autoDelete: false,
                 arguments: null);
 
             var consumer = new AsyncEventingBasicConsumer(_channel);
-            consumer.Received += async (model, ea) =>
+            consumer.ReceivedAsync += async (model, ea) =>
             {
-                using var scope = _scopeFactory.CreateScope();
-                var notificationService = scope.ServiceProvider.GetRequiredService<NotificationManagerService>();
-
-                var body = ea.Body.ToArray();
-
+                _logger.LogInformation("Message received by consumer.");
+                IServiceScope? scope = null;
                 try
                 {
-                    var message = JsonConvert.DeserializeObject(Encoding.UTF8.GetString(body), typeof(CreatedMessageEvent)) as CreatedMessageEvent;
+                    var body = ea.Body.ToArray();
+                    var raw = Encoding.UTF8.GetString(body);
 
+                    var message = JsonConvert.DeserializeObject<CreatedMessageEvent>(raw);
                     if (message == null)
                     {
-                        _logger.LogWarning("Received null message");
+                        _logger.LogWarning("Message is null after deserialization.");
+                        await _channel.BasicAckAsync(ea.DeliveryTag, false);
                         return;
                     }
 
-                    var notification = new Notification()
+                    scope = _scopeFactory.CreateScope();;
+
+                    var notificationService = scope.ServiceProvider.GetRequiredService<NotificationManagerService>();
+
+                    var notification = new Notification
                     {
                         UserId = message.ReceiverId,
                         Message = $"user-{message.SenderId}: {message.Message}",
                         CreatedAt = DateTime.Now,
                     };
 
-                    await notificationService.AddNotification(notification);
+                    await notificationService.AddNotification(notification).ConfigureAwait(false);
 
-                    _logger.LogInformation($"Received message: {message}");
+                    _logger.LogInformation($"Notification created: {notification.Message}");
 
-                    _channel.BasicAck(deliveryTag: ea.DeliveryTag, multiple: false);
+                    await _channel.BasicAckAsync(ea.DeliveryTag, false);
                 }
                 catch (Exception ex)
                 {
-                    _logger.LogError($"An error occurred while consuming events: {ex.Message}");
-                    _channel.BasicNack(deliveryTag: ea.DeliveryTag, multiple: false, requeue: true);
+                    _logger.LogError($"Error in consumer handler: {ex}");
+                    await _channel.BasicAckAsync(ea.DeliveryTag, false);
+                }
+                finally
+                {
+                    scope?.Dispose();
                 }
             };
 
-            _channel.BasicConsume(queue: queueName, autoAck: false, consumer: consumer);
-
-            _logger.LogInformation($"Consumer is listening on queue: {queueName}");
-            return Task.CompletedTask;
+           await _channel.BasicConsumeAsync(queue: queueName, autoAck: false, consumer: consumer);
         }
+
 
         public void Dispose()
         {
             try
             {
-                _channel?.Close();
-                _connection?.Close();
+                _channel?.CloseAsync();
+                _connection?.CloseAsync();
                 _logger.LogInformation("Connection to RabbitMQ server closed successfully!");
             }
             catch (Exception ex)

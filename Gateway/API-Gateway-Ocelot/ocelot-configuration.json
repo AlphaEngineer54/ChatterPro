@@ -11,7 +11,7 @@
       ],
       "UpstreamPathTemplate": "/auth/{everything}",
       "UpstreamHttpMethod": [ "POST", "GET" ]
-      },
+    },
     {
       "DownstreamPathTemplate": "/api/user/{everything}",
       "DownstreamScheme": "http",
@@ -22,7 +22,7 @@
         }
       ],
       "UpstreamPathTemplate": "/user/{everything}",
-      "UpstreamHttpMethod": [ "GET", "POST", "DELETE" ],
+      "UpstreamHttpMethod": [ "GET", "POST", "DELETE", "UPDATE"],
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer"
       }
@@ -37,7 +37,7 @@
         }
       ],
       "UpstreamPathTemplate": "/message/{everything}",
-      "UpstreamHttpMethod": [ "GET", "POST", "DELETE" ],
+      "UpstreamHttpMethod": [ "GET", "POST", "DELETE", "UPDATE" ],
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer"
       }
@@ -53,6 +53,36 @@
       ],
       "UpstreamPathTemplate": "/conversation/{everything}",
       "UpstreamHttpMethod": [ "GET", "POST", "DELETE" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer"
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/api/dataexport/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5004
+        }
+      ],
+      "UpstreamPathTemplate": "/dataexport/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer"
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/api/notification/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5005
+        }
+      ],
+      "UpstreamPathTemplate": "/notification/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "DELETE", "UPDATE" ],
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer"
       }

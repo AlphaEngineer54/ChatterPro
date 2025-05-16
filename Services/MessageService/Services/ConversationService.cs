@@ -106,6 +106,12 @@ namespace MessageService.Services
             return existingConversation;
         }
 
+        // UPDATE : Modifier une conversation sans DTO
+        public async Task UpdateConversationWithoutDTOAsync(Conversation updatedConversation)
+        { 
+            await _context.SaveChangesAsync();
+        }
+
         // DELETE: Supprimer une conversation
         public async Task<bool> DeleteConversationAsync(int conversationId)
         {

@@ -1,5 +1,6 @@
 using AuthService.Interfaces;
 using AuthService.Models;
+using AuthService.Repository;
 using AuthService.Services;
 using Microsoft.EntityFrameworkCore;
 
@@ -23,7 +24,7 @@ builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<ProducerService>();
 builder.Services.AddScoped<JWTService>();
 builder.Services.AddScoped<IEventHandler, EventHandlerService>();
-
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 builder.Services.AddSingleton<IConsumer, ConsumerService>();
 builder.Services.AddSingleton<RabbitMQConnection>();

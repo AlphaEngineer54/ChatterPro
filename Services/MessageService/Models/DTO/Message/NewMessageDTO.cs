@@ -9,6 +9,8 @@ namespace MessageService.Models.DTO.Message
         public string? Content { get; set; }
 
         [Required]
+        [RegularExpression(@"^(sent|delivered|read)$",
+                           ErrorMessage = "Status must be one of the following: sent, delivered, read.")]
         public string? Status { get; set; }
 
         [Required]

@@ -40,7 +40,9 @@ namespace DataExportService.Models
 
         [Required]
         [StringLength(5)]
+        [RegularExpression("^(read|sent|delivred)$", ErrorMessage = "Le statut doit être 'read', 'sent' ou 'delivred'.")]
         public string Status { get; set; } = null!;
+
     }
 
 }

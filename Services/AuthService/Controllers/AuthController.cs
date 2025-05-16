@@ -29,7 +29,7 @@ namespace AuthService.Controllers
                     Password = loginDTO.Password,
                 };
 
-                var isUserAuthentified = await this._userService.AuthenficateUser(user);
+                var isUserAuthentified = await this._userService.AuthenticateUser(user);
 
                 this._logger.LogInformation(isUserAuthentified ? $"New user authentificated successfully {user}" :
                                                                  $"Failed to authentificate {user}");

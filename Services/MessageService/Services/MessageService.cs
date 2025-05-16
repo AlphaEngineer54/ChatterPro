@@ -32,7 +32,7 @@ namespace MessageService.Services
             };
 
             // Publier le message dans RabbitMQ
-            _producer.Send(newMessage, "new-message-event");
+            _producer.Send(messageEvent, "new-message-event");
             
             // Retourner le message au client
             return newMessage;
@@ -87,5 +87,4 @@ namespace MessageService.Services
             return true;
         }
     }
-
 }
