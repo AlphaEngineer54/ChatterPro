@@ -110,7 +110,7 @@ namespace NotificationService.Services
                 .Where(n => n.UserId == userId)
                 .ToListAsync();
 
-            if (notifications.Any())
+            if (notifications.Count != 0)
             {
                 _context.Notifications.RemoveRange(notifications);
                 await _context.SaveChangesAsync();

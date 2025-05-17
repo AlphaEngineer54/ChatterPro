@@ -1,5 +1,4 @@
 version: "3.8"
-
 services:
   rabbitmq:
     image: rabbitmq:3-management
@@ -36,6 +35,7 @@ services:
       - messaging-app-network
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://+:5000
     restart: always
 
   authservice:
@@ -46,6 +46,7 @@ services:
       - "5001:5001"
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://+:5001
       - MYSQL_CONNECTION=server=auth-db;user=admin;password=admin;database=auth_db
     depends_on:
       - auth-db
@@ -62,6 +63,7 @@ services:
       - MYSQL_PASSWORD=admin
     volumes:
       - auth-db-data:/var/lib/mysql
+      - ./Services/AuthService/Models/Schema/model.sql:/docker-entrypoint-initdb.d/init.sql:ro
     networks:
       - messaging-app-network
     restart: always
@@ -74,6 +76,7 @@ services:
       - "5002:5002"
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://+:5002
     networks:
       - messaging-app-network
     restart: always
@@ -86,6 +89,7 @@ services:
       - "5003:5003"
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://+:5003
       - MYSQL_CONNECTION=server=message-db;user=admin;password=admin;database=message_db
     depends_on:
       - message-db
@@ -102,6 +106,7 @@ services:
       - MYSQL_PASSWORD=admin
     volumes:
       - message-db-data:/var/lib/mysql
+      - ./Services/MessageService/Models/Schema/model.sql:/docker-entrypoint-initdb.d/init.sql:ro
     networks:
       - messaging-app-network
     restart: always
@@ -114,6 +119,7 @@ services:
       - "5004:5004"
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://+:5004
       - MYSQL_CONNECTION=server=notification-db;user=admin;password=admin;database=notification_db
     depends_on:
       - notification-db
@@ -130,6 +136,7 @@ services:
       - MYSQL_PASSWORD=admin
     volumes:
       - notification-db-data:/var/lib/mysql
+      - ./Services/NotificationService/Models/Schema/model.sql:/docker-entrypoint-initdb.d/init.sql:ro
     networks:
       - messaging-app-network
     restart: always
@@ -142,6 +149,7 @@ services:
       - "5005:5005"
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://+:5005
       - MYSQL_CONNECTION=server=user-db;user=admin;password=admin;database=user_db
     depends_on:
       - user-db
@@ -158,10 +166,10 @@ services:
       - MYSQL_PASSWORD=admin
     volumes:
       - user-db-data:/var/lib/mysql
+      - ./Services/UserService/Models/Schema/model.sql:/docker-entrypoint-initdb.d/init.sql:ro
     networks:
       - messaging-app-network
     restart: always
-
 
 volumes: 
   auth-db-data:
