@@ -1,5 +1,7 @@
 ﻿using AuthService.Interfaces;
 using Isopoh.Cryptography.Argon2;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace AuthService.Services
 {
@@ -12,14 +14,16 @@ namespace AuthService.Services
                 Type = Argon2Type.DataIndependentAddressing,
                 Version = Argon2Version.Nineteen,
                 TimeCost = 10,
-                MemoryCost = 65536, // Augmente la résistance contre les attaques GPU
+                MemoryCost = 65536, // 64 MB
                 Lanes = 4,
                 Threads = Environment.ProcessorCount,
-                HashLength = 32
+                HashLength = 32,
+                Password = Encoding.UTF8.GetBytes(password),  // **Indispensable**
+                Salt = GenerateSalt()            // Génération automatique du sel
             };
 
             using var argon2 = new Argon2(config);
-            using var hash = argon2.Hash();
+            var hash = argon2.Hash();
 
             return config.EncodeString(hash.Buffer);
         }
@@ -27,6 +31,13 @@ namespace AuthService.Services
         public bool Verify(string dbPassword, string password)
         {
             return Argon2.Verify(dbPassword, password);
+        }
+        public static byte[] GenerateSalt(int length = 16)
+        {
+            var salt = new byte[length];
+            using var rng = RandomNumberGenerator.Create();
+            rng.GetBytes(salt);
+            return salt;
         }
     }
 }
