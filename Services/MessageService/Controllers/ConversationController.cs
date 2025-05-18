@@ -55,7 +55,7 @@ namespace MessageService.Controllers
                 Title = c.Title,
                 Date = c.Date,
                 UserId = userId,
-                Messages = c.Messages
+                Messages = c.Messages,
             });
 
             return Ok(response);

@@ -1,8 +1,6 @@
 ﻿using AuthService.Interfaces;
 using AuthService.Models;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Microsoft.EntityFrameworkCore;
-using Org.BouncyCastle.Crypto.Generators;
+using System.Security.Authentication;
 
 namespace AuthService.Services
 {
@@ -13,24 +11,33 @@ namespace AuthService.Services
     public class UserService
     {
         private readonly IUserRepository _userRepository;
+        private readonly IPasswordHasher _passwordHasher;
 
-        public UserService(IUserRepository userRepository)
+        public UserService(IUserRepository userRepository, IPasswordHasher passwordHasher)
         {
             _userRepository = userRepository;
+            _passwordHasher = passwordHasher;
         }
 
-        public async Task<bool> AuthenticateUser(User user)
+        public async Task<User> AuthenticateUser(User user)
         {
-            if (user == null) return false;
-            var existingUser = await _userRepository.GetByEmailAsync(user.Email);
-            return existingUser != null && existingUser.Password == user.Password;
+            var existingUser = await _userRepository.GetByEmailAsync(user.Email) 
+                                    ?? throw new InvalidCredentialException($"Email is incorrect"); 
+
+            if (!_passwordHasher.Verify(existingUser.Password, user.Password)) 
+                throw new InvalidCredentialException("Password is incorrect");
+
+            return existingUser;
         }
 
-        public async Task<bool> CreateUser(User user)
+        public async Task<User> CreateUser(User user)
         {
-            if (user == null || await _userRepository.CheckForEmailConflictAsync(user.Email)) return false;
+            if(await _userRepository.CheckForEmailConflictAsync(user.Email)) 
+                throw new InvalidCredentialException($"this email '{user.Email}' already exist");
+                
+            user.Password = _passwordHasher.Hash(user.Password);
             await _userRepository.AddAsync(user);
-            return true;
+            return user;
         }
 
         public async Task<bool> DeleteUser(User user)
@@ -38,6 +45,6 @@ namespace AuthService.Services
             if (user == null) return false;
             await _userRepository.DeleteAsync(user.Id);
             return true;
-        }
+        }  
     }
 }

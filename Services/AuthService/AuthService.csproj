@@ -26,6 +26,7 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="8.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="8.0.0" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.7.0" />
+    <PackageReference Include="Isopoh.Cryptography.Argon2" Version="2.0.0" />
   </ItemGroup>
 
 </Project>

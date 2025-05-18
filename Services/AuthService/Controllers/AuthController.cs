@@ -2,6 +2,7 @@
 using AuthService.Models;
 using AuthService.Services;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Authentication;
 
 namespace AuthService.Controllers
 {
@@ -23,50 +24,70 @@ namespace AuthService.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new User()
+                try
                 {
-                    Email = loginDTO.Email,
-                    Password = loginDTO.Password,
-                };
+                    var user = new User()
+                    {
+                        Email = loginDTO.Email,
+                        Password = loginDTO.Password,
+                    };
 
-                var isUserAuthentified = await this._userService.AuthenticateUser(user);
+                    var loginUser = await this._userService.AuthenticateUser(user);
 
-                this._logger.LogInformation(isUserAuthentified ? $"New user authentificated successfully {user}" :
-                                                                 $"Failed to authentificate {user}");
-                return isUserAuthentified ? Ok(new {  JWTToken = this._jwtService.GenerateJWTToken(user) }) :
-                                            Unauthorized(new { Message = $"Invalid credential for user {user.Email}" });
+                    this._logger.LogInformation($"New user authentificated successfully {user}");
+
+                    return Ok(new
+                    {
+                        User = new { loginUser.Id, loginUser.Email },
+                        JWTToken = this._jwtService.GenerateJWTToken(user)
+                    });
+                }
+                catch(InvalidCredentialException ex)
+                {
+                    this._logger.LogWarning($"Authenfication failed: {ex.Message}");
+                    return Unauthorized(new { ex.Message });
+                }
+                             
             }
 
             return BadRequest(ModelState);
         }
 
-        [HttpPost("signIn")]
+        [HttpPost("signUp")]
         public async Task<IActionResult> CreateUser([FromBody] SignInDTO signInDTO)
         {
             if (ModelState.IsValid)
             {
-                var user = new User()
+                try
                 {
-                    Email = signInDTO.Email,
-                    Password = signInDTO.Password,
-                };
-
-                var isUserCreated = await this._userService.CreateUser(user);
-
-                if (isUserCreated)
-                {
-                    var userCreatedEvent = CreateUserEvent(user, signInDTO.UserName ?? "unknown-user");
-                    this._producerService.PublishEvent(userCreatedEvent, "user-created");
-                    this._logger.LogInformation($"New user created successfully! {user}");
-
-                    return CreatedAtAction(nameof(CreateUser), new
+                    var user = new User()
                     {
-                        JWTToken = _jwtService.GenerateJWTToken(user)
-                    });
+                        Email = signInDTO.Email,
+                        Password = signInDTO.Password,
+                    };
+
+                    var createdUser = await this._userService.CreateUser(user);
+
+                    if (createdUser != null)
+                    {
+                        var userCreatedEvent = CreateUserEvent(user, signInDTO.UserName ?? "unknown-user");
+                        this._producerService.PublishEvent(userCreatedEvent, "user-created");
+                        this._logger.LogInformation($"New user created successfully! {user}");
+
+                        return CreatedAtAction(nameof(CreateUser), new
+                        {
+                            User = new { createdUser.Id, createdUser.Email },
+                            JWTToken = _jwtService.GenerateJWTToken(user)
+                        });
+                    }
+                }
+                catch(InvalidCredentialException ex) {
+                    this._logger.LogWarning($"Conflict email detected: {ex.Message}");
+                    return Conflict(new { ex.Message });
                 }
             }
 
-            return BadRequest(new { Message = $"Failed to create a new user: {signInDTO.Email}", ModelError = ModelState});
+            return BadRequest(ModelState);
         }
 
         private UserCreatedEvent CreateUserEvent(User user, string userName)

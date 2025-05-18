@@ -529,3 +529,6 @@ C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingA
 C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Services\AuthService\obj\Debug\net8.0\AuthService.pdb
 C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Services\AuthService\obj\Debug\net8.0\AuthService.genruntimeconfig.cache
 C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Services\AuthService\obj\Debug\net8.0\ref\AuthService.dll
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Services\AuthService\bin\Debug\net8.0\Isopoh.Cryptography.Argon2.dll
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Services\AuthService\bin\Debug\net8.0\Isopoh.Cryptography.Blake2b.dll
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Services\AuthService\bin\Debug\net8.0\Isopoh.Cryptography.SecureArray.dll

@@ -6,6 +6,9 @@ using UserService.Interfaces;
 
 namespace UserService.Controllers
 {
+    /// <summary>
+    ///  This REST API manage the non-sensible information about users
+    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
     public class UserController : ControllerBase
@@ -22,6 +25,20 @@ namespace UserService.Controllers
         public async Task<IActionResult> GetUser(int id)
         {
             var user = await _userService.GetUserInfo(id);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(user);
+        }
+
+        // GET : api/user{username}
+        [HttpGet("by-username/{username}")]
+        public async Task<IActionResult> GetUserByUsername(string username)
+        {
+            var user = await _userService.GetUserByUserName(username);
 
             if (user == null)
             {

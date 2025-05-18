@@ -83,6 +83,19 @@ namespace UserService.Services
             }
         }
 
+        public async Task<User> GetUserByUserName(string userName)
+        {
+            var foundUser = await this._context.Users.FirstOrDefaultAsync(u => u.UserName == userName);
+
+            if (foundUser != null)
+            {
+                this._logger.LogInformation($"User {userName} found and send to client");
+                return foundUser;
+            }
+
+            this._logger.LogError($"User {userName} was not found.");
+            return null;
+       }
         public async Task<User> GetUserInfo(int id)
         {
             try

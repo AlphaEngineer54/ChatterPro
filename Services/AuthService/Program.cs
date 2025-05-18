@@ -3,6 +3,7 @@ using AuthService.Models;
 using AuthService.Repository;
 using AuthService.Services;
 using Microsoft.EntityFrameworkCore;
+using Org.BouncyCastle.Security;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,6 +26,7 @@ builder.Services.AddScoped<ProducerService>();
 builder.Services.AddScoped<JWTService>();
 builder.Services.AddScoped<IEventHandler, EventHandlerService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IPasswordHasher, PasswordHasherService>();
 
 builder.Services.AddSingleton<IConsumer, ConsumerService>();
 builder.Services.AddSingleton<RabbitMQConnection>();
