@@ -1,0 +1,23 @@
+[
+  {
+    "ContainingType": "DataExportService.Controllers.DataExportController",
+    "Method": "ExportData",
+    "RelativePath": "api/DataExport/export-data",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "option",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "data",
+        "Type": "DataExportService.Models.Conversation",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  }
+]

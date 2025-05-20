@@ -1,0 +1,95 @@
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\API-Gateway-Ocelot\bin\Debug\net8.0\appsettings.Development.json
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\API-Gateway-Ocelot\bin\Debug\net8.0\appsettings.json
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\API-Gateway-Ocelot\bin\Debug\net8.0\ocelot-configuration.json
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\API-Gateway-Ocelot\bin\Debug\net8.0\API-Gateway-Ocelot.exe
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\API-Gateway-Ocelot\bin\Debug\net8.0\API-Gateway-Ocelot.deps.json
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\API-Gateway-Ocelot\bin\Debug\net8.0\API-Gateway-Ocelot.runtimeconfig.json
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\API-Gateway-Ocelot\bin\Debug\net8.0\API-Gateway-Ocelot.dll
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\API-Gateway-Ocelot\bin\Debug\net8.0\API-Gateway-Ocelot.pdb
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\API-Gateway-Ocelot\bin\Debug\net8.0\FluentValidation.dll
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\API-Gateway-Ocelot\bin\Debug\net8.0\IPAddressRange.dll
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\API-Gateway-Ocelot\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\API-Gateway-Ocelot\bin\Debug\net8.0\Microsoft.AspNetCore.JsonPatch.dll
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\API-Gateway-Ocelot\bin\Debug\net8.0\Microsoft.AspNetCore.MiddlewareAnalysis.dll
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\API-Gateway-Ocelot\bin\Debug\net8.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\API-Gateway-Ocelot\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\API-Gateway-Ocelot\bin\Debug\net8.0\Microsoft.Extensions.DiagnosticAdapter.dll
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\API-Gateway-Ocelot\bin\Debug\net8.0\Microsoft.IdentityModel.Abstractions.dll
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\API-Gateway-Ocelot\bin\Debug\net8.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\API-Gateway-Ocelot\bin\Debug\net8.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\API-Gateway-Ocelot\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\API-Gateway-Ocelot\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\API-Gateway-Ocelot\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\API-Gateway-Ocelot\bin\Debug\net8.0\Newtonsoft.Json.dll
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\API-Gateway-Ocelot\bin\Debug\net8.0\Newtonsoft.Json.Bson.dll
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\API-Gateway-Ocelot\bin\Debug\net8.0\Ocelot.dll
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\API-Gateway-Ocelot\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\API-Gateway-Ocelot\obj\Debug\net8.0\API-Gateway-Ocelot.csproj.AssemblyReference.cache
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\API-Gateway-Ocelot\obj\Debug\net8.0\API-Gateway-Ocelot.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\API-Gateway-Ocelot\obj\Debug\net8.0\API-Gateway-Ocelot.AssemblyInfoInputs.cache
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\API-Gateway-Ocelot\obj\Debug\net8.0\API-Gateway-Ocelot.AssemblyInfo.cs
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\API-Gateway-Ocelot\obj\Debug\net8.0\API-Gateway-Ocelot.csproj.CoreCompileInputs.cache
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\API-Gateway-Ocelot\obj\Debug\net8.0\API-Gateway-Ocelot.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\API-Gateway-Ocelot\obj\Debug\net8.0\API-Gateway-Ocelot.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\API-Gateway-Ocelot\obj\Debug\net8.0\staticwebassets.build.json
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\API-Gateway-Ocelot\obj\Debug\net8.0\staticwebassets.development.json
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\API-Gateway-Ocelot\obj\Debug\net8.0\staticwebassets\msbuild.API-Gateway-Ocelot.Microsoft.AspNetCore.StaticWebAssets.props
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\API-Gateway-Ocelot\obj\Debug\net8.0\staticwebassets\msbuild.build.API-Gateway-Ocelot.props
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\API-Gateway-Ocelot\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.API-Gateway-Ocelot.props
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\API-Gateway-Ocelot\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.API-Gateway-Ocelot.props
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\API-Gateway-Ocelot\obj\Debug\net8.0\staticwebassets.pack.json
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\API-Gateway-Ocelot\obj\Debug\net8.0\scopedcss\bundle\API-Gateway-Ocelot.styles.css
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\API-Gateway-Ocelot\obj\Debug\net8.0\API-Gate.F4B541BA.Up2Date
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\API-Gateway-Ocelot\obj\Debug\net8.0\API-Gateway-Ocelot.dll
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\API-Gateway-Ocelot\obj\Debug\net8.0\refint\API-Gateway-Ocelot.dll
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\API-Gateway-Ocelot\obj\Debug\net8.0\API-Gateway-Ocelot.pdb
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\API-Gateway-Ocelot\obj\Debug\net8.0\API-Gateway-Ocelot.genruntimeconfig.cache
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\API-Gateway-Ocelot\obj\Debug\net8.0\ref\API-Gateway-Ocelot.dll
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Gateway\API-Gateway-Ocelot\bin\Debug\net8.0\appsettings.Development.json
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Gateway\API-Gateway-Ocelot\bin\Debug\net8.0\appsettings.json
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Gateway\API-Gateway-Ocelot\bin\Debug\net8.0\ocelot-configuration.json
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Gateway\API-Gateway-Ocelot\bin\Debug\net8.0\API-Gateway-Ocelot.exe
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Gateway\API-Gateway-Ocelot\bin\Debug\net8.0\API-Gateway-Ocelot.deps.json
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Gateway\API-Gateway-Ocelot\bin\Debug\net8.0\API-Gateway-Ocelot.runtimeconfig.json
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Gateway\API-Gateway-Ocelot\bin\Debug\net8.0\API-Gateway-Ocelot.dll
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Gateway\API-Gateway-Ocelot\bin\Debug\net8.0\API-Gateway-Ocelot.pdb
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Gateway\API-Gateway-Ocelot\bin\Debug\net8.0\FluentValidation.dll
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Gateway\API-Gateway-Ocelot\bin\Debug\net8.0\IPAddressRange.dll
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Gateway\API-Gateway-Ocelot\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Gateway\API-Gateway-Ocelot\bin\Debug\net8.0\Microsoft.AspNetCore.JsonPatch.dll
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Gateway\API-Gateway-Ocelot\bin\Debug\net8.0\Microsoft.AspNetCore.MiddlewareAnalysis.dll
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Gateway\API-Gateway-Ocelot\bin\Debug\net8.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Gateway\API-Gateway-Ocelot\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Gateway\API-Gateway-Ocelot\bin\Debug\net8.0\Microsoft.Extensions.DiagnosticAdapter.dll
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Gateway\API-Gateway-Ocelot\bin\Debug\net8.0\Microsoft.IdentityModel.Abstractions.dll
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Gateway\API-Gateway-Ocelot\bin\Debug\net8.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Gateway\API-Gateway-Ocelot\bin\Debug\net8.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Gateway\API-Gateway-Ocelot\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Gateway\API-Gateway-Ocelot\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Gateway\API-Gateway-Ocelot\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Gateway\API-Gateway-Ocelot\bin\Debug\net8.0\Newtonsoft.Json.dll
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Gateway\API-Gateway-Ocelot\bin\Debug\net8.0\Newtonsoft.Json.Bson.dll
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Gateway\API-Gateway-Ocelot\bin\Debug\net8.0\Ocelot.dll
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Gateway\API-Gateway-Ocelot\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Gateway\API-Gateway-Ocelot\obj\Debug\net8.0\API-Gateway-Ocelot.csproj.AssemblyReference.cache
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Gateway\API-Gateway-Ocelot\obj\Debug\net8.0\API-Gateway-Ocelot.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Gateway\API-Gateway-Ocelot\obj\Debug\net8.0\API-Gateway-Ocelot.AssemblyInfoInputs.cache
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Gateway\API-Gateway-Ocelot\obj\Debug\net8.0\API-Gateway-Ocelot.AssemblyInfo.cs
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Gateway\API-Gateway-Ocelot\obj\Debug\net8.0\API-Gateway-Ocelot.csproj.CoreCompileInputs.cache
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Gateway\API-Gateway-Ocelot\obj\Debug\net8.0\API-Gateway-Ocelot.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Gateway\API-Gateway-Ocelot\obj\Debug\net8.0\API-Gateway-Ocelot.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Gateway\API-Gateway-Ocelot\obj\Debug\net8.0\API-Gateway-Ocelot.sourcelink.json
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Gateway\API-Gateway-Ocelot\obj\Debug\net8.0\staticwebassets.build.json
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Gateway\API-Gateway-Ocelot\obj\Debug\net8.0\staticwebassets.development.json
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Gateway\API-Gateway-Ocelot\obj\Debug\net8.0\staticwebassets\msbuild.API-Gateway-Ocelot.Microsoft.AspNetCore.StaticWebAssets.props
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Gateway\API-Gateway-Ocelot\obj\Debug\net8.0\staticwebassets\msbuild.build.API-Gateway-Ocelot.props
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Gateway\API-Gateway-Ocelot\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.API-Gateway-Ocelot.props
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Gateway\API-Gateway-Ocelot\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.API-Gateway-Ocelot.props
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Gateway\API-Gateway-Ocelot\obj\Debug\net8.0\staticwebassets.pack.json
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Gateway\API-Gateway-Ocelot\obj\Debug\net8.0\scopedcss\bundle\API-Gateway-Ocelot.styles.css
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Gateway\API-Gateway-Ocelot\obj\Debug\net8.0\API-Gate.F4B541BA.Up2Date
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Gateway\API-Gateway-Ocelot\obj\Debug\net8.0\API-Gateway-Ocelot.dll
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Gateway\API-Gateway-Ocelot\obj\Debug\net8.0\refint\API-Gateway-Ocelot.dll
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Gateway\API-Gateway-Ocelot\obj\Debug\net8.0\API-Gateway-Ocelot.pdb
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Gateway\API-Gateway-Ocelot\obj\Debug\net8.0\API-Gateway-Ocelot.genruntimeconfig.cache
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Gateway\API-Gateway-Ocelot\obj\Debug\net8.0\ref\API-Gateway-Ocelot.dll

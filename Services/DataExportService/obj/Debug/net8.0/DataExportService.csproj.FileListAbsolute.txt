@@ -1,0 +1,98 @@
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\DataExportService\bin\Debug\net8.0\appsettings.Development.json
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\DataExportService\bin\Debug\net8.0\appsettings.json
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\DataExportService\bin\Debug\net8.0\DataExportService.exe
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\DataExportService\bin\Debug\net8.0\DataExportService.deps.json
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\DataExportService\bin\Debug\net8.0\DataExportService.runtimeconfig.json
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\DataExportService\bin\Debug\net8.0\DataExportService.dll
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\DataExportService\bin\Debug\net8.0\DataExportService.pdb
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\DataExportService\obj\Debug\net8.0\DataExportService.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\DataExportService\obj\Debug\net8.0\DataExportService.AssemblyInfoInputs.cache
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\DataExportService\obj\Debug\net8.0\DataExportService.AssemblyInfo.cs
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\DataExportService\obj\Debug\net8.0\DataExportService.csproj.CoreCompileInputs.cache
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\DataExportService\obj\Debug\net8.0\DataExportService.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\DataExportService\obj\Debug\net8.0\staticwebassets.build.json
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\DataExportService\obj\Debug\net8.0\staticwebassets.development.json
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\DataExportService\obj\Debug\net8.0\staticwebassets\msbuild.DataExportService.Microsoft.AspNetCore.StaticWebAssets.props
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\DataExportService\obj\Debug\net8.0\staticwebassets\msbuild.build.DataExportService.props
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\DataExportService\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.DataExportService.props
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\DataExportService\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.DataExportService.props
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\DataExportService\obj\Debug\net8.0\staticwebassets.pack.json
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\DataExportService\obj\Debug\net8.0\scopedcss\bundle\DataExportService.styles.css
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\DataExportService\obj\Debug\net8.0\DataExportService.dll
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\DataExportService\obj\Debug\net8.0\refint\DataExportService.dll
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\DataExportService\obj\Debug\net8.0\DataExportService.pdb
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\DataExportService\obj\Debug\net8.0\DataExportService.genruntimeconfig.cache
+C:\Users\AR\Technique informatique 420.BO\Session 5\Backend\MessagingDistribuedApplication\MessagingApp\DataExportService\obj\Debug\net8.0\ref\DataExportService.dll
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\Services\DataExportService\bin\Debug\net8.0\appsettings.Development.json
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\Services\DataExportService\bin\Debug\net8.0\appsettings.json
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\Services\DataExportService\bin\Debug\net8.0\DataExportService.exe
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\Services\DataExportService\bin\Debug\net8.0\DataExportService.deps.json
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\Services\DataExportService\bin\Debug\net8.0\DataExportService.runtimeconfig.json
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\Services\DataExportService\bin\Debug\net8.0\DataExportService.dll
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\Services\DataExportService\bin\Debug\net8.0\DataExportService.pdb
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\Services\DataExportService\obj\Debug\net8.0\DataExportService.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\Services\DataExportService\obj\Debug\net8.0\DataExportService.AssemblyInfoInputs.cache
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\Services\DataExportService\obj\Debug\net8.0\DataExportService.AssemblyInfo.cs
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\Services\DataExportService\obj\Debug\net8.0\DataExportService.csproj.CoreCompileInputs.cache
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\Services\DataExportService\obj\Debug\net8.0\DataExportService.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\Services\DataExportService\obj\Debug\net8.0\staticwebassets.build.json
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\Services\DataExportService\obj\Debug\net8.0\staticwebassets.development.json
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\Services\DataExportService\obj\Debug\net8.0\staticwebassets\msbuild.DataExportService.Microsoft.AspNetCore.StaticWebAssets.props
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\Services\DataExportService\obj\Debug\net8.0\staticwebassets\msbuild.build.DataExportService.props
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\Services\DataExportService\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.DataExportService.props
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\Services\DataExportService\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.DataExportService.props
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\Services\DataExportService\obj\Debug\net8.0\staticwebassets.pack.json
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\Services\DataExportService\obj\Debug\net8.0\scopedcss\bundle\DataExportService.styles.css
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\Services\DataExportService\obj\Debug\net8.0\DataExportService.dll
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\Services\DataExportService\obj\Debug\net8.0\refint\DataExportService.dll
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\Services\DataExportService\obj\Debug\net8.0\DataExportService.pdb
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\Services\DataExportService\obj\Debug\net8.0\DataExportService.genruntimeconfig.cache
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\Services\DataExportService\obj\Debug\net8.0\ref\DataExportService.dll
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Services\DataExportService\bin\Debug\net8.0\appsettings.Development.json
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Services\DataExportService\bin\Debug\net8.0\appsettings.json
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Services\DataExportService\bin\Debug\net8.0\DataExportService.exe
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Services\DataExportService\bin\Debug\net8.0\DataExportService.deps.json
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Services\DataExportService\bin\Debug\net8.0\DataExportService.runtimeconfig.json
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Services\DataExportService\bin\Debug\net8.0\DataExportService.dll
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Services\DataExportService\bin\Debug\net8.0\DataExportService.pdb
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Services\DataExportService\bin\Debug\net8.0\CsvHelper.dll
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Services\DataExportService\bin\Debug\net8.0\itext.barcodes.dll
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Services\DataExportService\bin\Debug\net8.0\itext.forms.dll
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Services\DataExportService\bin\Debug\net8.0\itext.io.dll
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Services\DataExportService\bin\Debug\net8.0\itext.kernel.dll
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Services\DataExportService\bin\Debug\net8.0\itext.layout.dll
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Services\DataExportService\bin\Debug\net8.0\itext.pdfa.dll
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Services\DataExportService\bin\Debug\net8.0\itext.sign.dll
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Services\DataExportService\bin\Debug\net8.0\itext.styledxmlparser.dll
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Services\DataExportService\bin\Debug\net8.0\itext.svg.dll
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Services\DataExportService\bin\Debug\net8.0\itext.commons.dll
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Services\DataExportService\bin\Debug\net8.0\Microsoft.DotNet.PlatformAbstractions.dll
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Services\DataExportService\bin\Debug\net8.0\Microsoft.Extensions.DependencyModel.dll
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Services\DataExportService\bin\Debug\net8.0\Microsoft.OpenApi.dll
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Services\DataExportService\bin\Debug\net8.0\Newtonsoft.Json.dll
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Services\DataExportService\bin\Debug\net8.0\BouncyCastle.Crypto.dll
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Services\DataExportService\bin\Debug\net8.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Services\DataExportService\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Services\DataExportService\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Services\DataExportService\obj\Debug\net8.0\DataExportService.csproj.AssemblyReference.cache
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Services\DataExportService\obj\Debug\net8.0\DataExportService.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Services\DataExportService\obj\Debug\net8.0\DataExportService.AssemblyInfoInputs.cache
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Services\DataExportService\obj\Debug\net8.0\DataExportService.AssemblyInfo.cs
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Services\DataExportService\obj\Debug\net8.0\DataExportService.csproj.CoreCompileInputs.cache
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Services\DataExportService\obj\Debug\net8.0\DataExportService.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Services\DataExportService\obj\Debug\net8.0\DataExportService.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Services\DataExportService\obj\Debug\net8.0\DataExportService.sourcelink.json
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Services\DataExportService\obj\Debug\net8.0\staticwebassets.build.json
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Services\DataExportService\obj\Debug\net8.0\staticwebassets.development.json
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Services\DataExportService\obj\Debug\net8.0\staticwebassets\msbuild.DataExportService.Microsoft.AspNetCore.StaticWebAssets.props
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Services\DataExportService\obj\Debug\net8.0\staticwebassets\msbuild.build.DataExportService.props
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Services\DataExportService\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.DataExportService.props
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Services\DataExportService\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.DataExportService.props
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Services\DataExportService\obj\Debug\net8.0\staticwebassets.pack.json
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Services\DataExportService\obj\Debug\net8.0\scopedcss\bundle\DataExportService.styles.css
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Services\DataExportService\obj\Debug\net8.0\DataExpo.16803099.Up2Date
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Services\DataExportService\obj\Debug\net8.0\DataExportService.dll
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Services\DataExportService\obj\Debug\net8.0\refint\DataExportService.dll
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Services\DataExportService\obj\Debug\net8.0\DataExportService.pdb
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Services\DataExportService\obj\Debug\net8.0\DataExportService.genruntimeconfig.cache
+C:\Users\AR\Technique informatique 420.BO\Session 6\Projet Personnels\MessagingAPP\Services\DataExportService\obj\Debug\net8.0\ref\DataExportService.dll

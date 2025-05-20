@@ -1,0 +1,182 @@
+version: "3.8"
+services:
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"     
+      - "15672:15672"  
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+    depends_on:
+      - gateway
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    networks:
+      - messaging-app-network
+
+  gateway:
+    build:
+      context: ./Gateway/API-Gateway-Ocelot
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    depends_on:
+      - authservice
+      - userservice
+      - messageservice
+      - dataexportservice
+      - notificationservice
+    networks:
+      - messaging-app-network
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://+:5000
+    restart: always
+
+  authservice:
+    build:
+      context: ./Services/AuthService
+      dockerfile: Dockerfile
+    ports:
+      - "5001:5001"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://+:5001
+      - MYSQL_CONNECTION=server=auth-db;user=admin;password=admin;database=auth_db
+    depends_on:
+      - auth-db
+    networks:
+      - messaging-app-network
+    restart: always
+
+  auth-db:
+    image: mysql:8
+    environment:
+      - MYSQL_ROOT_PASSWORD=admin
+      - MYSQL_DATABASE=auth_db
+      - MYSQL_USER=admin
+      - MYSQL_PASSWORD=admin
+    volumes:
+      - auth-db-data:/var/lib/mysql
+      - ./Services/AuthService/Models/Schema/model.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    networks:
+      - messaging-app-network
+    restart: always
+
+  dataexportservice:
+    build:
+      context: ./Services/DataExportService
+      dockerfile: Dockerfile
+    ports:
+      - "5002:5002"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://+:5002
+    networks:
+      - messaging-app-network
+    restart: always
+
+  messageservice:
+    build:
+      context: ./Services/MessageService
+      dockerfile: Dockerfile
+    ports:
+      - "5003:5003"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://+:5003
+      - MYSQL_CONNECTION=server=message-db;user=admin;password=admin;database=message_db
+    depends_on:
+      - message-db
+    networks:
+      - messaging-app-network
+    restart: always
+
+  message-db:
+    image: mysql:8
+    environment:
+      - MYSQL_ROOT_PASSWORD=admin
+      - MYSQL_DATABASE=message_db
+      - MYSQL_USER=admin
+      - MYSQL_PASSWORD=admin
+    volumes:
+      - message-db-data:/var/lib/mysql
+      - ./Services/MessageService/Models/Schema/model.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    networks:
+      - messaging-app-network
+    restart: always
+
+  notificationservice:
+    build:
+      context: ./Services/NotificationService
+      dockerfile: Dockerfile
+    ports:
+      - "5004:5004"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://+:5004
+      - MYSQL_CONNECTION=server=notification-db;user=admin;password=admin;database=notification_db
+    depends_on:
+      - notification-db
+    networks:
+      - messaging-app-network
+    restart: always
+
+  notification-db:
+    image: mysql:8
+    environment:
+      - MYSQL_ROOT_PASSWORD=admin
+      - MYSQL_DATABASE=notification_db
+      - MYSQL_USER=admin
+      - MYSQL_PASSWORD=admin
+    volumes:
+      - notification-db-data:/var/lib/mysql
+      - ./Services/NotificationService/Models/Schema/model.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    networks:
+      - messaging-app-network
+    restart: always
+
+  userservice:
+    build:
+      context: ./Services/UserService
+      dockerfile: Dockerfile
+    ports:
+      - "5005:5005"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://+:5005
+      - MYSQL_CONNECTION=server=user-db;user=admin;password=admin;database=user_db
+    depends_on:
+      - user-db
+    networks:
+      - messaging-app-network
+    restart: always
+
+  user-db:
+    image: mysql:8
+    environment:
+      - MYSQL_ROOT_PASSWORD=admin
+      - MYSQL_DATABASE=user_db
+      - MYSQL_USER=admin
+      - MYSQL_PASSWORD=admin
+    volumes:
+      - user-db-data:/var/lib/mysql
+      - ./Services/UserService/Models/Schema/model.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    networks:
+      - messaging-app-network
+    restart: always
+
+volumes: 
+  auth-db-data:
+  message-db-data:
+  notification-db-data:
+  user-db-data:
+
+networks:
+  messaging-app-network:
+    driver: bridge

@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>4998c4db-c7da-4456-a7a1-ac969b029ecf</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+  </PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.14" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.14" />
+		<PackageReference Include="MySql.EntityFrameworkCore" Version="8.0.0" />
+		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.21.0" />
+		<PackageReference Include="RabbitMQ.Client" Version="7.1.2" />
+		<PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="8.1.0" />
+		<PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="8.1.0" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+	</ItemGroup>
+
+</Project>
