@@ -19,6 +19,7 @@ packages/*.nupkg
 project.lock.json
 project.fragment.lock.json
 
+
 # Fichiers temporaires
 *.tmp
 *.temp

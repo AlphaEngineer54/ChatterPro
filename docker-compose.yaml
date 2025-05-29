@@ -4,11 +4,11 @@ services:
     image: rabbitmq:3-management
     container_name: rabbitmq
     ports:
-      - "5672:5672"     
-      - "15672:15672"  
+      - "${RABBITMQ_PORT}:${RABBITMQ_PORT}"
+      - "${RABBITMQ_MGMT_PORT}:${RABBITMQ_MGMT_PORT}"
     environment:
-      RABBITMQ_DEFAULT_USER: guest
-      RABBITMQ_DEFAULT_PASS: guest
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASS}
     depends_on:
       - gateway
     healthcheck:
@@ -24,18 +24,18 @@ services:
       context: ./Gateway/API-Gateway-Ocelot
       dockerfile: Dockerfile
     ports:
-      - "5000:5000"
+      - "${GATEWAY_PORT}:${GATEWAY_PORT}"
     depends_on:
       - authservice
       - userservice
       - messageservice
       - dataexportservice
       - notificationservice
+    environment:
+      - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
+      - ASPNETCORE_URLS=http://+:${GATEWAY_PORT}
     networks:
       - messaging-app-network
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Production
-      - ASPNETCORE_URLS=http://+:5000
     restart: always
 
   authservice:
@@ -43,11 +43,11 @@ services:
       context: ./Services/AuthService
       dockerfile: Dockerfile
     ports:
-      - "5001:5001"
+      - "${AUTHSERVICE_PORT}:${AUTHSERVICE_PORT}"
     environment:
-      - ASPNETCORE_ENVIRONMENT=Production
-      - ASPNETCORE_URLS=http://+:5001
-      - MYSQL_CONNECTION=server=auth-db;user=admin;password=admin;database=auth_db
+      - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
+      - ASPNETCORE_URLS=http://+:${AUTHSERVICE_PORT}
+      - MYSQL_CONNECTION=${AUTH_MYSQL_CONNECTION}
     depends_on:
       - auth-db
     networks:
@@ -57,10 +57,10 @@ services:
   auth-db:
     image: mysql:8
     environment:
-      - MYSQL_ROOT_PASSWORD=admin
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
       - MYSQL_DATABASE=auth_db
-      - MYSQL_USER=admin
-      - MYSQL_PASSWORD=admin
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
     volumes:
       - auth-db-data:/var/lib/mysql
       - ./Services/AuthService/Models/Schema/model.sql:/docker-entrypoint-initdb.d/init.sql:ro
@@ -73,10 +73,10 @@ services:
       context: ./Services/DataExportService
       dockerfile: Dockerfile
     ports:
-      - "5002:5002"
+      - "${DATAEXPORT_PORT}:${DATAEXPORT_PORT}"
     environment:
-      - ASPNETCORE_ENVIRONMENT=Production
-      - ASPNETCORE_URLS=http://+:5002
+      - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
+      - ASPNETCORE_URLS=http://+:${DATAEXPORT_PORT}
     networks:
       - messaging-app-network
     restart: always
@@ -86,11 +86,11 @@ services:
       context: ./Services/MessageService
       dockerfile: Dockerfile
     ports:
-      - "5003:5003"
+      - "${MESSAGESERVICE_PORT}:${MESSAGESERVICE_PORT}"
     environment:
-      - ASPNETCORE_ENVIRONMENT=Production
-      - ASPNETCORE_URLS=http://+:5003
-      - MYSQL_CONNECTION=server=message-db;user=admin;password=admin;database=message_db
+      - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
+      - ASPNETCORE_URLS=http://+:${MESSAGESERVICE_PORT}
+      - MYSQL_CONNECTION=${MESSAGE_MYSQL_CONNECTION}
     depends_on:
       - message-db
     networks:
@@ -100,10 +100,10 @@ services:
   message-db:
     image: mysql:8
     environment:
-      - MYSQL_ROOT_PASSWORD=admin
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
       - MYSQL_DATABASE=message_db
-      - MYSQL_USER=admin
-      - MYSQL_PASSWORD=admin
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
     volumes:
       - message-db-data:/var/lib/mysql
       - ./Services/MessageService/Models/Schema/model.sql:/docker-entrypoint-initdb.d/init.sql:ro
@@ -116,11 +116,11 @@ services:
       context: ./Services/NotificationService
       dockerfile: Dockerfile
     ports:
-      - "5004:5004"
+      - "${NOTIFSERVICE_PORT}:${NOTIFSERVICE_PORT}"
     environment:
-      - ASPNETCORE_ENVIRONMENT=Production
-      - ASPNETCORE_URLS=http://+:5004
-      - MYSQL_CONNECTION=server=notification-db;user=admin;password=admin;database=notification_db
+      - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
+      - ASPNETCORE_URLS=http://+:${NOTIFSERVICE_PORT}
+      - MYSQL_CONNECTION=${NOTIF_MYSQL_CONNECTION}
     depends_on:
       - notification-db
     networks:
@@ -130,10 +130,10 @@ services:
   notification-db:
     image: mysql:8
     environment:
-      - MYSQL_ROOT_PASSWORD=admin
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
       - MYSQL_DATABASE=notification_db
-      - MYSQL_USER=admin
-      - MYSQL_PASSWORD=admin
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
     volumes:
       - notification-db-data:/var/lib/mysql
       - ./Services/NotificationService/Models/Schema/model.sql:/docker-entrypoint-initdb.d/init.sql:ro
@@ -146,11 +146,11 @@ services:
       context: ./Services/UserService
       dockerfile: Dockerfile
     ports:
-      - "5005:5005"
+      - "${USERSERVICE_PORT}:${USERSERVICE_PORT}"
     environment:
-      - ASPNETCORE_ENVIRONMENT=Production
-      - ASPNETCORE_URLS=http://+:5005
-      - MYSQL_CONNECTION=server=user-db;user=admin;password=admin;database=user_db
+      - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
+      - ASPNETCORE_URLS=http://+:${USERSERVICE_PORT}
+      - MYSQL_CONNECTION=${USER_MYSQL_CONNECTION}
     depends_on:
       - user-db
     networks:
@@ -160,10 +160,10 @@ services:
   user-db:
     image: mysql:8
     environment:
-      - MYSQL_ROOT_PASSWORD=admin
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
       - MYSQL_DATABASE=user_db
-      - MYSQL_USER=admin
-      - MYSQL_PASSWORD=admin
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
     volumes:
       - user-db-data:/var/lib/mysql
       - ./Services/UserService/Models/Schema/model.sql:/docker-entrypoint-initdb.d/init.sql:ro
@@ -171,7 +171,7 @@ services:
       - messaging-app-network
     restart: always
 
-volumes: 
+volumes:
   auth-db-data:
   message-db-data:
   notification-db-data:
