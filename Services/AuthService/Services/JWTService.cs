@@ -1,5 +1,6 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 using AuthService.Interfaces;
 using AuthService.Models;
@@ -21,7 +22,7 @@ namespace AuthService.Services
            };
             
             // Récupérer la clé secrète depuis la configuration sécurisée (ex : appsettings.json, variables d'environnement, etc.)
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("5f2d6ab9e4c8210fd8c7a3f91b6e72adc4f9137e25ab8d3c6eaf7b014f29c3db")); // Utilisation d'une clé dynamique
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(GenerateSuperKey())); // Utilisation d'une clé dynamique
 
             // Définir les credentials de signature avec la clé et l'algorithme
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
@@ -38,5 +39,17 @@ namespace AuthService.Services
             // Retourner le token sous forme de chaîne de caractères
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
+
+        // Generate  a super key
+        public string GenerateSuperKey()
+        {
+            // Générer une clé secrète sécurisée de 32 octets
+            var key = new byte[32];
+            RandomNumberGenerator.Fill(key);
+
+            // Convertir la clé en chaîne Base64 et éviter les caractères spéciaux
+            return Convert.ToBase64String(key);
+        }
+
     }
 }

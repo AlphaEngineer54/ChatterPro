@@ -9,7 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // DB
 builder.Services.AddDbContext<NotifDbContext>(options =>
-    options.UseMySQL(builder.Configuration.GetConnectionString("NotificationDB")));
+    options.UseMySQL(Environment.GetEnvironmentVariable("NOTIFICATION_DB_CONNECTION")!));
 
 // Services
 builder.Services.AddScoped<NotificationManagerService>();

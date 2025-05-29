@@ -13,7 +13,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<UserDbContext>(options =>
 {
-    var connectionString = builder.Configuration.GetConnectionString("userDbConnection");
+    var connectionString = Environment.GetEnvironmentVariable("USER_DB_CONNECTION")!;
     options.UseMySQL(connectionString);
 });
 

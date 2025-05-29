@@ -12,7 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Ajouter le DbContext pour EF Core avec MySQL
 builder.Services.AddDbContext<MessageDbContext>(options =>
 {
-    options.UseMySQL(builder.Configuration.GetConnectionString("MessageDB")!);
+    options.UseMySQL(Environment.GetEnvironmentVariable("MESSAGE_DB_CONNECTION")!);
 });
 
 builder.Services.AddSingleton<RabbitMQConnection>();
