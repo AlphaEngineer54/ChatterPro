@@ -21,12 +21,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserService", "Services\Use
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Éléments de solution", "Éléments de solution", "{9B330BD5-AA7D-438C-A186-B1950A77DBB5}"
 	ProjectSection(SolutionItems) = preProject
-		.gitignore = .gitignore
 		.dockerignore = .dockerignore
+		.gitignore = .gitignore
 		docker-compose.yaml = docker-compose.yaml
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessagingApp_Test", "MessagingApp_Test\MessagingApp_Test.csproj", "{9023E4CC-6D40-4F61-8665-10610ABF1208}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MessagingApp_Test", "MessagingApp_Test\MessagingApp_Test.csproj", "{9023E4CC-6D40-4F61-8665-10610ABF1208}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

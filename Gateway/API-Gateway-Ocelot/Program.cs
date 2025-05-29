@@ -30,7 +30,7 @@ builder.Services.AddAuthentication("Bearer")
             ValidateIssuerSigningKey = true,
             ValidIssuer = "http://localhost:5000",
             ValidAudience = "messaging_api",
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("5f2d6ab9e4c8210fd8c7a3f91b6e72adc4f9137e25ab8d3c6eaf7b014f29c3db"))
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Environment.GetEnvironmentVariable("JWTSecret")))
         };
 
         options.Events = new JwtBearerEvents

@@ -3,7 +3,6 @@ using AuthService.Models;
 using AuthService.Repository;
 using AuthService.Services;
 using Microsoft.EntityFrameworkCore;
-using Org.BouncyCastle.Security;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,7 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<AuthDbContext>(options =>
 {
     // Récupération de la chaîne de connexion depuis les variables d'environnement ou le fichier de configuration
-    var connectionString = builder.Configuration.GetConnectionString("AuthServiceDB");
+    var connectionString = Environment.GetEnvironmentVariable("AUTH_DB_CONNECTION");
     options.UseMySQL(connectionString);
 });
 

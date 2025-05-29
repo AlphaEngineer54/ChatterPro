@@ -15,11 +15,9 @@ c
 *.sln.docstates
 
 # Fichiers de dépendances locales
-packages/
-*.nupkg
+packages/*.nupkg
 project.lock.json
 project.fragment.lock.json
-app.settings.Development.json
 
 # Fichiers temporaires
 *.tmp
