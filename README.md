@@ -1,9 +1,9 @@
 # 📨 Distributed Messaging App – Microservices Architecture
 
-Une application de messagerie distribuée conçue pour démontrer une architecture orientée microservices avec un front-end moderne et réactif.
+Une application de messagerie distribuée avec une architecture orientée microservices et une communication asynchrone entre services. Le frontend est développé en WPF (.NET).
 
 ![Docker](https://img.shields.io/badge/containerized-Docker-blue?logo=docker)
-![Architecture](https://img.shields.io/badge/architecture-Microservices-ff69b4?style=flat-square)
+![Architecture](https://img.shields.io/badge/architecture-Microservices-ff69b4)
 ![Status](https://img.shields.io/badge/status-En%20développement-yellow)
 ![License](https://img.shields.io/badge/license-MIT-lightgrey)
 
@@ -11,97 +11,131 @@ Une application de messagerie distribuée conçue pour démontrer une architectu
 
 ## 🚀 Présentation
 
-Ce projet est une **plateforme de messagerie en temps quasi réel**, construite avec une architecture distribuée, entièrement conteneurisée avec Docker, et reposant sur une communication asynchrone entre services.
+Application de messagerie quasi temps réel avec conteneurisation complète et scalabilité assurée.
 
 ---
 
 ## 📐 Architecture Technique
 
-L'application est composée des microservices suivants :
-
-| Service              | Rôle                                                                 |
-|----------------------|----------------------------------------------------------------------|
-| `AuthService`        | Gestion de l'inscription, connexion, JWT, et autorisation            |
-| `MessageService`     | Création, envoi et réception des messages                            |
-| `UserService`        | Gestion des informations non-sensibles des utilisateurs                |
-| `NotificationService`| Envoi de notifications (email, push, etc.)                           |
-| `DataExportService`  | Exportation des messages et données utilisateur (PDF, JSON, etc.)     |
-| `Frontend`           | Interface utilisateur (React) avec authentification et messagerie     |
-
-Les services communiquent via **HTTP REST** et **events asynchrones** (selon les cas d’usage, une file de messages peut être intégrée ultérieurement).
+| Service               | Rôle                                                               |
+|------------------------|--------------------------------------------------------------------|
+| AuthService           | Authentification, JWT, autorisations                              |
+| UserService           | Données utilisateur (profil, contacts)                            |
+| MessageService        | Envoi, réception, persistance des messages                        |
+| ConversationService   | Gestion des conversations                                          |
+| NotificationService   | Push/email/système de notification asynchrone                     |
+| DataExportService     | Exportation de données au format PDF, CSV, JSON                   |    
+| Gateway (Ocelot)      | Point d’entrée unique pour tous les services (reverse proxy)      |
 
 ---
 
 ## 🧰 Technologies utilisées
 
-| Frontend       | Backend / Services                     | Infrastructure        |
-|----------------|----------------------------------------|------------------------|
-| React.js       | ASP.NET Core (.NET 8)                  | Docker                 |
-| React Router   | JWT, Argon2                            | Docker Compose         |
-| Context API    | MySQL                                  | NGINX (proxy possible) |
-| CSS Modules    | REST API, RabbitMQ                              | Kubernetes (ochestration)|
-| D'autres technologies à venir...          | Event-driven architecture              |                        |
-|                | iText7 (exportation PDF), CSVHelper (export CSV) |                        |
-|                | .NET Logging (journalisation)          |                        |
-|                | CORS                                   |                        |
-
+| Côté Client         | Backend / Services                   | Infrastructure          |
+|---------------------|--------------------------------------|--------------------------|
+| WPF (.NET)          | ASP.NET Core (.NET 8), JWT, Argon2   | Docker, Docker Compose   |
+| REST HTTP Client    | MySQL, RabbitMQ                      | NGINX (reverse proxy)    |
+|                     | iText7, CsvHelper                    | Kubernetes (à venir)     |
+|                     | .NET Logging, CORS                   | Event-driven architecture|
 
 ---
-## 🧭 Navigation et Fonctionnalités
 
-### 🔐 Authentification & Sécurité
-- Authentification sécurisée via JWT (JSON Web Tokens)
-- Gestion des sessions utilisateurs avec expiration et rafraîchissement
-- Stockage sécurisé des mots de passe (hash + salage)
-- Validation côté serveur des entrées sensibles (anti-injection, etc.)
+# 🌐 API Gateway – Documentation des Routes
+
+Toutes les requêtes frontend doivent transiter par l’API Gateway (`http://localhost:5000`).  
+Le gateway redirige vers les microservices internes selon les routes définies ci-dessous.
+
+---
+
+## AuthService
+
+| Méthode HTTP | Route Frontend           | Route Backend                | Authentification requise |
+|--------------|-------------------------|-----------------------------|--------------------------|
+| GET, POST    | `/auth/{everything}`    | `http://authservice:5001/api/auth/{everything}` | Non                      |
+
+---
+
+## UserService
+
+| Méthode HTTP             | Route Frontend           | Route Backend                | Authentification requise |
+|-------------------------|-------------------------|-----------------------------|--------------------------|
+| GET, POST, DELETE, PUT  | `/user/{everything}`    | `http://userservice:5002/api/user/{everything}` | Oui (Bearer JWT)          |
+
+---
+
+## MessageService
+
+| Méthode HTTP             | Route Frontend            | Route Backend                 | Authentification requise |
+|-------------------------|--------------------------|------------------------------|--------------------------|
+| GET, POST, DELETE, PUT  | `/message/{everything}`  | `http://messageservice:5003/api/message/{everything}`  | Oui (Bearer JWT)          |
+| GET, POST, DELETE       | `/conversation/{everything}` | `http://messageservice:5003/api/conversation/{everything}` | Oui (Bearer JWT)          |
+
+---
+
+## DataExportService
+
+| Méthode HTTP   | Route Frontend            | Route Backend                | Authentification requise |
+|---------------|--------------------------|-----------------------------|--------------------------|
+| GET, POST     | `/dataexport/{everything}` | `http://dataexportservice:5004/api/dataexport/{everything}` | Oui (Bearer JWT)          |
+
+---
+
+## NotificationService
+
+| Méthode HTTP             | Route Frontend            | Route Backend                 | Authentification requise |
+|-------------------------|--------------------------|------------------------------|--------------------------|
+| GET, POST, DELETE, PUT  | `/notification/{everything}` | `http://notificationservice:5005/api/notification/{everything}` | Oui (Bearer JWT)          |
+
+---
+
+## Notes
+
+- Le frontend ne doit jamais interagir directement avec les services, uniquement via l’API Gateway.
+- Les routes marquées "Oui (Bearer JWT)" exigent un token JWT valide dans l’en-tête `Authorization`.
+- Le placeholder `{everything}` correspond à n’importe quelle sous-route ou ressource.
+
+---
+
+## 🧭 Fonctionnalités Clés
+
+### 🔐 Authentification
+- JWT, rafraîchissement de token
+- Stockage sécurisé des mots de passe (Argon2)
+- Validation et nettoyage des entrées
 
 ### 💬 Messagerie
-- Envoi et réception de messages texte
-- Architecture orientée microservices (MessageService)
-- File d’attente pour traitement asynchrone des messages (RabbitMQ ou équivalent)
-- Interface de messagerie en temps réel **simulé** (ex. : long polling)
-- Persistance des messages dans une base de données
+- Messages texte
+- Asynchrone avec file RabbitMQ
+- Persistance dans MySQL
 
-### 📇 Gestion des contacts
-- Ajout, suppression et gestion des contacts utilisateur
-- Microservice dédié : ContactService
-- Vérification de l’identité utilisateur à l’ajout d’un contact
+### 📇 Contacts
+- Ajout/suppression
+- Service dédié avec vérification d’identité
 
-### 📤 Exportation des données
-- Service d’export des données personnelles : DataExportService
-- Génération de fichiers exportables (JSON ou CSV)
-- Envoi sécurisé des données exportées à l’utilisateur
+### 📤 Export de données
+- JSON, CSV, PDF
+- Téléchargement sécurisé
 
 ### 🔔 Notifications
-- Envoi de notifications à l’utilisateur (NotificationService)
-- Notifications lors d’un nouveau message ou événement important
-- Architecture asynchrone pour la gestion des événements déclencheurs
+- Événements déclencheurs
+- Notification asynchrone
 
-### 🧱 Architecture & Déploiement
-- Architecture modulaire : chaque service est indépendant
-- Communication inter-services par messages asynchrones
-- Conteneurisation complète via Docker
-- Déploiement orchestré (Docker Compose ou équivalent)
-
-### 🖼️ Interface utilisateur – Intégration backend en cours de développement
-- UI stylisée avec design UX ergonomique
-- Authentification connectée au backend
-- Intégration fluide avec les services de messagerie, contacts, export et notifications
+### 🧱 Déploiement
+- Docker multi-conteneur
+- Orchestration via Docker Compose
 
 ---
 
-## 📦 Lancer le projet localement
+## 📦 Démarrage local
 
 ### Prérequis
+- Docker
+- Docker Compose
 
-- Docker & Docker Compose installés
-
-### Étapes
+### Commandes
 
 ```bash
-# 1. Cloner le dépôt
 git clone https://github.com/AlphaEngineer54/messaging-app.git
 cd distributed-messaging-app
-
-# 2. Démarrer tous les services
 docker-compose up -d --build
+
