@@ -39,61 +39,59 @@ Application de messagerie quasi temps réel avec conteneurisation complète et s
 |                     | .NET Logging, CORS                   | Event-driven architecture|
 
 ---
-
 # 🌐 API Gateway – Documentation des Routes
 
 Toutes les requêtes frontend doivent transiter par l’API Gateway (`http://localhost:5000`).  
-Le gateway redirige vers les microservices internes selon les routes définies ci-dessous.
+Le gateway redirige vers les microservices locaux selon les routes définies ci-dessous.
 
 ---
 
 ## AuthService
 
-| Méthode HTTP | Route Frontend           | Route Backend                | Authentification requise |
-|--------------|-------------------------|-----------------------------|--------------------------|
-| GET, POST    | `/auth/{everything}`    | `http://authservice:5001/api/auth/{everything}` | Non                      |
+| Méthode HTTP | Route Frontend           | Route Backend                   | Authentification requise |
+|--------------|-------------------------|--------------------------------|--------------------------|
+| GET, POST    | `/auth/{everything}`    | `http://localhost:5001/api/auth/{everything}` | Non                      |
 
 ---
 
 ## UserService
 
-| Méthode HTTP             | Route Frontend           | Route Backend                | Authentification requise |
-|-------------------------|-------------------------|-----------------------------|--------------------------|
-| GET, POST, DELETE, PUT  | `/user/{everything}`    | `http://userservice:5002/api/user/{everything}` | Oui (Bearer JWT)          |
+| Méthode HTTP             | Route Frontend           | Route Backend                   | Authentification requise |
+|-------------------------|-------------------------|--------------------------------|--------------------------|
+| GET, POST, DELETE, PUT  | `/user/{everything}`    | `http://localhost:5002/api/user/{everything}` | Oui (Bearer JWT)          |
 
 ---
 
 ## MessageService
 
-| Méthode HTTP             | Route Frontend            | Route Backend                 | Authentification requise |
-|-------------------------|--------------------------|------------------------------|--------------------------|
-| GET, POST, DELETE, PUT  | `/message/{everything}`  | `http://messageservice:5003/api/message/{everything}`  | Oui (Bearer JWT)          |
-| GET, POST, DELETE       | `/conversation/{everything}` | `http://messageservice:5003/api/conversation/{everything}` | Oui (Bearer JWT)          |
+| Méthode HTTP             | Route Frontend            | Route Backend                    | Authentification requise |
+|-------------------------|--------------------------|---------------------------------|--------------------------|
+| GET, POST, DELETE, PUT  | `/message/{everything}`  | `http://localhost:5003/api/message/{everything}`  | Oui (Bearer JWT)          |
+| GET, POST, DELETE       | `/conversation/{everything}` | `http://localhost:5003/api/conversation/{everything}` | Oui (Bearer JWT)          |
 
 ---
 
 ## DataExportService
 
-| Méthode HTTP   | Route Frontend            | Route Backend                | Authentification requise |
-|---------------|--------------------------|-----------------------------|--------------------------|
-| GET, POST     | `/dataexport/{everything}` | `http://dataexportservice:5004/api/dataexport/{everything}` | Oui (Bearer JWT)          |
+| Méthode HTTP   | Route Frontend            | Route Backend                    | Authentification requise |
+|---------------|--------------------------|---------------------------------|--------------------------|
+| GET, POST     | `/dataexport/{everything}` | `http://localhost:5004/api/dataexport/{everything}` | Oui (Bearer JWT)          |
 
 ---
 
 ## NotificationService
 
-| Méthode HTTP             | Route Frontend            | Route Backend                 | Authentification requise |
-|-------------------------|--------------------------|------------------------------|--------------------------|
-| GET, POST, DELETE, PUT  | `/notification/{everything}` | `http://notificationservice:5005/api/notification/{everything}` | Oui (Bearer JWT)          |
+| Méthode HTTP             | Route Frontend            | Route Backend                    | Authentification requise |
+|-------------------------|--------------------------|---------------------------------|--------------------------|
+| GET, POST, DELETE, PUT  | `/notification/{everything}` | `http://localhost:5005/api/notification/{everything}` | Oui (Bearer JWT)          |
 
 ---
 
 ## Notes
 
-- Le frontend ne doit jamais interagir directement avec les services, uniquement via l’API Gateway.
-- Les routes marquées "Oui (Bearer JWT)" exigent un token JWT valide dans l’en-tête `Authorization`.
-- Le placeholder `{everything}` correspond à n’importe quelle sous-route ou ressource.
-
+- Le frontend doit toujours communiquer via l’API Gateway (`localhost:5000`).
+- Les routes avec authentification exigent un token JWT valide dans l’en-tête `Authorization`.
+- `{everything}` représente toute sous-route ou paramètre.
 ---
 
 ## 🧭 Fonctionnalités Clés
