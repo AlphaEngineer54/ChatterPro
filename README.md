@@ -21,8 +21,7 @@ Application de messagerie quasi temps réel avec conteneurisation complète et s
 |------------------------|--------------------------------------------------------------------|
 | AuthService           | Authentification, JWT, autorisations                              |
 | UserService           | Données utilisateur (profil, contacts)                            |
-| MessageService        | Envoi, réception, persistance des messages                        |
-| ConversationService   | Gestion des conversations                                          |
+| MessageService        | Envoi, réception, persistance des messages ainsi que des conversations                      |
 | NotificationService   | Push/email/système de notification asynchrone                     |
 | DataExportService     | Exportation de données au format PDF, CSV, JSON                   |    
 | Gateway (Ocelot)      | Point d’entrée unique pour tous les services (reverse proxy)      |
@@ -32,13 +31,14 @@ Application de messagerie quasi temps réel avec conteneurisation complète et s
 ## 🧰 Technologies utilisées
 
 | Côté Client         | Backend / Services                   | Infrastructure          |
-|---------------------|--------------------------------------|--------------------------|
-| WPF (.NET)          | ASP.NET Core (.NET 8), JWT, Argon2   | Docker, Docker Compose   |
-| REST HTTP Client    | MySQL, RabbitMQ                      | NGINX (reverse proxy)    |
-|                     | iText7, CsvHelper                    | Kubernetes (à venir)     |
-|                     | .NET Logging, CORS                   | Event-driven architecture|
+|---------------------|------------------------------------|------------------------|
+| WPF (.NET)          | ASP.NET Core (.NET 8), JWT, Argon2 | Docker, Docker Compose |
+| REST HTTP Client    | MySQL, RabbitMQ                    | NGINX (reverse proxy)  |
+|                     | iText7, CsvHelper                  | Kubernetes (à venir)   |
+|                     | .NET Logging, CORS                 | Event-driven architecture |
 
 ---
+
 # 🌐 API Gateway – Documentation des Routes
 
 Toutes les requêtes frontend doivent transiter par l’API Gateway (`http://localhost:5000`).  
@@ -69,6 +69,8 @@ Le gateway redirige vers les microservices locaux selon les routes définies ci-
 | GET, POST, DELETE, PUT  | `/message/{everything}`  | `http://localhost:5003/api/message/{everything}`  | Oui (Bearer JWT)          |
 | GET, POST, DELETE       | `/conversation/{everything}` | `http://localhost:5003/api/conversation/{everything}` | Oui (Bearer JWT)          |
 
+> **Communication en temps réel via WebSocket avec SignalR disponible sur ce service.**
+
 ---
 
 ## DataExportService
@@ -85,6 +87,8 @@ Le gateway redirige vers les microservices locaux selon les routes définies ci-
 |-------------------------|--------------------------|---------------------------------|--------------------------|
 | GET, POST, DELETE, PUT  | `/notification/{everything}` | `http://localhost:5005/api/notification/{everything}` | Oui (Bearer JWT)          |
 
+> **Communication en temps réel via WebSocket avec SignalR disponible sur ce service.**
+
 ---
 
 ## Notes
@@ -92,6 +96,8 @@ Le gateway redirige vers les microservices locaux selon les routes définies ci-
 - Le frontend doit toujours communiquer via l’API Gateway (`localhost:5000`).
 - Les routes avec authentification exigent un token JWT valide dans l’en-tête `Authorization`.
 - `{everything}` représente toute sous-route ou paramètre.
+- Les services `MessageService` et `NotificationService` offrent une interface WebSocket basée sur SignalR pour la gestion temps réel des messages et notifications.
+
 ---
 
 ## 🧭 Fonctionnalités Clés
@@ -105,10 +111,10 @@ Le gateway redirige vers les microservices locaux selon les routes définies ci-
 - Messages texte
 - Asynchrone avec file RabbitMQ
 - Persistance dans MySQL
+- Communication temps réel via SignalR WebSocket
 
-### 📇 Contacts
-- Ajout/suppression
-- Service dédié avec vérification d’identité
+### 📇 Gestion utilisateur
+- Profil et contacts gérés via UserService
 
 ### 📤 Export de données
 - JSON, CSV, PDF
@@ -117,6 +123,7 @@ Le gateway redirige vers les microservices locaux selon les routes définies ci-
 ### 🔔 Notifications
 - Événements déclencheurs
 - Notification asynchrone
+- Communication temps réel via SignalR WebSocket
 
 ### 🧱 Déploiement
 - Docker multi-conteneur
@@ -136,4 +143,5 @@ Le gateway redirige vers les microservices locaux selon les routes définies ci-
 git clone https://github.com/AlphaEngineer54/messaging-app.git
 cd distributed-messaging-app
 docker-compose up -d --build
+
 
