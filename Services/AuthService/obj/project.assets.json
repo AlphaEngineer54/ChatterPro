@@ -8234,11 +8234,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\AR\\Technique informatique 420.BO\\Session 6\\Projet Personnels\\MessagingAPP\\Services\\AuthService\\AuthService.csproj",
+      "projectUniqueName": "C:\\Users\\AR\\Technique informatique 420.BO\\Session 6\\Projet Personnels\\clone\\messaging-app\\Services\\AuthService\\AuthService.csproj",
       "projectName": "AuthService",
-      "projectPath": "C:\\Users\\AR\\Technique informatique 420.BO\\Session 6\\Projet Personnels\\MessagingAPP\\Services\\AuthService\\AuthService.csproj",
+      "projectPath": "C:\\Users\\AR\\Technique informatique 420.BO\\Session 6\\Projet Personnels\\clone\\messaging-app\\Services\\AuthService\\AuthService.csproj",
       "packagesPath": "C:\\Users\\AR\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\AR\\Technique informatique 420.BO\\Session 6\\Projet Personnels\\MessagingAPP\\Services\\AuthService\\obj\\",
+      "outputPath": "C:\\Users\\AR\\Technique informatique 420.BO\\Session 6\\Projet Personnels\\clone\\messaging-app\\Services\\AuthService\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

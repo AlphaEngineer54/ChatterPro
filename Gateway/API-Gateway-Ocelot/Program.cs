@@ -30,7 +30,7 @@ builder.Services.AddAuthentication("Bearer")
             ValidateIssuerSigningKey = true,
             ValidIssuer = "http://localhost:5000",
             ValidAudience = "messaging_api",
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Environment.GetEnvironmentVariable("JWTSecret")))
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Environment.GetEnvironmentVariable("JWT_SECRET")))
         };
 
         options.Events = new JwtBearerEvents
@@ -39,7 +39,7 @@ builder.Services.AddAuthentication("Bearer")
             {
                 context.Response.StatusCode = 401;
                 context.Response.ContentType = "application/json";
-                return context.Response.WriteAsync("{\"message\": \"Token invalide ou expiré.\"}");
+                return context.Response.WriteAsync("{\"message\": \"Invalid or expired JWT token. Please provide a valid JWT token or log in again.\"}");
             }
         };
     });

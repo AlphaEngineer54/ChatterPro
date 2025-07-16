@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "silO9MIPDqk=",
+  "dgSpecHash": "vP9ixe39dg0=",
   "success": true,
-  "projectFilePath": "C:\\Users\\AR\\Technique informatique 420.BO\\Session 6\\Projet Personnels\\MessagingAPP\\Services\\NotificationService\\NotificationService.csproj",
+  "projectFilePath": "C:\\Users\\AR\\Technique informatique 420.BO\\Session 6\\Projet Personnels\\clone\\messaging-app\\Services\\NotificationService\\NotificationService.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\AR\\.nuget\\packages\\bouncycastle.cryptography\\2.2.1\\bouncycastle.cryptography.2.2.1.nupkg.sha512",
     "C:\\Users\\AR\\.nuget\\packages\\google.protobuf\\3.25.1\\google.protobuf.3.25.1.nupkg.sha512",

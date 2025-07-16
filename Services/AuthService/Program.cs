@@ -6,31 +6,32 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
+// Configuration base de données
 builder.Services.AddDbContext<AuthDbContext>(options =>
 {
-    // Récupération de la chaîne de connexion depuis les variables d'environnement ou le fichier de configuration
-    var connectionString = Environment.GetEnvironmentVariable("AUTH_DB_CONNECTION");
+    var connectionString = Environment.GetEnvironmentVariable("AUTHSERVICE_DB_CONNECTION")
+        ?? throw new ArgumentNullException("AUTHSERVICE_DB_CONNECTION", "La chaîne de connexion à la base de données est manquante.");
     options.UseMySQL(connectionString);
 });
 
-builder.Services.AddSwaggerGen();
-
-// Ajouter les services de contrôle
-builder.Services.AddControllers();
-
-// Injecter les dépendances de classe 
+// Services applicatifs
 builder.Services.AddScoped<UserService>();
-builder.Services.AddScoped<ProducerService>();
 builder.Services.AddScoped<JWTService>();
 builder.Services.AddScoped<IEventHandler, EventHandlerService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IPasswordHasher, PasswordHasherService>();
 
-builder.Services.AddSingleton<IConsumer, ConsumerService>();
-builder.Services.AddSingleton<RabbitMQConnection>();
+// RabbitMQ
+builder.Services.AddTransient<RabbitMQConnection>(); 
+builder.Services.AddScoped<IConsumer, ConsumerService>();
+builder.Services.AddScoped<ProducerService>();
 
+// BackgroundService
 builder.Services.AddHostedService<EventCatchingService>();
+
+// Swagger + MVC
+builder.Services.AddSwaggerGen();
+builder.Services.AddControllers();
 
 var app = builder.Build();
 
@@ -40,13 +41,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI(c =>
     {
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "API V1");
-        c.RoutePrefix = string.Empty; 
+        c.RoutePrefix = string.Empty;
     });
 }
 
 app.UseHttpsRedirection();
 app.UseAuthorization();
-
 app.MapControllers();
-
 app.Run();

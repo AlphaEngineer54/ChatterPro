@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "2nzazQ27LzU=",
+  "dgSpecHash": "qI/wVw5R0Ic=",
   "success": true,
-  "projectFilePath": "C:\\Users\\AR\\Technique informatique 420.BO\\Session 6\\Projet Personnels\\MessagingAPP\\Services\\AuthService\\AuthService.csproj",
+  "projectFilePath": "C:\\Users\\AR\\Technique informatique 420.BO\\Session 6\\Projet Personnels\\clone\\messaging-app\\Services\\AuthService\\AuthService.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\AR\\.nuget\\packages\\bouncycastle.cryptography\\2.2.1\\bouncycastle.cryptography.2.2.1.nupkg.sha512",
     "C:\\Users\\AR\\.nuget\\packages\\google.protobuf\\3.25.1\\google.protobuf.3.25.1.nupkg.sha512",

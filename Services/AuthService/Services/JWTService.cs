@@ -22,7 +22,8 @@ namespace AuthService.Services
            };
             
             // Récupérer la clé secrète depuis la configuration sécurisée (ex : appsettings.json, variables d'environnement, etc.)
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Environment.GetEnvironmentVariable("JWTSecrets"))); 
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Environment.GetEnvironmentVariable("JWT_SECRET") 
+                                                                                  ?? throw new ArgumentException("JWT Super Key was not set"))); 
 
             // Définir les credentials de signature avec la clé et l'algorithme
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);

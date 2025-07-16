@@ -1,4 +1,3 @@
-version: "3.8"
 services:
   rabbitmq:
     image: rabbitmq:3-management
@@ -9,8 +8,6 @@ services:
     environment:
       RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER}
       RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASS}
-    depends_on:
-      - gateway
     healthcheck:
       test: ["CMD", "rabbitmq-diagnostics", "ping"]
       interval: 30s
@@ -34,6 +31,11 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
       - ASPNETCORE_URLS=http://+:${GATEWAY_PORT}
+      - JWT_SECRET=${JWT_SECRET}
+      - RABBIT_MQ_HOST=${RABBIT_MQ_HOST}
+      - RABBIT_MQ_PORT=${RABBIT_MQ_PORT}
+      - RABBIT_MQ_USER=${RABBIT_MQ_USER}
+      - RABBIT_MQ_PASSWORD=${RABBIT_MQ_PASSWORD}
     networks:
       - messaging-app-network
     restart: always
@@ -47,9 +49,15 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
       - ASPNETCORE_URLS=http://+:${AUTHSERVICE_PORT}
-      - MYSQL_CONNECTION=${AUTH_MYSQL_CONNECTION}
+      - AUTHSERVICE_DB_CONNECTION=${AUTHSERVICE_DB_CONNECTION}
+      - JWT_SECRET=${JWT_SECRET}
+      - RABBIT_MQ_HOST=${RABBIT_MQ_HOST}
+      - RABBIT_MQ_PORT=${RABBIT_MQ_PORT}
+      - RABBIT_MQ_USER=${RABBIT_MQ_USER}
+      - RABBIT_MQ_PASSWORD=${RABBIT_MQ_PASSWORD}
     depends_on:
       - auth-db
+      - rabbitmq
     networks:
       - messaging-app-network
     restart: always
@@ -90,9 +98,14 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
       - ASPNETCORE_URLS=http://+:${MESSAGESERVICE_PORT}
-      - MYSQL_CONNECTION=${MESSAGE_MYSQL_CONNECTION}
+      - MESSAGESERVICE_DB_CONNECTION=${MESSAGESERVICE_DB_CONNECTION}
+      - RABBIT_MQ_HOST=${RABBIT_MQ_HOST}
+      - RABBIT_MQ_PORT=${RABBIT_MQ_PORT}
+      - RABBIT_MQ_USER=${RABBIT_MQ_USER}
+      - RABBIT_MQ_PASSWORD=${RABBIT_MQ_PASSWORD}
     depends_on:
       - message-db
+      - rabbitmq
     networks:
       - messaging-app-network
     restart: always
@@ -120,9 +133,14 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
       - ASPNETCORE_URLS=http://+:${NOTIFSERVICE_PORT}
-      - MYSQL_CONNECTION=${NOTIF_MYSQL_CONNECTION}
+      - NOTIFICATIONSERVICE_DB_CONNECTION=${NOTIFICATIONSERVICE_DB_CONNECTION}
+      - RABBIT_MQ_HOST=${RABBIT_MQ_HOST}
+      - RABBIT_MQ_PORT=${RABBIT_MQ_PORT}
+      - RABBIT_MQ_USER=${RABBIT_MQ_USER}
+      - RABBIT_MQ_PASSWORD=${RABBIT_MQ_PASSWORD}
     depends_on:
       - notification-db
+      - rabbitmq
     networks:
       - messaging-app-network
     restart: always
@@ -150,9 +168,14 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
       - ASPNETCORE_URLS=http://+:${USERSERVICE_PORT}
-      - MYSQL_CONNECTION=${USER_MYSQL_CONNECTION}
+      - USERSERVICE_DB_CONNECTION=${USERSERVICE_DB_CONNECTION}
+      - RABBIT_MQ_HOST=${RABBIT_MQ_HOST}
+      - RABBIT_MQ_PORT=${RABBIT_MQ_PORT}
+      - RABBIT_MQ_USER=${RABBIT_MQ_USER}
+      - RABBIT_MQ_PASSWORD=${RABBIT_MQ_PASSWORD}
     depends_on:
       - user-db
+      - rabbitmq
     networks:
       - messaging-app-network
     restart: always

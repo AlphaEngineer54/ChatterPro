@@ -47,7 +47,12 @@ namespace AuthService.Controllers
                     this._logger.LogWarning($"Authenfication failed: {ex.Message}");
                     return Unauthorized(new { ex.Message });
                 }
-                             
+                catch (Exception ex)
+                {
+                    this._logger.LogError($"An error occurred while authenticating the user: {ex.Message}");
+                    return StatusCode(500, new { Message = "An error occurred while authenticating the user." });
+                }
+
             }
 
             return BadRequest(ModelState);
@@ -81,9 +86,15 @@ namespace AuthService.Controllers
                         });
                     }
                 }
-                catch(InvalidCredentialException ex) {
+                catch (InvalidCredentialException ex)
+                {
                     this._logger.LogWarning($"Conflict email detected: {ex.Message}");
                     return Conflict(new { ex.Message });
+                }
+                catch (Exception ex)
+                {
+                    this._logger.LogError($"An error occurred while creating the user: {ex.Message}");
+                    return StatusCode(500, new { Message = "An error occurred while creating the user." });
                 }
             }
 

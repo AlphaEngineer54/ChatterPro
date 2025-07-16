@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\AR\\Technique informatique 420.BO\\Session 6\\Projet Personnels\\MessagingAPP\\Gateway\\API-Gateway-Ocelot\\API-Gateway-Ocelot.csproj": {}
+    "C:\\Users\\AR\\Technique informatique 420.BO\\Session 6\\Projet Personnels\\clone\\messaging-app\\Gateway\\API-Gateway-Ocelot\\API-Gateway-Ocelot.csproj": {}
   },
   "projects": {
-    "C:\\Users\\AR\\Technique informatique 420.BO\\Session 6\\Projet Personnels\\MessagingAPP\\Gateway\\API-Gateway-Ocelot\\API-Gateway-Ocelot.csproj": {
+    "C:\\Users\\AR\\Technique informatique 420.BO\\Session 6\\Projet Personnels\\clone\\messaging-app\\Gateway\\API-Gateway-Ocelot\\API-Gateway-Ocelot.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\AR\\Technique informatique 420.BO\\Session 6\\Projet Personnels\\MessagingAPP\\Gateway\\API-Gateway-Ocelot\\API-Gateway-Ocelot.csproj",
+        "projectUniqueName": "C:\\Users\\AR\\Technique informatique 420.BO\\Session 6\\Projet Personnels\\clone\\messaging-app\\Gateway\\API-Gateway-Ocelot\\API-Gateway-Ocelot.csproj",
         "projectName": "API-Gateway-Ocelot",
-        "projectPath": "C:\\Users\\AR\\Technique informatique 420.BO\\Session 6\\Projet Personnels\\MessagingAPP\\Gateway\\API-Gateway-Ocelot\\API-Gateway-Ocelot.csproj",
+        "projectPath": "C:\\Users\\AR\\Technique informatique 420.BO\\Session 6\\Projet Personnels\\clone\\messaging-app\\Gateway\\API-Gateway-Ocelot\\API-Gateway-Ocelot.csproj",
         "packagesPath": "C:\\Users\\AR\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\AR\\Technique informatique 420.BO\\Session 6\\Projet Personnels\\MessagingAPP\\Gateway\\API-Gateway-Ocelot\\obj\\",
+        "outputPath": "C:\\Users\\AR\\Technique informatique 420.BO\\Session 6\\Projet Personnels\\clone\\messaging-app\\Gateway\\API-Gateway-Ocelot\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

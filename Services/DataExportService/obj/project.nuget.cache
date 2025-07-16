@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "XuprQjMw7IM=",
+  "dgSpecHash": "+L6qH69M/gM=",
   "success": true,
-  "projectFilePath": "C:\\Users\\AR\\Technique informatique 420.BO\\Session 6\\Projet Personnels\\MessagingAPP\\Services\\DataExportService\\DataExportService.csproj",
+  "projectFilePath": "C:\\Users\\AR\\Technique informatique 420.BO\\Session 6\\Projet Personnels\\clone\\messaging-app\\Services\\DataExportService\\DataExportService.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\AR\\.nuget\\packages\\csvhelper\\33.0.1\\csvhelper.33.0.1.nupkg.sha512",
     "C:\\Users\\AR\\.nuget\\packages\\itext7\\7.2.5\\itext7.7.2.5.nupkg.sha512",
