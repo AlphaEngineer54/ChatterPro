@@ -32,8 +32,6 @@ namespace AuthService.Services
                     Password = pass
                 };
 
-                this._logger.LogInformation($"Connection to {host}:{port}");
-
                 this._connection = factory.CreateConnectionAsync().Result;
                 this._channel = _connection.CreateChannelAsync().Result;
 
