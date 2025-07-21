@@ -138,10 +138,12 @@ Le gateway redirige vers les microservices locaux selon les routes définies ci-
 ### 🧱 Déploiement
 - Docker multi-conteneur
 - Orchestration via Docker Compose
-
 ---
+## 🖥️ Exemple de client WPF (.NET 8) – Intégration SignalR
 
-#### Méthodes disponibles pour la communication à temps réel via SignalR
+### MessageService - Communication temp réel via SignalR
+
+#### Fontionnalités SignalR
 
 | Méthode SignalR             | Description                                                                 |
 |-----------------------------|-----------------------------------------------------------------------------|
@@ -155,14 +157,24 @@ Le gateway redirige vers les microservices locaux selon les routes définies ci-
 
 ---
 
-### 🖥️ Exemple de client WPF (.NET 8) – Intégration SignalR
+### NotificationService – Communication temps réel via SignalR
 
-#### Installation du package NuGet
-```bash
-dotnet add package Microsoft.AspNetCore.SignalR.Client
-```
+Le service `NotificationService` utilise un hub SignalR nommé `NotificationHubs` pour gérer les notifications en temps réel destinées aux utilisateurs.
+
+### Fonctionnalités SignalR exposées
+
+| Fonctionnalité                         | Description                                                  |
+|--------------------------------------|--------------------------------------------------------------|
+| Envoi de notification privée         | Le serveur pousse une notification à un utilisateur spécifique via `Clients.User(userId)` avec l’événement `"ReceiveNotification"` |
+
+### Exemple d’utilisation backend
+
+Le service `NotificationManagerService` gère les notifications en base et envoie en temps réel :
+Lorsqu’une notification est ajoutée (`AddNotification`), le serveur persiste la notification puis émet un message SignalR ciblé à l’utilisateur.
 
 ### ⚙️ Exemple pratique d’utilisation côté client en C# (WPF .NET 8)
+
+#### 1. MessageService Hub
 
 ```csharp
 using Microsoft.AspNetCore.SignalR.Client;
@@ -174,7 +186,7 @@ public class RealtimeMessagingClient
     public async Task InitAsync()
     {
         _connection = new HubConnectionBuilder()
-            .WithUrl("http://localhost:5003/chathub")
+            .WithUrl("http://IP_ADDRESS:PORT/chathub")
             .WithAutomaticReconnect()
             .Build();
 
@@ -218,6 +230,32 @@ public class RealtimeMessagingClient
 }
 ```
 
+#### 2. NotificationService Hub
+
+```csharp
+using Microsoft.AspNetCore.SignalR.Client;
+
+public class NotificationClient
+{
+    private HubConnection _connection;
+
+    public async Task InitAsync()
+    {
+        _connection = new HubConnectionBuilder()
+            .WithUrl("http://IP_ADDRESS:PORT/notificationhub")
+            .WithAutomaticReconnect()
+            .Build();
+
+        _connection.On<Notification>("ReceiveNotification", notification =>
+        {
+            // Gérer l'affichage de la notification dans l'UI
+            Console.WriteLine($"Notification reçue : {notification.Message}");
+        });
+
+        await _connection.StartAsync();
+    }
+}
+```
 
 ## 📦 Démarrage local
 
