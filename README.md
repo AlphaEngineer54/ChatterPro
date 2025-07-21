@@ -39,6 +39,16 @@ Application de messagerie quasi temps réel avec conteneurisation complète et s
 
 ---
 
+## 🗃️ Modèle de Données (Backend .NET)
+
+La capture suivante présente la structure conceptuelle du modèle de données, utilisée principalement par les services `UserService`, `MessageService` et `NotificationService`.
+
+![Modèle de données](https://github.com/AlphaEngineer54/messaging-app/blob/main/entites_model.png)
+
+> *Le modèle est représenté sous forme d'un diagramme de classes ou d'entités-relation (selon l’outil utilisé), illustrant les relations clés entre les entités : Utilisateur, Message, Conversation, Notification, etc.*
+
+---
+
 # 🌐 API Gateway – Documentation des Routes
 
 Toutes les requêtes frontend doivent transiter par l’API Gateway (`http://localhost:5000`).  
