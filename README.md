@@ -141,6 +141,84 @@ Le gateway redirige vers les microservices locaux selon les routes définies ci-
 
 ---
 
+#### Méthodes disponibles pour la communication à temps réel via SignalR
+
+| Méthode SignalR             | Description                                                                 |
+|-----------------------------|-----------------------------------------------------------------------------|
+| `SendMessage(dto)`          | Envoie un message à **tous les clients connectés**.                         |
+| `SendMessageToUser(dto)`    | Envoie un message à **un utilisateur spécifique** (`ReceiverId`).           |
+| `SendMessageToGroup(dto)`   | Diffuse un message à tous les **membres d’une conversation** (`ConversationId`). |
+| `JoinGroup(dto)`            | Ajoute un utilisateur à un **groupe SignalR** représentant une conversation. |
+
+> ⚠️ Les objets `NewMessageDTO` et `JoinConversationDTO` sont validés côté serveur.  
+> En cas d’erreur, un événement `"ValidationError"` est émis vers le client appelant.
+
+---
+
+### 🖥️ Exemple de client WPF (.NET 8) – Intégration SignalR
+
+#### Installation du package NuGet
+```bash
+dotnet add package Microsoft.AspNetCore.SignalR.Client
+```
+
+### ⚙️ Exemple pratique d’utilisation côté client en C# (WPF .NET 8)
+
+```csharp
+using Microsoft.AspNetCore.SignalR.Client;
+
+public class RealtimeMessagingClient
+{
+    private HubConnection _connection;
+
+    public async Task InitAsync()
+    {
+        _connection = new HubConnectionBuilder()
+            .WithUrl("http://localhost:5003/chathub")
+            .WithAutomaticReconnect()
+            .Build();
+
+        _connection.On<object>("ReceiveMessage", message =>
+        {
+            // Mise à jour de l'UI WPF
+            Console.WriteLine("Message reçu : " + message);
+        });
+
+        _connection.On<List<string>>("ValidationError", errors =>
+        {
+            foreach (var err in errors)
+                Console.WriteLine("Erreur : " + err);
+        });
+
+        await _connection.StartAsync();
+    }
+
+    public async Task SendMessageToGroup()
+    {
+        var messageDto = new
+        {
+            SenderId = 1,
+            ReceiverId = 2,
+            ConversationId = 10,
+            Content = "Bonjour en temps réel",
+            Status = "Sent"
+        };
+        await _connection.InvokeAsync("SendMessageToGroup", messageDto);
+    }
+
+    public async Task JoinGroup()
+    {
+        var joinDto = new
+        {
+            UserId = 1,
+            ConversationId = 10
+        };
+        await _connection.InvokeAsync("JoinGroup", joinDto);
+    }
+}
+```
+
+
 ## 📦 Démarrage local
 
 ### Prérequis
