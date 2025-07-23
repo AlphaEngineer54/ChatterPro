@@ -16,6 +16,7 @@ namespace AuthService.Services
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
+            _logger.LogInformation("Listening RabbitMQ events...");
 
             try
             {
