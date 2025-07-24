@@ -39,7 +39,7 @@ namespace AuthService.Controllers
                     return Ok(new
                     {
                         User = new { loginUser.Id, loginUser.Email },
-                        JWTToken = this._jwtService.GenerateJWTToken(user)
+                        JWTToken = this._jwtService.GenerateJWTToken(loginUser)
                     });
                 }
                 catch(InvalidCredentialException ex)
@@ -82,7 +82,7 @@ namespace AuthService.Controllers
                         return CreatedAtAction(nameof(CreateUser), new
                         {
                             User = new { createdUser.Id, createdUser.Email },
-                            JWTToken = _jwtService.GenerateJWTToken(user)
+                            JWTToken = _jwtService.GenerateJWTToken(createdUser)
                         });
                     }
                 }

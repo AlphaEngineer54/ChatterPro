@@ -32,9 +32,7 @@ if (app.Environment.IsDevelopment())
 
 // Configuration du pipeline des requêtes HTTP
 app.UseHttpsRedirection();
-
+app.UseRouting();
 app.UseAuthorization();
-
 app.MapControllers();
-
 app.Run();

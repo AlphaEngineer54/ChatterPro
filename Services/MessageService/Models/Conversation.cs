@@ -10,6 +10,8 @@ public partial class Conversation
     public string Title { get; set; } = null!;
 
     public DateTime Date { get; set; }
+    
+    public int OwnerId { get; set; }
 
     public virtual ICollection<Message> Messages { get; set; } = new List<Message>();
 

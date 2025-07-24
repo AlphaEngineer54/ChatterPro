@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace MessageService.Models;
 
@@ -38,6 +36,9 @@ public partial class MessageDbContext : DbContext
             entity.Property(e => e.Title)
                 .HasMaxLength(255)
                 .HasColumnName("title");
+
+            entity.Property(e => e.OwnerId)
+                  .HasColumnName("owner_id"); 
         });
 
         modelBuilder.Entity<Message>(entity =>

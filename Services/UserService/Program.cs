@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using UserService.Hubs;
 using UserService.Interfaces;
 using UserService.Models;
 using UserService.Services;
@@ -28,6 +29,8 @@ builder.Services.AddSingleton<IConsumer, ConsumerService>();
 // Injecter les services asynchrones
 builder.Services.AddHostedService<ConsumerBackgroundService>();
 
+builder.Services.AddSignalR();
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -41,11 +44,10 @@ if (app.Environment.IsDevelopment())
 }
 
 // Configure the HTTP request pipeline.
-
+app.UseRouting();
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
-
+app.MapHub<UserHub>("/userHub");
 app.MapControllers();
 
 app.Run();

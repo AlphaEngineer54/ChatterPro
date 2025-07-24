@@ -1,0 +1,48 @@
+# Global
+ASPNETCORE_ENVIRONMENT=Production
+MYSQL_ROOT_PASSWORD=admin
+MYSQL_USER=admin
+MYSQL_PASSWORD=admin
+
+# RabbitMQ
+RABBITMQ_DEFAULT_USER=guest
+RABBITMQ_DEFAULT_PASS=guest
+RABBITMQ_PORT=5672
+RABBITMQ_MGMT_PORT=15672
+
+# RabbitMQ (Internal to Microservices)
+RABBIT_MQ_HOST=rabbitmq
+RABBIT_MQ_PORT=5672
+RABBIT_MQ_USER=guest
+RABBIT_MQ_PASSWORD=guest
+
+# Gateway
+GATEWAY_PORT=5000
+
+# JWT
+JWT_SECRET=m8G4vPq7JHtFQ6NmV8Kb3sUyNjKZLX3xWQ7P1Z6yRdM=
+
+# Client URL (non utilisé ici mais utile côté frontend)
+CLIENT_URL=http://localhost:3000
+
+# HTTPS
+HTTPS_PORT=5000
+
+# AuthService
+AUTHSERVICE_PORT=5001
+AUTHSERVICE_DB_CONNECTION=server=auth-db;user=admin;password=admin;database=auth_db
+
+# DataExportService
+DATAEXPORT_PORT=5002
+
+# MessageService
+MESSAGESERVICE_PORT=5003
+MESSAGESERVICE_DB_CONNECTION=server=message-db;user=admin;password=admin;database=message_db
+
+# NotificationService
+NOTIFSERVICE_PORT=5004
+NOTIFICATIONSERVICE_DB_CONNECTION=server=notification-db;user=admin;password=admin;database=notification_db
+
+# UserService
+USERSERVICE_PORT=5005
+USERSERVICE_DB_CONNECTION=server=user-db;user=admin;password=admin;database=user_db

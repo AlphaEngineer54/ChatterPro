@@ -1,6 +1,8 @@
 ﻿using UserService.Interfaces;
 using UserService.Events;
 using UserService.Models;
+using Microsoft.AspNetCore.SignalR;
+using UserService.Hubs;
 
 namespace UserService.Services
 {
@@ -9,11 +11,15 @@ namespace UserService.Services
     {
         private readonly AccountService _userService;
         private readonly ILogger<MultiEventHandler> _logger;
+        private readonly IHubContext<UserHub> _hubs;
 
-        public MultiEventHandler(AccountService userService, ILogger<MultiEventHandler> logger)
+        public MultiEventHandler(AccountService userService, 
+                                 ILogger<MultiEventHandler> logger,
+                                 IHubContext<UserHub> hubs)
         {
             this._userService = userService;
             this._logger = logger;
+            this._hubs = hubs;
         }
 
         public async Task HandleEventAsync(Event eventMessage)
@@ -34,9 +40,11 @@ namespace UserService.Services
                         await HandleUserCreatedEvent(userCreatedEvent);
                         break;
                     case GetUserIEvent getUserIEvent:
-                        // TODO : Utiliser SignalR pour renvoyer les données au client
                         var users = await GetUsers(getUserIEvent);
-                        this._logger.LogInformation($"Users found : {users.Count}");  
+                        await this._hubs.Clients.User(getUserIEvent.UserId.ToString())
+                                                .SendAsync("ReceiveUsers", users);
+
+                        _logger.LogInformation($"Users for UserId {getUserIEvent.UserId} have been sent successfully.");
                         break;
                     default:
                         _logger.LogWarning($"Unhandled event type: {eventMessage.GetType()}");
@@ -46,6 +54,10 @@ namespace UserService.Services
             catch (Exception ex)
             {
                 _logger.LogError($"An error occurred while handling the event: {ex.Message}");
+            }
+            finally
+            {
+                _logger.LogInformation($"Event {eventMessage} has been processed successfully.");
             }
         }
 

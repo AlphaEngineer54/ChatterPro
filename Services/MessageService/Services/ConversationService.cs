@@ -2,7 +2,6 @@
 using MessageService.Interfaces;
 using MessageService.Models;
 using MessageService.Models.DTO.Conversation;
-using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.EntityFrameworkCore;
 
 namespace MessageService.Services
@@ -73,7 +72,7 @@ namespace MessageService.Services
             var ids = userConversations.Select(uc => uc.UserId).ToArray();
 
             // Envoyer l'event pour fetch les infos des utilisateurs d'une conversation
-            this._producer.Send(new GetUserIEvent() { ids = ids }, "get-user-event");
+            this._producer.Send(new GetUserIEvent() {UserId = conversation.OwnerId, ids = ids }, "get-user-event");
            
             return conversation;
         }

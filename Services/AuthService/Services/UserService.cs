@@ -40,11 +40,33 @@ namespace AuthService.Services
             return user;
         }
 
+        public async Task UpdateUser(User user)
+        {
+            if (await _userRepository.CheckForEmailConflictAsync(user.Email))
+                throw new InvalidCredentialException($"this email '{user.Email}' already exist");
+
+            if (await _userRepository.GetByIdAsync(user.Id) == null)
+                throw new ArgumentNullException($"User with ID {user.Id} not found. Cannot update.");
+
+            await this._userRepository.UpdateAsync(new User
+            {
+                Id = user.Id,
+                Email = user.Email!,
+                Password = _passwordHasher.Hash(user.Password!),
+            });
+        }
+
         public async Task<bool> DeleteUser(User user)
         {
-            if (user == null) return false;
+            if (await _userRepository.GetByIdAsync(user.Id) == null) return false;
             await _userRepository.DeleteAsync(user.Id);
             return true;
         }  
+
+        public async Task<User> GetUserById(int id)
+        {
+            return await _userRepository.GetByIdAsync(id)
+                   ?? throw new ArgumentNullException($"User with ID {id} not found.");
+        }
     }
 }

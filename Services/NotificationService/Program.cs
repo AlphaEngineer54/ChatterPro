@@ -29,12 +29,6 @@ builder.Services.AddSwaggerGen();
 // Build
 var app = builder.Build();
 
-// Pipeline
-app.UseHttpsRedirection();
-app.UseAuthorization();
-app.MapControllers();
-app.MapHub<NotificationHubs>("/notifications");
-
 // Activer Swagger en mode développement
 if (app.Environment.IsDevelopment())
 {
@@ -42,4 +36,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseHttpsRedirection();
+app.UseRouting();
+app.UseAuthorization();
+app.MapControllers();
+app.MapHub<NotificationHubs>("/notifications");
+
 app.Run();
+

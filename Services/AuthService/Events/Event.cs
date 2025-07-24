@@ -7,7 +7,7 @@
 
         public override string ToString()
         {
-            return $"{GetType().Name} - {OccurredOn} - {EventId}";
+            return $"[{GetType().Name} - {OccurredOn} - {EventId}]";
         }
     }
 }

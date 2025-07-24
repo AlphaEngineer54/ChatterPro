@@ -5,6 +5,7 @@ USE message_db;
 CREATE TABLE Conversation (
     id INT NOT NULL AUTO_INCREMENT,
     date DATE,
+    owner_id INT,
     title VARCHAR(255),
     PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

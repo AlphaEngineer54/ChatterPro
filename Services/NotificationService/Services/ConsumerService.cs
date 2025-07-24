@@ -84,7 +84,7 @@ namespace NotificationService.Services
                     var notification = new Notification
                     {
                         UserId = message.ReceiverId,
-                        Message = $"user-{message.SenderId}: {message.Message}",
+                        Message = $"User-{message.SenderId}: {message.Message}",
                         CreatedAt = DateTime.Now,
                     };
 
@@ -102,6 +102,7 @@ namespace NotificationService.Services
                 finally
                 {
                     scope?.Dispose();
+                    _logger.LogInformation("Event was sucessfully processed");
                 }
             };
 

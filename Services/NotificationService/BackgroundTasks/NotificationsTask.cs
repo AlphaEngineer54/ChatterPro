@@ -19,7 +19,7 @@ namespace NotificationService.BackgroundTasks
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            _logger.LogInformation("Consumer listening event...");
+            _logger.LogInformation("Consumer listening RabbitMQ events...");
 
             try
             {

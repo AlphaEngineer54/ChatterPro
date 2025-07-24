@@ -1,18 +1,17 @@
 ﻿using AuthService.Events;
 using AuthService.Interfaces;
 using AuthService.Models;
-using Microsoft.EntityFrameworkCore;
 
 namespace AuthService.Services
 {
     public class EventHandlerService : IEventHandler
     {
-        private readonly AuthDbContext _context;
+        private readonly UserService _userService;
         private readonly ILogger<EventHandlerService> _logger;
 
-        public EventHandlerService(AuthDbContext context, ILogger<EventHandlerService> logger)
+        public EventHandlerService(UserService userService, ILogger<EventHandlerService> logger)
         {
-            this._context = context;
+            this._userService = userService;
             this._logger = logger;
         }
 
@@ -45,31 +44,29 @@ namespace AuthService.Services
             {
                 _logger.LogError($"An error occurred while handling the event: {ex.Message}");
             }
+            finally
+            {
+                _logger.LogInformation($"Event {eventMessage} has been processed successfully.");
+            }
         }
 
 
         public async Task DeleteUser(int id)
         {
-             var foundUser = await this._context.Users.FirstOrDefaultAsync(x => x.Id == id);
-
-             if (foundUser == null) { throw new ArgumentException($"Unable to delete the user with ID {id}"); }
-
-            this._context.Users.Remove(foundUser);
-            await this._context.SaveChangesAsync();
+            var user = await this._userService.GetUserById(id);
+            await this._userService.DeleteUser(user);
 
             this._logger.LogInformation($"User-{id} has been removed successfully from Auth-Database!");
         }
 
         public async Task UpdateUser(UserUpdatedEvent user)
         {
-            var foundUser = await this._context.Users.FirstOrDefaultAsync(x => x.Id == user.Id);
-
-            if (foundUser == null) { throw new ArgumentException("Updated-User-Event is null!"); };
-
-            foundUser.Email = user.Email;
-            foundUser.Password = user.Password;
-
-            await this._context.SaveChangesAsync();
+            await this._userService.UpdateUser(new User
+            {
+                Id = user.Id,
+                Email = user.Email,
+                Password = user.Password
+            });
 
             this._logger.LogInformation($"User-{user.Id} has been updated successfully!");
         }
