@@ -43,7 +43,7 @@ Application de messagerie quasi temps réel avec conteneurisation complète et s
 
 La capture suivante présente la structure conceptuelle du modèle de données, utilisée principalement par les services `UserService`, `MessageService` et `NotificationService`.
 
-![Modèle de données](https://github.com/AlphaEngineer54/messaging-app/blob/main/entites_model.png)
+![Modèle de données](https://github.com/AlphaEngineer54/messaging-app/blob/main/entities_model.png)
 
 > *Le modèle est représenté sous forme d'un diagramme de classes ou d'entités-relation (selon l’outil utilisé), illustrant les relations clés entre les entités : Utilisateur, Message, Conversation, Notification, etc.*
 
