@@ -167,10 +167,15 @@ Le service `NotificationService` utilise un hub SignalR nommé `NotificationHubs
 |--------------------------------------|--------------------------------------------------------------|
 | Envoi de notification privée         | Le serveur pousse une notification à un utilisateur spécifique via `Clients.User(userId)` avec l’événement `"ReceiveNotification"` |
 
-### Exemple d’utilisation backend
+### UserService - Coommunication temps réel via SignalR
 
-Le service `NotificationManagerService` gère les notifications en base et envoie en temps réel :
-Lorsqu’une notification est ajoutée (`AddNotification`), le serveur persiste la notification puis émet un message SignalR ciblé à l’utilisateur.
+Le composant `MultiEventHandler` intègre **SignalR** afin d’émettre des messages temps réel à des clients spécifiques lorsque des événements sont traités dans le système.
+
+### 📌 Scénarios gérés via `HandleEventAsync`
+
+| Type d'événement              | Action réalisée                                                            | Notification envoyée                     |
+|------------------------------|----------------------------------------------------------------------------|-------------------------------------------|
+| `GetUserIEvent`              | Récupération des profils utilisateurs à partir d’une liste d’IDs          | `Clients.User(userId).SendAsync("ReceiveUsers", users)` |
 
 ### ⚙️ Exemple pratique d’utilisation côté client en C# (WPF .NET 8)
 
@@ -253,6 +258,88 @@ public class NotificationClient
         });
 
         await _connection.StartAsync();
+    }
+}
+```
+#### 3. UserSercice Hub
+
+```csharp
+// MainWindow.xaml.cs
+using Microsoft.AspNetCore.SignalR.Client;
+using System.Collections.ObjectModel;
+using System.Text.Json;
+using System.Windows;
+
+namespace WpfSignalRClient
+{
+    public partial class MainWindow : Window
+    {
+        private readonly HubConnection _hubConnection;
+        public ObservableCollection<User> Users { get; set; } = new();
+
+        public MainWindow()
+        {
+            InitializeComponent();
+            DataContext = this;
+
+            _hubConnection = new HubConnectionBuilder()
+                .WithUrl("http://localhost:5000/userHub") // Adaptez selon le port de votre backend
+                .WithAutomaticReconnect()
+                .Build();
+
+            RegisterSignalRHandlers();
+            ConnectToSignalR();
+        }
+
+        private void RegisterSignalRHandlers()
+        {
+            _hubConnection.On<List<User>>("ReceiveUsers", users =>
+            {
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    Users.Clear();
+                    foreach (var user in users)
+                        Users.Add(user);
+                });
+            });
+        }
+
+        private async void ConnectToSignalR()
+        {
+            try
+            {
+                await _hubConnection.StartAsync();
+                StatusLabel.Content = "Connecté à SignalR";
+            }
+            catch (Exception ex)
+            {
+                StatusLabel.Content = $"Erreur de connexion : {ex.Message}";
+            }
+        }
+
+        private async void GetUsersButton_Click(object sender, RoutedEventArgs e)
+        {
+            var httpClient = new HttpClient();
+            var request = new
+            {
+                UserId = 42, // ID du client courant (doit correspondre à l'identité SignalR côté serveur)
+                ids = new[] { 1, 2, 3 } // Liste des IDs à récupérer
+            };
+
+            var content = new StringContent(JsonSerializer.Serialize(request), System.Text.Encoding.UTF8, "application/json");
+
+            var response = await httpClient.PostAsync("http://localhost:5000/api/events/dispatch", content);
+            if (response.IsSuccessStatusCode)
+                StatusLabel.Content = "Requête GetUserIEvent envoyée";
+            else
+                StatusLabel.Content = "Erreur lors de l'envoi";
+        }
+    }
+
+    public class UserConversationInfo
+    {
+        public int Id { get; set; }
+        public string? UserName { get; set; }
     }
 }
 ```
