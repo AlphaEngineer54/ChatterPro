@@ -357,6 +357,11 @@ namespace WpfSignalRClient
 ```bash
 git clone https://github.com/AlphaEngineer54/messaging-app.git
 cd distributed-messaging-app
+
 docker-compose up -d --build
+```
+
+# Frontend 
+Le code source du frontend est disponible ici : [messaging-frontend](https://github.com/Lachesis-Q/messaging-frontend)
 
 
