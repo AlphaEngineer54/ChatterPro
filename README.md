@@ -70,6 +70,8 @@ Le gateway redirige vers les microservices locaux selon les routes définies ci-
 |-------------------------|-------------------------|--------------------------------|--------------------------|
 | GET, POST, DELETE, PUT  | `/user/{everything}`    | `http://localhost:5002/api/user/{everything}` | Oui (Bearer JWT)          |
 
+> **Communication en temps réel via WebSocket avec SignalR disponible sur ce service.**
+
 ---
 
 ## MessageService
