@@ -149,10 +149,10 @@ Le gateway redirige vers les microservices locaux selon les routes définies ci-
 
 | Méthode SignalR             | Description                                                                 |
 |-----------------------------|-----------------------------------------------------------------------------|
-| `SendMessage(dto)`          | Envoie un message à **tous les clients connectés**.                         |
+| `SendMessage(dto)`          | Envoie un message à **tous les clients connectés**.                      |
 | `SendMessageToUser(dto)`    | Envoie un message à **un utilisateur spécifique** (`ReceiverId`).           |
 | `SendMessageToGroup(dto)`   | Diffuse un message à tous les **membres d’une conversation** (`ConversationId`). |
-| `JoinGroup(dto)`            | Ajoute un utilisateur à un **groupe SignalR** représentant une conversation. |
+| `JoinGroup(dto)`            | Ajoute un utilisateur à un **groupe SignalR** représentant une conversation. Utiliser le **JoinConversationDTO.JoinCode** pour rejoindre une conversation  |
 
 > ⚠️ Les objets `NewMessageDTO` et `JoinConversationDTO` sont validés côté serveur.  
 > En cas d’erreur, un événement `"ValidationError"` est émis vers le client appelant.
