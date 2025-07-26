@@ -1,5 +1,4 @@
 using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
 using MessageService.Models;
 using MessageService.Services;
 using MessageService.Interfaces;
@@ -20,6 +19,7 @@ builder.Services.AddSingleton<RabbitMQConnection>();
 builder.Services.AddScoped<IProducer, ProducerService>();
 builder.Services.AddScoped<MsgService>();
 builder.Services.AddScoped<ConversationService>();
+builder.Services.AddScoped<IGenerator<string>, JoinCodeConversationService>();
 
 // Ajouter les services pour Swagger UI
 builder.Services.AddSwaggerGen();
@@ -43,8 +43,8 @@ if (app.Environment.IsDevelopment())
     });
 }
 
-app.UseHttpsRedirection();
 app.UseRouting();
+app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
 

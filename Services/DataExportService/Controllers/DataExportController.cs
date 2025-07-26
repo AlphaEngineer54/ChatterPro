@@ -1,8 +1,6 @@
 ﻿using DataExportService.Models;
 using DataExportService.Services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics.Eventing.Reader;
 
 namespace DataExportService.Controllers
 {

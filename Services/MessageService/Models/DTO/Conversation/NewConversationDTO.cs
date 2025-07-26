@@ -9,10 +9,6 @@ namespace MessageService.Models.DTO.Conversation
         public string? Title { get; set; }
 
         [Required]
-        [DataType(DataType.Date)]
-        public DateTime? Date { get; set; }
-
-        [Required]
         public int UserId { get; set; }
     }
 }

@@ -18,7 +18,7 @@ namespace MessageService.Services
         }
 
         // CREATE: Ajouter une nouvelle conversation
-        public async Task<Conversation> CreateConversationAsync(int userId, Conversation newConversation)
+        public async Task<Conversation> CreateConversationAsync(Conversation newConversation)
         {
             _context.Conversations.Add(newConversation);
             await _context.SaveChangesAsync();
@@ -26,7 +26,7 @@ namespace MessageService.Services
            var userConversationJoin = new UserConversation()
            {
               ConversationId = newConversation.Id,
-              UserId = userId
+              UserId = newConversation.OwnerId
            };
 
             // Ajouter un enregistrement à la table de jointure (MANY-TO-MANY)
@@ -42,7 +42,7 @@ namespace MessageService.Services
             return await _context.Conversations.ToListAsync();
         }
 
-        // READ: Récupérer toutes les conversations
+        // READ: Récupérer toutes les conversations d'un utilisateur par son identifiant
         public async Task<IEnumerable<Conversation>> GetAllConversationsByUserId(int userId)
         {
             var conversationIds = await _context.UserConversations
@@ -77,6 +77,35 @@ namespace MessageService.Services
             return conversation;
         }
 
+        // UPDATE : Add new user in the conversation via joinCode
+        public async Task<Conversation?> AddUserToConversationAsync(string joinCode, int userId)
+        {
+            var conversation = await _context.Conversations
+                .Include(c => c.Users) // Inclure les relations pour éviter les problèmes d'accès
+                .FirstOrDefaultAsync(c => c.JoinCode == joinCode);
+
+            if (conversation == null)
+            {
+                // Retourner null ou lever une exception pour mieux gérer l'absence
+                return null;
+            }
+
+            // Vérifier si l'utilisateur n'est pas déjà dans la conversation
+            if (conversation.Users.Any(uc => uc.UserId == userId))
+            {
+                return conversation; // L'utilisateur est déjà dans la conversation
+            }
+
+            var userConversationJoin = new UserConversation()
+            {
+                ConversationId = conversation.Id,
+                UserId = userId,
+            };
+
+            this._context.UserConversations.Add(userConversationJoin);
+            await _context.SaveChangesAsync();
+            return conversation;
+        }
 
         // UPDATE: Modifier une conversation existante
         public async Task<Conversation?> UpdateConversationAsync(int conversationId, UpdatedConversationDTO updatedConversation)

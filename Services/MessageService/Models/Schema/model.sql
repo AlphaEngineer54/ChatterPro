@@ -5,6 +5,7 @@ USE message_db;
 CREATE TABLE Conversation (
     id INT NOT NULL AUTO_INCREMENT,
     date DATE,
+    join_code VARCHAR(40) NOT NULL,
     owner_id INT,
     title VARCHAR(255),
     PRIMARY KEY (id)

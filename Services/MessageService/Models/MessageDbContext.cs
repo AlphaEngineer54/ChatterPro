@@ -36,7 +36,9 @@ public partial class MessageDbContext : DbContext
             entity.Property(e => e.Title)
                 .HasMaxLength(255)
                 .HasColumnName("title");
-
+            entity.Property(e => e.JoinCode)
+                .HasMaxLength(100)
+                .HasColumnName("join_code");
             entity.Property(e => e.OwnerId)
                   .HasColumnName("owner_id"); 
         });

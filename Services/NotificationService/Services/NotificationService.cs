@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.SignalR;
+﻿using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using NotificationService.Hubs;
 using NotificationService.Models;
@@ -106,7 +104,7 @@ namespace NotificationService.Services
         public async Task DeleteAllNotifications(int userId)
         {
             // Delete all notifications for the user
-            var notifications = await  _context.Notifications
+            var notifications = await _context.Notifications
                 .Where(n => n.UserId == userId)
                 .ToListAsync();
 

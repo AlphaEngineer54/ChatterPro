@@ -5,7 +5,6 @@ using MessageService.Services;
 using Microsoft.AspNetCore.SignalR;
 using System.ComponentModel.DataAnnotations;
 
-using System.ComponentModel.DataAnnotations;
 
 namespace MessageService.Hubs
 {
@@ -53,17 +52,15 @@ namespace MessageService.Hubs
         {
             if (await ValidateAndRejectIfInvalid(newUser)) return;
 
-            var existingConversation = await _conversationService.GetConversationByIdAsync(newUser.ConversationId);
-            if (existingConversation == null) return;
-
-            existingConversation.Users.Add(new UserConversation
+            var conversation = await _conversationService.AddUserToConversationAsync(newUser.JoinCode, newUser.UserId);
+            if (conversation == null)
             {
-                UserId = newUser.UserId,
-                ConversationId = newUser.ConversationId
-            });
+                await Clients.Caller.SendAsync("Error", "Failed to join conversation. Invalid JoinCode or UserId.");
+                return;
+            }                                       
 
-            await _conversationService.UpdateConversationWithoutDTOAsync(existingConversation);
-            await Groups.AddToGroupAsync(Context.ConnectionId, newUser.ConversationId.ToString());
+            await Groups.AddToGroupAsync(Context.ConnectionId, conversation.Id.ToString());
+            await Clients.Caller.SendAsync("JoinedGroup", conversation);
         }
 
         /// <summary>
@@ -109,7 +106,7 @@ namespace MessageService.Hubs
         /// <summary>
         /// Convert and persist a DTO as a Message entity in the database.
         /// </summary>
-        private async Task<Message> CreateAndPersistMessageAsync(NewMessageDTO dto)
+        private async Task<MessageResponseDTO> CreateAndPersistMessageAsync(NewMessageDTO dto)
         {
             var message = new Message
             {
@@ -121,7 +118,18 @@ namespace MessageService.Hubs
                 Status = dto.Status
             };
 
-            return await _messageService.CreateMessageAsync(message);
+            var createdMessage = await _messageService.CreateMessageAsync(message);
+
+            return new MessageResponseDTO
+            {
+                Id = createdMessage.Id,
+                Content = createdMessage.Content,
+                Date = createdMessage.Date,
+                SenderId = createdMessage.SenderId,
+                ReceiverId = createdMessage.ReceiverId,
+                Status = createdMessage.Status
+            };
         }
+
     }
 }

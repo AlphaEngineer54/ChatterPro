@@ -16,99 +16,100 @@ namespace MessageService.Controllers
             _messageService = messageService;
         }
 
-        // CREATE: Ajouter un nouveau message
+        // ✨ Méthode de mapping DTO
+        private MessageResponseDTO MapToDTO(Message message)
+        {
+            return new MessageResponseDTO
+            {
+                Id = message.Id,
+                Content = message.Content,
+                Date = message.Date,
+                SenderId = message.SenderId,
+                ReceiverId = message.ReceiverId,
+                Status = message.Status
+            };
+        }
+
+        // CREATE
         [HttpPost]
         public async Task<IActionResult> CreateMessage([FromBody] NewMessageDTO newMessage)
         {
             if (!ModelState.IsValid)
-            {
                 return BadRequest(ModelState);
-            }
 
-            var message = new Message()
+            var message = new Message
             {
                 Content = newMessage.Content,
                 ReceiverId = newMessage.ReceiverId,
                 SenderId = newMessage.SenderId,
-                ConversationId = newMessage.ConversationId, 
+                ConversationId = newMessage.ConversationId,
                 Date = DateTime.Now,
-                Status = newMessage.Status,
+                Status = newMessage.Status
             };
 
             var createdMessage = await _messageService.CreateMessageAsync(message);
+            var responseDTO = MapToDTO(createdMessage);
 
-            return CreatedAtAction(nameof(GetMessageById), new { messageId = createdMessage.Id }, createdMessage);
+            return CreatedAtAction(nameof(GetMessageById), new { messageId = responseDTO.Id }, responseDTO);
         }
 
-        // READ: Récupérer tous les messages
+        // READ: tous les messages
         [HttpGet]
         public async Task<IActionResult> GetAllMessages()
         {
             var messages = await _messageService.GetAllMessagesAsync();
-
             if (messages == null || !messages.Any())
-            {
                 return NotFound(new { Message = "No messages found" });
-            }
 
-            return Ok(messages);
+            var response = messages.Select(MapToDTO).ToList();
+            return Ok(response);
         }
 
-        // READ: Récupérer un message par son identifiant
+        // READ: message par ID
         [HttpGet("{messageId}")]
         public async Task<IActionResult> GetMessageById(int messageId)
         {
             var message = await _messageService.GetMessageByIdAsync(messageId);
-
             if (message == null)
-            {
                 return NotFound(new { Message = "Message not found" });
-            }
 
-            return Ok(message);
+            var responseDTO = MapToDTO(message);
+            return Ok(responseDTO);
         }
 
-        // UPDATE: Modifier un message existant
+        // UPDATE
         [HttpPut("{messageId}")]
         public async Task<IActionResult> UpdateMessage(int messageId, [FromBody] UpdatedMessageDTO updatedMessage)
         {
             if (!ModelState.IsValid)
-            {
                 return BadRequest(ModelState);
-            }
 
-            var message = new Message()
+            var messageToUpdate = new Message
             {
                 Id = messageId,
                 Content = updatedMessage.Content,
                 SenderId = updatedMessage.SenderId,
                 ConversationId = updatedMessage.ConversationId,
                 Status = updatedMessage.Status,
+                Date = DateTime.Now
             };
 
-            var updatedMessageDB = await _messageService.UpdateMessageAsync(messageId, message);
-
+            var updatedMessageDB = await _messageService.UpdateMessageAsync(messageId, messageToUpdate);
             if (updatedMessageDB == null)
-            {
                 return NotFound(new { Message = "Message not found" });
-            }
 
-            return Ok(message);
+            var responseDTO = MapToDTO(updatedMessageDB);
+            return Ok(responseDTO);
         }
 
-        // DELETE: Supprimer un message
+        // DELETE
         [HttpDelete("{messageId}")]
         public async Task<IActionResult> DeleteMessage(int messageId)
         {
             var isDeleted = await _messageService.DeleteMessageAsync(messageId);
-
-            if (!isDeleted)
-            {
-                return NotFound(new { Message = "Message not found" });
-            }
-
-            return NoContent(); // 204 No Content - Suppression réussie
+            return isDeleted
+                ? NoContent()
+                : NotFound(new { Message = "Message not found" });
         }
     }
-
 }
