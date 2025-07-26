@@ -30,7 +30,7 @@ namespace MessageService.Controllers
             {
                 Title = dto.Title ?? "unknown",
                 Date = DateTime.Now,
-                JoinCode = _generator.Generate(40),
+                JoinCode = _generator.Generate(length: 40),
                 OwnerId = dto.UserId
             };
 
@@ -41,9 +41,9 @@ namespace MessageService.Controllers
         }
 
         [HttpGet("by-user-id/{userId}")]
-        public async Task<IActionResult> GetAllConversationsByUserId(int userId)
+        public async Task<IActionResult> GetAllConversationsByUserId(int userId, [FromQuery] int limit)
         {
-            var conversations = await _conversationService.GetAllConversationsByUserId(userId);
+            var conversations = await _conversationService.GetAllConversationsByUserId(userId, limit);
             if (conversations == null || !conversations.Any())
                 return NotFound(new { Message = "No conversations found for this user" });
 
@@ -52,9 +52,9 @@ namespace MessageService.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllConversations()
+        public async Task<IActionResult> GetAllConversations([FromQuery] int limit)
         {
-            var conversations = await _conversationService.GetAllConversationsAsync();
+            var conversations = await _conversationService.GetAllConversationsAsync(limit);
             if (conversations == null || !conversations.Any())
                 return NotFound(new { Message = "No conversations found" });
 
@@ -63,9 +63,9 @@ namespace MessageService.Controllers
         }
 
         [HttpGet("{conversationId}")]
-        public async Task<IActionResult> GetConversationById(int conversationId)
+        public async Task<IActionResult> GetConversationById(int conversationId, [FromQuery] int limit)
         {
-            var conversation = await _conversationService.GetConversationByIdAsync(conversationId);
+            var conversation = await _conversationService.GetConversationByIdAsync(conversationId, limit);
             if (conversation == null)
                 return NotFound(new { Message = "Conversation not found" });
 

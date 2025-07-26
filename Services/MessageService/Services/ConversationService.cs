@@ -23,6 +23,7 @@ namespace MessageService.Services
             _context.Conversations.Add(newConversation);
             await _context.SaveChangesAsync();
 
+           // Add the owner to the conversation
            var userConversationJoin = new UserConversation()
            {
               ConversationId = newConversation.Id,
@@ -31,19 +32,21 @@ namespace MessageService.Services
 
             // Ajouter un enregistrement à la table de jointure (MANY-TO-MANY)
              _context.UserConversations.Add(userConversationJoin);
-
             await _context.SaveChangesAsync();
+
             return newConversation;
         }
 
         // READ: Récupérer toutes les conversations
-        public async Task<IEnumerable<Conversation>> GetAllConversationsAsync()
+        public async Task<IEnumerable<Conversation>> GetAllConversationsAsync(int limit=50)
         {
-            return await _context.Conversations.ToListAsync();
+            return await _context.Conversations
+                                 .Take(limit)
+                                 .ToListAsync();
         }
 
         // READ: Récupérer toutes les conversations d'un utilisateur par son identifiant
-        public async Task<IEnumerable<Conversation>> GetAllConversationsByUserId(int userId)
+        public async Task<IEnumerable<Conversation>> GetAllConversationsByUserId(int userId, int limit=50)
         {
             var conversationIds = await _context.UserConversations
                                                 .Where(uc => uc.UserId == userId)
@@ -52,6 +55,7 @@ namespace MessageService.Services
 
             var conversations = await _context.Conversations
                                               .Where(c => conversationIds.Contains(c.Id))
+                                              .Take(limit)
                                               .ToListAsync();
 
             return conversations;
@@ -59,22 +63,36 @@ namespace MessageService.Services
 
 
         // READ: Récupérer une conversation par son identifiant
-        public async Task<Conversation> GetConversationByIdAsync(int conversationId)
+        public async Task<Conversation> GetConversationByIdAsync(int conversationId, int limit=50)
         {
-            var conversation = await _context.Conversations
-                .Include(c => c.Messages)
-                .FirstOrDefaultAsync(c => c.Id == conversationId);
+            var conversations = await _context.Conversations
+                                     .Where(c => c.Id == conversationId)
+                                     .Select(c => new Conversation
+                                     {
+                                         Id = c.Id,
+                                         Title = c.Title,
+                                         JoinCode = c.JoinCode,
+                                         OwnerId = c.OwnerId,
+                                         Messages = c.Messages
+                                          .OrderByDescending(m => m.Date)
+                                          .Take(limit)
+                                          .OrderBy(m => m.Date)
+                                          .ToList() ?? new List<Message>(),
+                                     })
+                                     .FirstOrDefaultAsync();
 
-           var userConversations = await this._context.UserConversations
+            if (conversations == null) return null;
+
+            var userConversations = await this._context.UserConversations
                                         .Where(uc => uc.ConversationId == conversationId)
                                         .ToListAsync();
 
             var ids = userConversations.Select(uc => uc.UserId).ToArray();
 
             // Envoyer l'event pour fetch les infos des utilisateurs d'une conversation
-            this._producer.Send(new GetUserIEvent() {UserId = conversation.OwnerId, ids = ids }, "get-user-event");
+            this._producer.Send(new GetUserIEvent() {UserId = conversations.OwnerId, ids = ids }, "get-user-event");
            
-            return conversation;
+            return conversations;
         }
 
         // UPDATE : Add new user in the conversation via joinCode
