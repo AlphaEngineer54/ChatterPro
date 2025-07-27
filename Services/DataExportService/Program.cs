@@ -5,13 +5,23 @@ var builder = WebApplication.CreateBuilder(args);
 // Ajouter les services dans le conteneur
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(options => {
-    options.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
+builder.Services.AddSwaggerGen(options =>
+{
+    options.SwaggerDoc("v1", new()
     {
-        Title = "API Export Service",
+        Title = "DataExport API",
         Version = "v1",
-        Description = "API pour exporter des données en PDF et CSV"
+        Description = "This API provides endpoints for exporting conversation data in various formats such as CSV, JSON, and PDF. It allows clients to submit conversation data and receive export files accordingly."
     });
+
+
+    // Optional: Enable XML comments if you generate XML documentation from your code
+    var xmlFile = $"{System.Reflection.Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+    if (File.Exists(xmlPath))
+    {
+        options.IncludeXmlComments(xmlPath);
+    }
 });
 
 // Ajouter le service ExportService dans le conteneur de dépendances

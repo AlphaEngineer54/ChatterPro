@@ -17,7 +17,6 @@ namespace MessageService.Services
                 joinCode[i] = (groupIndex == 4)
                                ? '-'
                               : chars[random.Next(chars.Length)];
-
             }
 
             // Remove the last hyphen if it exists

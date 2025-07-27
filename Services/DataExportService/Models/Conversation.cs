@@ -3,6 +3,24 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DataExportService.Models
 {
+    /// <summary>
+    /// This class represents a row in the CSV file for conversations.
+    /// </summary>
+    public class ConversationRowCSV
+    {
+        // Conversation properties
+        public int ConversationId { get; set; }
+        public string ConversationTitle { get; set; } = null!;
+        public DateTime ConversationDate { get; set; }
+
+        // Message properties (nullable pour gérer les lignes "conversation uniquement")
+        public int? MessageId { get; set; }
+        public string? MessageContent { get; set; }
+        public DateTime? MessageDate { get; set; }
+        public int? MessageUserId { get; set; }
+        public string? MessageStatus { get; set; }
+    }
+
     // Modèle de donnée à exporter
     public partial class Conversation
     {
@@ -39,7 +57,6 @@ namespace DataExportService.Models
         public int UserId { get; set; }
 
         [Required]
-        [StringLength(5)]
         [RegularExpression("^(read|sent|delivred)$", ErrorMessage = "Le statut doit être 'read', 'sent' ou 'delivred'.")]
         public string Status { get; set; } = null!;
 

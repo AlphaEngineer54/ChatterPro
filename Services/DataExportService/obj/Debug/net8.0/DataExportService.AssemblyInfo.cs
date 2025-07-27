@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("DataExportService")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bfd7deb6854fb9566d1878c9978a768359400703")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b8cd702f1dd660f1ca902b2eb3d48d7295a9cb0e")]
 [assembly: System.Reflection.AssemblyProductAttribute("DataExportService")]
 [assembly: System.Reflection.AssemblyTitleAttribute("DataExportService")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -30,7 +30,24 @@ builder.Services.AddScoped<ProducerService>();
 builder.Services.AddHostedService<EventCatchingService>();
 
 // Swagger + MVC
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(options =>
+{
+    options.SwaggerDoc("v1", new()
+    {
+        Title = "AuthService API",
+        Version = "v1",
+        Description = "Authentication and user management API providing endpoints for user login, registration, token generation, and related security operations."
+    });
+
+    // Optional: Enable XML comments if you generate XML documentation from your code
+    var xmlFile = $"{System.Reflection.Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+    if (File.Exists(xmlPath))
+    {
+        options.IncludeXmlComments(xmlPath);
+    }
+});
+
 builder.Services.AddControllers();
 
 var app = builder.Build();

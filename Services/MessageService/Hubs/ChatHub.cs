@@ -21,7 +21,7 @@ namespace MessageService.Hubs
             _messageService = messageService;
             _conversationService = conversationService;
         }
-
+        
         /// <summary>
         /// Broadcast a message to all connected clients.
         /// </summary>
@@ -46,7 +46,7 @@ namespace MessageService.Hubs
         }
 
         /// <summary>
-        /// Add a user to a SignalR group representing a conversation.
+        /// Add a new user to a SignalR group representing a conversation.
         /// </summary>
         public async Task JoinGroup(JoinConversationDTO newUser)
         {
@@ -61,6 +61,16 @@ namespace MessageService.Hubs
 
             await Groups.AddToGroupAsync(Context.ConnectionId, conversation.Id.ToString());
             await Clients.Caller.SendAsync("JoinedGroup", conversation);
+        }
+
+        /// <summary>
+        ///  Connect to a conversation group by its ID.
+        /// </summary>
+        public async Task ConnectToGroup(int conversationId)
+        {
+            var conversation = await _conversationService.GetConversationByIdAsync(conversationId, 25);
+            await Groups.AddToGroupAsync(Context.ConnectionId, conversationId.ToString());
+            await Clients.Caller.SendAsync("ConnectedToGroup", conversation);
         }
 
         /// <summary>

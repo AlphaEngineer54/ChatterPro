@@ -24,7 +24,24 @@ builder.Services.AddControllers();
 
 // Swagger
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(options =>
+{
+    options.SwaggerDoc("v1", new()
+    {
+        Title = "NotificationService API",
+        Version = "v1",
+        Description = "API for managing user notifications, including creation, retrieval, updating, and deletion of notifications for application users."
+    });
+
+    // Optional : activer les commentaires XML si disponibles
+    var xmlFile = $"{System.Reflection.Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+    if (File.Exists(xmlPath))
+    {
+        options.IncludeXmlComments(xmlPath);
+    }
+});
+
 
 // Build
 var app = builder.Build();
