@@ -1,6 +1,4 @@
-# 📨 Distributed Messaging App – Microservices Architecture
-
-Une application de messagerie distribuée avec une architecture orientée microservices et une communication asynchrone entre services. Le frontend est développé en WPF (.NET).
+# 💬 ChatterPro – Application de messagerie 
 
 ![Docker](https://img.shields.io/badge/containerized-Docker-blue?logo=docker)
 ![Architecture](https://img.shields.io/badge/architecture-Microservices-ff69b4)
@@ -10,8 +8,49 @@ Une application de messagerie distribuée avec une architecture orientée micros
 ---
 
 ## 🚀 Présentation
+**ChatterPro** est une application de messagerie distribuée, conçue pour offrir une expérience de communication fluide, rapide et fiable. Grâce à une architecture microservices entièrement conteneurisée, elle garantit :
 
-Application de messagerie quasi temps réel avec conteneurisation complète et scalabilité assurée.
+🔄 Messagerie quasi temps réel pour des échanges instantanés
+
+📦 Déploiement conteneurisé avec Docker pour une portabilité maximale
+
+📈 Scalabilité horizontale assurée pour répondre à la montée en charge
+
+🔧 Interopérabilité des services via une communication asynchrone
+
+Pensée pour les relations personnelles ou professionnelles, **ChatterPro** combine performance, modularité et sécurité dans un écosystème moderne et évolutif.
+
+---
+
+## ✨ Fonctionnalités Clés
+
+### 🔐 Authentification sécurisée
+- 🔑 Gestion des sessions avec **JWT** et rafraîchissement de token  
+- 🛡️ Stockage des mots de passe via **Argon2**, robuste et éprouvé  
+- 🧼 Validation et nettoyage des entrées pour une sécurité renforcée  
+
+### 💬 Messagerie intelligente
+- ✉️ Envoi de **messages texte** en temps quasi réel  
+- 🧵 Traitement **asynchrone** via **RabbitMQ**  
+- 🗄️ Persistance fiable dans **MySQL**  
+- 🌐 Communication instantanée avec **SignalR WebSocket**  
+
+### 👤 Gestion des utilisateurs
+- 🧑‍💼 Création et modification de **profils**  
+- 📇 Gestion des **contacts** via le service dédié **UserService**  
+
+### 📤 Exportation de données
+- 📦 Formats disponibles : **JSON**, **CSV**, **PDF**  
+- 🔐 Téléchargement sécurisé et conforme aux bonnes pratiques  
+
+### 🔔 Notifications dynamiques
+- ⚙️ Déclenchement basé sur des **événements système**  
+- 🔄 Transmission **asynchrone** pour une meilleure réactivité  
+- 📡 Notifications en **temps réel** via **SignalR WebSocket**  
+
+### 🧱 Déploiement moderne
+- 🐳 Architecture **multi-conteneurs Docker**  
+- 📦 Orchestration fluide avec **Docker Compose**
 
 ---
 
@@ -112,35 +151,6 @@ Le gateway redirige vers les microservices locaux selon les routes définies ci-
 
 ---
 
-## 🧭 Fonctionnalités Clés
-
-### 🔐 Authentification
-- JWT, rafraîchissement de token
-- Stockage sécurisé des mots de passe (Argon2)
-- Validation et nettoyage des entrées
-
-### 💬 Messagerie
-- Messages texte
-- Asynchrone avec file RabbitMQ
-- Persistance dans MySQL
-- Communication temps réel via SignalR WebSocket
-
-### 📇 Gestion utilisateur
-- Profil et contacts gérés via UserService
-
-### 📤 Export de données
-- JSON, CSV, PDF
-- Téléchargement sécurisé
-
-### 🔔 Notifications
-- Événements déclencheurs
-- Notification asynchrone
-- Communication temps réel via SignalR WebSocket
-
-### 🧱 Déploiement
-- Docker multi-conteneur
-- Orchestration via Docker Compose
----
 ## 🖥️ Exemple de client WPF (.NET 8) – Intégration SignalR
 
 ### MessageService - Communication temp réel via SignalR
