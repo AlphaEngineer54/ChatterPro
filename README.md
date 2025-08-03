@@ -2,7 +2,7 @@
 
 ![Docker](https://img.shields.io/badge/containerized-Docker-blue?logo=docker)
 ![Architecture](https://img.shields.io/badge/architecture-Microservices-ff69b4)
-![Status](https://img.shields.io/badge/status-En%20développement-yellow)
+![Status](https://img.shields.io/badge/status-Terminé%20%26%20maintenance%20continue-brightgreen)  
 ![License](https://img.shields.io/badge/license-MIT-lightgrey)
 
 ---
