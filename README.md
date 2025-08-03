@@ -200,8 +200,8 @@ Le composant `MultiEventHandler` intègre **SignalR** afin d’émettre des mess
 ### Commandes
 
 ```bash
-git clone https://github.com/AlphaEngineer54/messaging-app.git
-cd distributed-messaging-app
+git clone https://github.com/AlphaEngineer54/ChatterPro.git
+cd ChatterPro
 
 docker-compose up -d --build
 ```
