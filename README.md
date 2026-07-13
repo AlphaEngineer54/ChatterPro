@@ -214,6 +214,79 @@ docker run -p 3000:3000 chatterpro-frontend
 
 ---
 
+## 🐳 Exécuter depuis Docker Hub (images pré-construites)
+
+Le pipeline CI/CD publie automatiquement une image par service sur le dépôt Docker Hub
+**public [`dev329`](https://hub.docker.com/u/dev329)** à chaque push sur `dev`/`main`. Cette
+méthode **ne compile rien localement** : on récupère les images et on lance toute la stack
+(services, bases MySQL, RabbitMQ, gateway, frontend) avec Docker Compose.
+
+### Images publiées (dépôt public `dev329`)
+| Image Docker Hub                          | Rôle                     | Port |
+|-------------------------------------------|--------------------------|------|
+| `dev329/chatterpro-gateway:latest`        | API Gateway Ocelot       | 5000 |
+| `dev329/chatterpro-authservice:latest`    | Authentification / JWT   | 5001 |
+| `dev329/chatterpro-userservice:latest`    | Utilisateurs             | 5002 |
+| `dev329/chatterpro-messageservice:latest` | Messages + Hub SignalR   | 5003 |
+| `dev329/chatterpro-dataexportservice:latest` | Export PDF/CSV/JSON   | 5004 |
+| `dev329/chatterpro-notificationservice:latest` | Notifications       | 5005 |
+| `dev329/chatterpro-frontend:latest`       | Frontend React (NGINX)   | 3000 |
+
+> Le dépôt est **public** : aucun `docker login` n'est nécessaire pour tirer ces images.
+> MySQL (`mysql:8`) et RabbitMQ (`rabbitmq:3-management`) proviennent des images officielles.
+
+### Prérequis
+- Docker + Docker Compose v2 (`docker compose`)
+- Les fichiers `docker-compose.yaml` et `.env.example` (à la racine du dépôt)
+
+### 1. Préparer le `.env`
+Le compose utilise déjà `dev329` par défaut ; il suffit de fournir les autres variables
+(ports, `JWT_SECRET`, identifiants MySQL/RabbitMQ) :
+```bash
+cp .env.example .env
+# éditez .env : JWT_SECRET, identifiants MySQL/RabbitMQ, ports…
+# (DOCKER_USERNAME est optionnel — laissé vide, les images dev329/* sont utilisées)
+```
+
+### 2. Tirer les images depuis Docker Hub
+```bash
+docker compose pull
+```
+Cela télécharge les 7 images applicatives `dev329/*` + MySQL + RabbitMQ (aucune compilation locale).
+
+### 3. Créer et démarrer les conteneurs
+```bash
+docker compose up -d --no-build      # démarre à partir des images tirées, en arrière-plan
+```
+> `--no-build` garantit l'utilisation des images Docker Hub (et non un build local).
+
+### 4. Vérifier l'état (healthchecks)
+```bash
+docker compose ps          # statut + colonne "health" de chaque service
+docker compose logs -f gateway   # suivre les logs d'un service
+```
+Attendez que les services passent `healthy` (les bases MySQL mettent quelques secondes à s'initialiser).
+
+### 5. Accéder à l'application
+- Frontend : <http://localhost:3000>
+- API Gateway : <http://localhost:5000>
+
+### 6. Arrêter / nettoyer
+```bash
+docker compose down          # arrête et supprime les conteneurs
+docker compose down -v       # + supprime les volumes (efface les données MySQL)
+```
+
+### (Optionnel) Tirer / lancer une seule image
+```bash
+docker pull dev329/chatterpro-frontend:latest
+docker run -p 3000:3000 dev329/chatterpro-frontend:latest   # frontend statique autonome
+```
+> Les microservices ont besoin de leurs bases et de RabbitMQ : préférez `docker compose`
+> pour un lancement complet plutôt que des `docker run` isolés.
+
+---
+
 ## 🧭 Parcours de démonstration
 
 1. Créez un compte (`/signup`) → redirection vers `/chat`.

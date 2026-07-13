@@ -18,7 +18,7 @@ services:
       - messaging-app-network
 
   gateway:
-    image: ${DOCKER_USERNAME:-chatterpro}/chatterpro-gateway:latest
+    image: ${DOCKER_USERNAME:-dev329}/chatterpro-gateway:latest
     build:
       context: ./backend/Gateway/API-Gateway-Ocelot
       dockerfile: Dockerfile
@@ -50,7 +50,7 @@ services:
     restart: always
 
   authservice:
-    image: ${DOCKER_USERNAME:-chatterpro}/chatterpro-authservice:latest
+    image: ${DOCKER_USERNAME:-dev329}/chatterpro-authservice:latest
     build:
       context: ./backend/Services/AuthService
       dockerfile: Dockerfile
@@ -99,7 +99,7 @@ services:
     restart: always
 
   dataexportservice:
-    image: ${DOCKER_USERNAME:-chatterpro}/chatterpro-dataexportservice:latest
+    image: ${DOCKER_USERNAME:-dev329}/chatterpro-dataexportservice:latest
     build:
       context: ./backend/Services/DataExportService
       dockerfile: Dockerfile
@@ -119,7 +119,7 @@ services:
     restart: always
 
   messageservice:
-    image: ${DOCKER_USERNAME:-chatterpro}/chatterpro-messageservice:latest
+    image: ${DOCKER_USERNAME:-dev329}/chatterpro-messageservice:latest
     build:
       context: ./backend/Services/MessageService
       dockerfile: Dockerfile
@@ -167,7 +167,7 @@ services:
     restart: always
 
   notificationservice:
-    image: ${DOCKER_USERNAME:-chatterpro}/chatterpro-notificationservice:latest
+    image: ${DOCKER_USERNAME:-dev329}/chatterpro-notificationservice:latest
     build:
       context: ./backend/Services/NotificationService
       dockerfile: Dockerfile
@@ -215,7 +215,7 @@ services:
     restart: always
 
   userservice:
-    image: ${DOCKER_USERNAME:-chatterpro}/chatterpro-userservice:latest
+    image: ${DOCKER_USERNAME:-dev329}/chatterpro-userservice:latest
     build:
       context: ./backend/Services/UserService
       dockerfile: Dockerfile
@@ -263,7 +263,7 @@ services:
     restart: always
 
   frontend:
-    image: ${DOCKER_USERNAME:-chatterpro}/chatterpro-frontend:latest
+    image: ${DOCKER_USERNAME:-dev329}/chatterpro-frontend:latest
     build:
       context: ./frontend
       dockerfile: Dockerfile
