@@ -1,0 +1,78 @@
+name: ChatterPro - CI/CD
+
+on:
+  push:
+    branches: [main, dev]
+  pull_request:
+    branches:
+    - main
+
+jobs:
+    backend-test:
+        runs-on: ubuntu-latest
+        steps:
+          - name: Checkout code
+            uses: actions/checkout@v3
+
+          - name: Set up .NET
+            uses: actions/setup-dotnet@v3
+            with:
+              dotnet-version: '8.0.x'
+
+          - name: Restore dependencies
+            run: dotnet restore backend/tests
+
+          - name: Build tests
+            run: dotnet build backend/tests --no-restore --configuration Release
+
+          - name: Run tests
+            run: dotnet test backend/tests --no-build --configuration Release --verbosity normal
+            env:
+              # Requis par JWTService (test ShouldReturnJWTToken) ; valeur factice pour la CI.
+              JWT_SECRET: ci-test-secret-0123456789-abcdef-0123456789
+
+    frontend-test:
+        runs-on: ubuntu-latest
+        steps:
+          - name: Checkout code
+            uses: actions/checkout@v3
+
+          - name: Set up Node.js
+            uses: actions/setup-node@v3
+            with:
+              node-version: '20.x'
+
+          - name: Install dependencies
+            run: npm ci
+            working-directory: frontend
+
+          - name: Run tests
+            run: npm test
+            working-directory: frontend
+ 
+    build-and-push:
+        needs: [backend-test, frontend-test]
+        runs-on: ubuntu-latest
+        steps:
+          - name: Checkout code
+            uses: actions/checkout@v3
+
+          - name: Set up Docker Buildx
+            uses: docker/setup-buildx-action@v2
+
+          - name: Log in to Docker Hub
+            uses: docker/login-action@v2
+            with:
+              username: ${{ secrets.DOCKER_USERNAME }}
+              password: ${{ secrets.DOCKER_PASSWORD }}
+
+          - name: Build and push images (docker compose)
+            env:
+              # Utilisé pour taguer les images (image: ${DOCKER_USERNAME}/chatterpro-*).
+              DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+            run: |
+              # Fournit les variables requises par l'interpolation du compose (ports, connexions).
+              cp .env.example .env
+              docker compose -f docker-compose.yaml build
+              docker compose -f docker-compose.yaml push
+    

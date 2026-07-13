@@ -9,16 +9,18 @@ services:
       RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER}
       RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASS}
     healthcheck:
-      test: ["CMD", "rabbitmq-diagnostics", "ping"]
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
       interval: 30s
       timeout: 10s
       retries: 5
+      start_period: 20s
     networks:
       - messaging-app-network
 
   gateway:
+    image: ${DOCKER_USERNAME:-chatterpro}/chatterpro-gateway:latest
     build:
-      context: ./Gateway/API-Gateway-Ocelot
+      context: ./backend/Gateway/API-Gateway-Ocelot
       dockerfile: Dockerfile
     ports:
       - "${GATEWAY_PORT}:${GATEWAY_PORT}"
@@ -36,13 +38,21 @@ services:
       - RABBIT_MQ_PORT=${RABBIT_MQ_PORT}
       - RABBIT_MQ_USER=${RABBIT_MQ_USER}
       - RABBIT_MQ_PASSWORD=${RABBIT_MQ_PASSWORD}
+    healthcheck:
+      # Liveness : le port TCP accepte-t-il les connexions ? (bash + coreutils présents dans l'image aspnet)
+      test: ["CMD-SHELL", "timeout 2 bash -c '</dev/tcp/localhost/${GATEWAY_PORT}' || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 40s
     networks:
       - messaging-app-network
     restart: always
 
   authservice:
+    image: ${DOCKER_USERNAME:-chatterpro}/chatterpro-authservice:latest
     build:
-      context: ./Services/AuthService
+      context: ./backend/Services/AuthService
       dockerfile: Dockerfile
     ports:
       - "${AUTHSERVICE_PORT}:${AUTHSERVICE_PORT}"
@@ -58,6 +68,12 @@ services:
     depends_on:
       - auth-db
       - rabbitmq
+    healthcheck:
+      test: ["CMD-SHELL", "timeout 2 bash -c '</dev/tcp/localhost/${AUTHSERVICE_PORT}' || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 40s
     networks:
       - messaging-app-network
     restart: always
@@ -71,27 +87,41 @@ services:
       - MYSQL_PASSWORD=${MYSQL_PASSWORD}
     volumes:
       - auth-db-data:/var/lib/mysql
-      - ./Services/AuthService/Models/Schema/model.sql:/docker-entrypoint-initdb.d/init.sql:ro
+      - ./backend/Services/AuthService/Models/Schema/model.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-u", "root", "-p${MYSQL_ROOT_PASSWORD}"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
     networks:
       - messaging-app-network
     restart: always
 
   dataexportservice:
+    image: ${DOCKER_USERNAME:-chatterpro}/chatterpro-dataexportservice:latest
     build:
-      context: ./Services/DataExportService
+      context: ./backend/Services/DataExportService
       dockerfile: Dockerfile
     ports:
       - "${DATAEXPORT_PORT}:${DATAEXPORT_PORT}"
     environment:
       - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
       - ASPNETCORE_URLS=http://+:${DATAEXPORT_PORT}
+    healthcheck:
+      test: ["CMD-SHELL", "timeout 2 bash -c '</dev/tcp/localhost/${DATAEXPORT_PORT}' || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 40s
     networks:
       - messaging-app-network
     restart: always
 
   messageservice:
+    image: ${DOCKER_USERNAME:-chatterpro}/chatterpro-messageservice:latest
     build:
-      context: ./Services/MessageService
+      context: ./backend/Services/MessageService
       dockerfile: Dockerfile
     ports:
       - "${MESSAGESERVICE_PORT}:${MESSAGESERVICE_PORT}"
@@ -106,6 +136,12 @@ services:
     depends_on:
       - message-db
       - rabbitmq
+    healthcheck:
+      test: ["CMD-SHELL", "timeout 2 bash -c '</dev/tcp/localhost/${MESSAGESERVICE_PORT}' || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 40s
     networks:
       - messaging-app-network
     restart: always
@@ -119,14 +155,21 @@ services:
       - MYSQL_PASSWORD=${MYSQL_PASSWORD}
     volumes:
       - message-db-data:/var/lib/mysql
-      - ./Services/MessageService/Models/Schema/model.sql:/docker-entrypoint-initdb.d/init.sql:ro
+      - ./backend/Services/MessageService/Models/Schema/model.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-u", "root", "-p${MYSQL_ROOT_PASSWORD}"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
     networks:
       - messaging-app-network
     restart: always
 
   notificationservice:
+    image: ${DOCKER_USERNAME:-chatterpro}/chatterpro-notificationservice:latest
     build:
-      context: ./Services/NotificationService
+      context: ./backend/Services/NotificationService
       dockerfile: Dockerfile
     ports:
       - "${NOTIFSERVICE_PORT}:${NOTIFSERVICE_PORT}"
@@ -141,6 +184,12 @@ services:
     depends_on:
       - notification-db
       - rabbitmq
+    healthcheck:
+      test: ["CMD-SHELL", "timeout 2 bash -c '</dev/tcp/localhost/${NOTIFSERVICE_PORT}' || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 40s
     networks:
       - messaging-app-network
     restart: always
@@ -154,14 +203,21 @@ services:
       - MYSQL_PASSWORD=${MYSQL_PASSWORD}
     volumes:
       - notification-db-data:/var/lib/mysql
-      - ./Services/NotificationService/Models/Schema/model.sql:/docker-entrypoint-initdb.d/init.sql:ro
+      - ./backend/Services/NotificationService/Models/Schema/model.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-u", "root", "-p${MYSQL_ROOT_PASSWORD}"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
     networks:
       - messaging-app-network
     restart: always
 
   userservice:
+    image: ${DOCKER_USERNAME:-chatterpro}/chatterpro-userservice:latest
     build:
-      context: ./Services/UserService
+      context: ./backend/Services/UserService
       dockerfile: Dockerfile
     ports:
       - "${USERSERVICE_PORT}:${USERSERVICE_PORT}"
@@ -176,6 +232,12 @@ services:
     depends_on:
       - user-db
       - rabbitmq
+    healthcheck:
+      test: ["CMD-SHELL", "timeout 2 bash -c '</dev/tcp/localhost/${USERSERVICE_PORT}' || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 40s
     networks:
       - messaging-app-network
     restart: always
@@ -189,7 +251,37 @@ services:
       - MYSQL_PASSWORD=${MYSQL_PASSWORD}
     volumes:
       - user-db-data:/var/lib/mysql
-      - ./Services/UserService/Models/Schema/model.sql:/docker-entrypoint-initdb.d/init.sql:ro
+      - ./backend/Services/UserService/Models/Schema/model.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-u", "root", "-p${MYSQL_ROOT_PASSWORD}"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
+    networks:
+      - messaging-app-network
+    restart: always
+
+  frontend:
+    image: ${DOCKER_USERNAME:-chatterpro}/chatterpro-frontend:latest
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "${FRONTEND_PORT}:${FRONTEND_PORT}"
+    environment:
+      - VITE_GATEWAY_URL=${VITE_GATEWAY_URL}
+      - VITE_CHAT_HUB_URL=${VITE_CHAT_HUB_URL}
+      - VITE_FRONTEND_PORT=${VITE_FRONTEND_PORT}
+    depends_on:
+      - gateway
+    healthcheck:
+      # nginx:alpine embarque wget (busybox).
+      test: ["CMD-SHELL", "wget -q --spider http://localhost:${FRONTEND_PORT}/ || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 15s
     networks:
       - messaging-app-network
     restart: always

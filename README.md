@@ -1,212 +1,247 @@
-# 💬 ChatterPro – Application de messagerie 
+# 💬 ChatterPro – Application de messagerie
 
 ![Docker](https://img.shields.io/badge/containerized-Docker-blue?logo=docker)
 ![Architecture](https://img.shields.io/badge/architecture-Microservices-ff69b4)
-![Status](https://img.shields.io/badge/status-Terminé%20%26%20maintenance%20continue-brightgreen)  
+![Backend](https://img.shields.io/badge/backend-.NET%208-512BD4?logo=dotnet)
+![Frontend](https://img.shields.io/badge/frontend-React%2018%20%2B%20Vite-61DAFB?logo=react)
+![Realtime](https://img.shields.io/badge/realtime-SignalR-0078D4)
 ![License](https://img.shields.io/badge/license-MIT-lightgrey)
 
 ---
 
 ## 🚀 Présentation
-**ChatterPro** est une application de messagerie distribuée, conçue pour offrir une expérience de communication fluide, rapide et fiable. Grâce à une architecture microservices entièrement conteneurisée, elle garantit :
 
-🔄 Messagerie quasi temps réel pour des échanges instantanés
+**ChatterPro** est une application de messagerie distribuée bâtie sur une architecture
+**microservices .NET 8** entièrement conteneurisée. Elle démontre une chaîne complète :
+authentification par **JWT**, messagerie de groupe en **temps réel via SignalR**,
+communication inter-services **asynchrone via RabbitMQ**, et un **frontend React** moderne.
 
-📦 Déploiement conteneurisé avec Docker pour une portabilité maximale
+Points clés :
 
-📈 Scalabilité horizontale assurée pour répondre à la montée en charge
+- 🔄 Messagerie de groupe quasi temps réel (WebSocket SignalR)
+- 🧩 Découplage des services derrière une **API Gateway Ocelot**
+- 📦 Déploiement conteneurisé avec **Docker Compose**
+- 🧵 Communication événementielle asynchrone entre services (**RabbitMQ**)
+- 🗄️ Persistance **MySQL** (une base par service)
 
-🔧 Interopérabilité des services via une communication asynchrone
-
-Pensée pour les relations personnelles ou professionnelles, **ChatterPro** combine performance, modularité et sécurité dans un écosystème moderne et évolutif.
+> ℹ️ **Projet portfolio** : l'objectif est d'illustrer des compétences backend/.NET et
+> l'intégration React/SignalR. Certaines fonctionnalités « entreprise » (refresh token,
+> tests exhaustifs, orchestration Kubernetes) sont volontairement hors périmètre.
 
 ---
 
-## ✨ Fonctionnalités Clés
+## ✨ Fonctionnalités
 
-### 🔐 Authentification sécurisée
-- 🔑 Gestion des sessions avec **JWT** et rafraîchissement de token  
-- 🛡️ Stockage des mots de passe via **Argon2**, robuste et éprouvé  
-- 🧼 Validation et nettoyage des entrées pour une sécurité renforcée  
+### 🔐 Authentification
+- 🔑 Émission de **JWT** (HMAC-SHA256, durée de vie **1 h**) à la connexion et à l'inscription
+- 🛡️ Hachage des mots de passe avec **Argon2** (`Isopoh.Cryptography.Argon2`, Argon2i, 64 Mo, sel aléatoire)
+- 🧼 Validation des entrées via *DataAnnotations* (email valide, mot de passe 5–50 caractères, pseudo 3–50)
+- 🚪 Validation du JWT centralisée à l'**API Gateway** (issuer / audience / signature / expiration)
 
-### 💬 Messagerie intelligente
-- ✉️ Envoi de **messages texte** en temps quasi réel  
-- 🧵 Traitement **asynchrone** via **RabbitMQ**  
-- 🗄️ Persistance fiable dans **MySQL**  
-- 🌐 Communication instantanée avec **SignalR WebSocket**  
+### 💬 Messagerie & conversations de groupe
+- ✉️ Envoi de **messages texte** en temps réel via **SignalR** (Hub `ChatHub`)
+- 👥 **Conversations de groupe** avec **code d'invitation** (join code) pour rejoindre un groupe
+- 🗄️ Persistance des messages et conversations dans **MySQL**
+- 🧵 Événements inter-services **asynchrones** via **RabbitMQ**
 
 ### 👤 Gestion des utilisateurs
-- 🧑‍💼 Création et modification de **profils**  
-- 📇 Gestion des **contacts** via le service dédié **UserService**  
+- 🧑‍💼 Données utilisateur (profil, contacts) via le **UserService** dédié
+- 📡 Hub SignalR `UserHub` pour la remontée d'utilisateurs (événement `ReceiveUsers`)
 
 ### 📤 Exportation de données
-- 📦 Formats disponibles : **JSON**, **CSV**, **PDF**  
-- 🔐 Téléchargement sécurisé et conforme aux bonnes pratiques  
+- 📦 Formats **JSON**, **CSV**, **PDF** (iText7, CsvHelper) via le **DataExportService**
 
-### 🔔 Notifications dynamiques
-- ⚙️ Déclenchement basé sur des **événements système**  
-- 🔄 Transmission **asynchrone** pour une meilleure réactivité  
-- 📡 Notifications en **temps réel** via **SignalR WebSocket**  
+### 🔔 Notifications
+- ⚙️ Déclenchées sur événements système, transmises en **temps réel** via SignalR (`NotificationHubs`)
 
-### 🧱 Déploiement moderne
-- 🐳 Architecture **multi-conteneurs Docker**  
-- 📦 Orchestration fluide avec **Docker Compose**
+### 🖥️ Frontend React
+- ⚛️ SPA **React 18 + Vite** (JavaScript), **Tailwind CSS** (UI moderne, fond blanc)
+- 🔐 Authentification (login / signup) avec session persistée et **JWT porté sur toutes les requêtes**
+- 💬 Chat de groupe temps réel (création de conversation, join par code, historique, envoi)
+- ✏️ **Édition & suppression** de ses propres messages
+- 📤 **Export** d'une conversation en **PDF / CSV / JSON** (DataExportService)
+- 🔔 **Notifications** (cloche + badge, near real-time par polling REST)
+- 👤 **Profil utilisateur** (voir/mettre à jour) et recherche d'un contact par pseudo
+- 📁 Code dans [`./frontend`](./frontend) — voir son [README](./frontend/README.md)
 
 ---
 
-## 📐 Architecture Technique
+## 📐 Architecture technique
 
-| Service               | Rôle                                                               |
-|------------------------|--------------------------------------------------------------------|
-| AuthService           | Authentification, JWT, autorisations                              |
-| UserService           | Données utilisateur (profil, contacts)                            |
-| MessageService        | Envoi, réception, persistance des messages ainsi que des conversations                      |
-| NotificationService   | Push/email/système de notification asynchrone                     |
-| DataExportService     | Exportation de données au format PDF, CSV, JSON                   |    
-| Gateway (Ocelot)      | Point d’entrée unique pour tous les services (reverse proxy)      |
+| Composant             | Rôle                                                                       |
+|-----------------------|----------------------------------------------------------------------------|
+| **Gateway (Ocelot)**  | Point d'entrée unique REST, reverse proxy, validation du JWT               |
+| **AuthService**       | Authentification, émission des JWT, hachage Argon2                         |
+| **UserService**       | Données utilisateur (profil, contacts) — Hub `UserHub`                     |
+| **MessageService**    | Messages & conversations, persistance — Hub `ChatHub` (temps réel)        |
+| **NotificationService** | Notifications asynchrones — Hub `NotificationHubs`                        |
+| **DataExportService** | Exportation de données (PDF, CSV, JSON)                                    |
+| **Frontend (React)**  | Interface web (auth + chat de groupe) servie par NGINX                     |
+
+Chaque microservice possède sa **propre base MySQL** ; les services communiquent de manière
+asynchrone via **RabbitMQ**. Le tout est orchestré par **Docker Compose**.
 
 ---
 
 ## 🧰 Technologies utilisées
 
-| Côté Client         | Backend / Services                   | Infrastructure          |
-|---------------------|------------------------------------|------------------------|
-| WPF (.NET)          | ASP.NET Core (.NET 8), JWT, Argon2 | Docker, Docker Compose |
-| REST HTTP Client    | MySQL, RabbitMQ                    | NGINX (reverse proxy)  |
-|                     | iText7, CsvHelper                  | Kubernetes (à venir)   |
-|                     | .NET Logging, CORS                 | Event-driven architecture |
+| Frontend                         | Backend / Services                        | Infrastructure                     |
+|----------------------------------|-------------------------------------------|------------------------------------|
+| React 18, Vite                   | ASP.NET Core (.NET 8)                      | Docker, Docker Compose             |
+| Tailwind CSS                     | ASP.NET Core SignalR                       | API Gateway **Ocelot**             |
+| `@microsoft/signalr`             | JWT (System.IdentityModel.Tokens.Jwt)     | **NGINX** (sert le build frontend) |
+| React Router                     | **Argon2** (Isopoh.Cryptography.Argon2)   | RabbitMQ (message broker)          |
+| Fetch API                        | EF Core + MySQL                           | MySQL 8 (une base par service)     |
+|                                  | iText7, CsvHelper (export)                | Architecture event-driven          |
 
 ---
 
-## 🗃️ Modèle de Données (Backend .NET)
+## 🗃️ Modèle de données (backend .NET)
 
-La capture suivante présente la structure conceptuelle du modèle de données, utilisée principalement par les services `UserService`, `MessageService` et `NotificationService`.
+Le modèle conceptuel (Utilisateur, Message, Conversation, Notification, etc.) est illustré ici :
 
 ![Modèle de données](https://github.com/AlphaEngineer54/messaging-app/blob/main/entities_model.png)
 
-> *Le modèle est représenté sous forme d'un diagramme de classes ou d'entités-relation (selon l’outil utilisé), illustrant les relations clés entre les entités : Utilisateur, Message, Conversation, Notification, etc.*
+---
+
+# 🌐 API Gateway – Documentation des routes
+
+Les appels **REST** du frontend transitent par l'**API Gateway** (`http://localhost:5000`),
+qui réécrit le chemin (préfixe retiré, `/api` ajouté) et redirige vers le microservice cible.
+
+| Méthode(s)            | Route Gateway (frontend)      | Cible backend                                    | Auth (Bearer JWT) |
+|-----------------------|-------------------------------|--------------------------------------------------|-------------------|
+| POST, GET             | `/auth/{everything}`          | `authservice:5001/api/auth/{everything}`         | ❌ Non             |
+| GET, POST, DELETE     | `/user/{everything}`          | `userservice:5002/api/user/{everything}`         | ✅ Oui             |
+| GET, POST, DELETE     | `/message/{everything}`       | `messageservice:5003/api/message/{everything}`   | ✅ Oui             |
+| GET, POST             | `/message`                    | `messageservice:5003/api/message`                | ✅ Oui             |
+| GET, POST, DELETE     | `/conversation/{everything}`  | `messageservice:5003/api/conversation/{...}`     | ✅ Oui             |
+| GET, POST             | `/conversation`               | `messageservice:5003/api/conversation`           | ✅ Oui             |
+| GET, POST             | `/dataexport/{everything}`    | `dataexportservice:5004/api/dataexport/{...}`    | ✅ Oui             |
+| GET, POST, DELETE     | `/notification/{everything}`  | `notificationservice:5005/api/notification/{...}`| ✅ Oui             |
+
+**Notes importantes :**
+
+- 🔑 Toutes les routes **sauf `/auth/*`** exigent l'en-tête `Authorization: Bearer <jwtToken>`.
+  Le JWT est **validé au niveau de la gateway** (issuer `http://localhost:5000`, audience
+  `messaging_api`, signature via `JWT_SECRET`).
+- ➕ Les routes racines `/message` et `/conversation` (sans sous-segment) permettent la
+  **création** et la **liste globale** — le motif catch-all `/{everything}` seul ne les couvre pas.
+- 🔁 Le verbe **`PUT`** est routé pour `/message/{id}` et `/user/{id}` (édition de message et mise
+  à jour de profil). Un verbe non-standard `UPDATE` subsiste dans la config d'origine mais n'est
+  pas utilisé par le frontend.
 
 ---
 
-# 🌐 API Gateway – Documentation des Routes
+# 📡 Temps réel (SignalR)
 
-Toutes les requêtes frontend doivent transiter par l’API Gateway (`http://localhost:5000`).  
-Le gateway redirige vers les microservices locaux selon les routes définies ci-dessous.
+> ⚠️ **Les WebSockets SignalR ne passent pas par la gateway Ocelot** : le client se connecte
+> **directement** au microservice concerné.
 
----
+| Service              | URL du Hub (directe)                 | Événements serveur → client                                   |
+|----------------------|--------------------------------------|---------------------------------------------------------------|
+| MessageService       | `http://localhost:5003/hubs/chat`    | `ReceiveMessage`, `JoinedGroup`, `ConnectedToGroup`, `Error`, `ValidationError` |
+| NotificationService  | `http://localhost:5005/notifications`| `ReceiveNotification`                                          |
+| UserService          | `http://localhost:5002/userHub`      | `ReceiveUsers`                                                 |
 
-## AuthService
+### Méthodes du Hub de chat (`ChatHub`)
 
-| Méthode HTTP | Route Frontend           | Route Backend                   | Authentification requise |
-|--------------|-------------------------|--------------------------------|--------------------------|
-| GET, POST    | `/auth/{everything}`    | `http://localhost:5001/api/auth/{everything}` | Non                      |
+| Méthode (client → serveur)      | Description                                                                       |
+|---------------------------------|-----------------------------------------------------------------------------------|
+| `SendMessage(dto)`              | Diffuse un message à **tous les clients connectés** (`Clients.All`).              |
+| `SendMessageToUser(dto)`        | Envoie à **un utilisateur** (`ReceiverId`). *(nécessite un `IUserIdProvider`, non configuré)* |
+| `SendMessageToGroup(dto)`       | Diffuse à tous les membres d'une **conversation** (`ConversationId`).             |
+| `JoinGroup(dto)`                | Rejoint une conversation via son **`JoinCode`** ; répond `JoinedGroup` ou `Error`. |
+| `ConnectToGroup(conversationId)`| Rejoint le groupe temps réel d'une conversation par son **id** ; répond `ConnectedToGroup`. |
 
----
+`dto` (`NewMessageDTO`) : `{ content (≤250), status: "sent"|"delivered"|"read", senderId, receiverId, conversationId }`.
+En envoi de groupe, `receiverId` est requis par le DTO (placeholder `0`).
 
-## UserService
-
-| Méthode HTTP             | Route Frontend           | Route Backend                   | Authentification requise |
-|-------------------------|-------------------------|--------------------------------|--------------------------|
-| GET, POST, DELETE, PUT  | `/user/{everything}`    | `http://localhost:5002/api/user/{everything}` | Oui (Bearer JWT)          |
-
-> **Communication en temps réel via WebSocket avec SignalR disponible sur ce service.**
-
----
-
-## MessageService
-
-| Méthode HTTP             | Route Frontend            | Route Backend                    | Authentification requise |
-|-------------------------|--------------------------|---------------------------------|--------------------------|
-| GET, POST, DELETE, PUT  | `/message/{everything}`  | `http://localhost:5003/api/message/{everything}`  | Oui (Bearer JWT)          |
-| GET, POST, DELETE       | `/conversation/{everything}` | `http://localhost:5003/api/conversation/{everything}` | Oui (Bearer JWT)          |
-
-> **Communication en temps réel via WebSocket avec SignalR disponible sur ce service.**
-
----
-
-## DataExportService
-
-| Méthode HTTP   | Route Frontend            | Route Backend                    | Authentification requise |
-|---------------|--------------------------|---------------------------------|--------------------------|
-| GET, POST     | `/dataexport/{everything}` | `http://localhost:5004/api/dataexport/{everything}` | Oui (Bearer JWT)          |
-
----
-
-## NotificationService
-
-| Méthode HTTP             | Route Frontend            | Route Backend                    | Authentification requise |
-|-------------------------|--------------------------|---------------------------------|--------------------------|
-| GET, POST, DELETE, PUT  | `/notification/{everything}` | `http://localhost:5005/api/notification/{everything}` | Oui (Bearer JWT)          |
-
-> **Communication en temps réel via WebSocket avec SignalR disponible sur ce service.**
-
----
-
-## Notes
-
-- Le frontend doit toujours communiquer via l’API Gateway (`localhost:5000`).
-- Les routes avec authentification exigent un token JWT valide dans l’en-tête `Authorization`.
-- `{everything}` représente toute sous-route ou paramètre.
-- Les services `MessageService` et `NotificationService` offrent une interface WebSocket basée sur SignalR pour la gestion temps réel des messages et notifications.
-
----
-
-## 🖥️ Exemple de client WPF (.NET 8) – Intégration SignalR
-
-### MessageService - Communication temp réel via SignalR
-
-#### Fontionnalités SignalR
-
-| Méthode SignalR             | Description                                                                 |
-|-----------------------------|-----------------------------------------------------------------------------|
-| `SendMessage(dto)`          | Envoie un message à **tous les clients connectés**.                      |
-| `SendMessageToUser(dto)`    | Envoie un message à **un utilisateur spécifique** (`ReceiverId`).           |
-| `SendMessageToGroup(dto)`   | Diffuse un message à tous les **membres d’une conversation** (`ConversationId`). |
-| `JoinGroup(dto)`            | Ajoute un utilisateur à un **groupe SignalR** représentant une conversation. Utiliser le **JoinConversationDTO.JoinCode** pour rejoindre une conversation  |
-
-> ⚠️ Les objets `NewMessageDTO` et `JoinConversationDTO` sont validés côté serveur.  
-> En cas d’erreur, un événement `"ValidationError"` est émis vers le client appelant.
-
----
-
-### NotificationService – Communication temps réel via SignalR
-
-Le service `NotificationService` utilise un hub SignalR nommé `NotificationHubs` pour gérer les notifications en temps réel destinées aux utilisateurs.
-
-### Fonctionnalités SignalR exposées
-
-| Fonctionnalité                         | Description                                                  |
-|--------------------------------------|--------------------------------------------------------------|
-| Envoi de notification privée         | Le serveur pousse une notification à un utilisateur spécifique via `Clients.User(userId)` avec l’événement `"ReceiveNotification"` |
-
-### UserService - Coommunication temps réel via SignalR
-
-Le composant `MultiEventHandler` intègre **SignalR** afin d’émettre des messages temps réel à des clients spécifiques lorsque des événements sont traités dans le système.
-
-### 📌 Scénarios gérés via `HandleEventAsync`
-
-| Type d'événement              | Action réalisée                                                            | Notification envoyée                     |
-|------------------------------|----------------------------------------------------------------------------|-------------------------------------------|
-| `GetUserIEvent`              | Récupération des profils utilisateurs à partir d’une liste d’IDs          | `Clients.User(userId).SendAsync("ReceiveUsers", users)` |
+> Les DTO sont validés côté serveur ; en cas d'erreur, un événement `ValidationError`
+> (tableau de messages) est renvoyé à l'appelant.
 
 ---
 
 ## 📦 Démarrage local
 
 ### Prérequis
-- Docker
-- Docker Compose
+- Docker & Docker Compose
+- Node.js 20+ (pour lancer le frontend en mode développement)
 
-### Commandes
+### 1. Configuration (`.env`)
+Le `docker-compose.yaml` s'appuie sur des variables d'environnement (ports, identifiants,
+`JWT_SECRET`, chaînes de connexion). Créez un fichier `.env` à la racine `ChatterPro/` avec
+notamment :
 
+```env
+GATEWAY_PORT=5000
+AUTHSERVICE_PORT=5001
+USERSERVICE_PORT=5002
+MESSAGESERVICE_PORT=5003
+DATAEXPORT_PORT=5004
+NOTIFSERVICE_PORT=5005
+
+JWT_SECRET=<une_clé_secrète_longue_et_identique_partout>
+# + identifiants MySQL / RabbitMQ et chaînes de connexion (voir docker-compose.yaml)
+```
+
+> 🔐 `JWT_SECRET` **doit être identique** pour l'AuthService (émission) et la Gateway
+> (validation), sinon tous les appels authentifiés échoueront en 401.
+
+### 2. Backend
 ```bash
 git clone https://github.com/AlphaEngineer54/ChatterPro.git
 cd ChatterPro
-
 docker-compose up -d --build
 ```
 
-# Frontend 
-Le code source du frontend est disponible ici : [messaging-frontend](https://github.com/Lachesis-Q/messaging-frontend)
+### 3. Frontend
+```bash
+cd frontend
+npm install
+npm run dev      # http://localhost:3000
+```
 
+> ⚠️ Le dev server **doit** rester sur le **port 3000** : c'est la seule origine autorisée
+> par le CORS de la Gateway et du MessageService (`WithOrigins("http://localhost:3000")`).
 
+Le frontend peut aussi être conteneurisé via son `Dockerfile` (build Vite → NGINX) :
+```bash
+cd frontend
+docker build -t chatterpro-frontend .
+docker run -p 3000:3000 chatterpro-frontend
+```
+
+---
+
+## 🧭 Parcours de démonstration
+
+1. Créez un compte (`/signup`) → redirection vers `/chat`.
+2. « **+ Nouvelle** » → un **code d'invitation** s'affiche (copiable).
+3. Dans un **second navigateur**, créez un autre compte, puis « **Rejoindre** » avec ce code.
+4. Ouvrez la conversation des deux côtés : les messages arrivent **en temps réel**.
+5. Survolez un de vos messages → **Éditer** / **Supprimer**.
+6. En-tête de conversation → **Exporter** en PDF / CSV / JSON.
+7. Barre latérale → **🔔** notifications, **👤** profil (mise à jour + recherche d'un contact).
+8. Rechargez la page → la session est conservée et l'historique est rechargé.
+
+---
+
+## 🛣️ Feuille de route
+
+Fonctionnalités **non encore implémentées** (transparence pour les relecteurs) :
+
+- 🔁 **Refresh token** (actuellement le JWT expire après 1 h sans renouvellement automatique)
+- 🧑‍🤝‍🧑 Messagerie 1-à-1 et **push de notifications temps réel** (nécessitent un `IUserIdProvider`
+  côté SignalR ; les notifications fonctionnent aujourd'hui par **polling REST**)
+- 🔀 Propagation temps réel des éditions/suppressions de messages (le hub ne diffuse pas ces
+  événements ; l'affichage est mis à jour localement côté auteur)
+- 🔀 Routage des WebSockets au travers de la Gateway
+- 👥 Endpoint de **liste de contacts** (le UserService n'expose que la recherche par id/pseudo)
+- ☸️ Orchestration Kubernetes
+
+---
+
+## 📄 Licence
+
+Distribué sous licence **MIT**.

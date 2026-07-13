@@ -14,7 +14,7 @@ c
 *.userosscache
 *.sln.docstates
 
-# Fichiers de dépendances locales
+# Fichiers de dï¿½pendances locales
 packages/*.nupkg
 project.lock.json
 project.fragment.lock.json
@@ -34,9 +34,12 @@ publish/
 *.log
 logs/
 
-# Fichiers spécifiques à l'environnement
+# Fichiers spï¿½cifiques ï¿½ l'environnement (secrets locaux, non versionnï¿½s)
 .env
 .env.*
+# ... mais on garde les modï¿½les d'exemple versionnï¿½s
+!.env.example
+!**/.env.example
 
 # Fichiers de gestion de version
 !.gitignore
