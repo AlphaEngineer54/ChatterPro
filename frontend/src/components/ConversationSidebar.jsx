@@ -15,6 +15,7 @@ export default function ConversationSidebar({
   onSelect,
   onNew,
   onJoin,
+  onLeave,
   onLogout,
 }) {
   return (
@@ -72,34 +73,53 @@ export default function ConversationSidebar({
           conversations.map((c) => {
             const active = c.id === activeId;
             return (
-              <button
+              <div
                 key={c.id}
-                type="button"
-                onClick={() => onSelect(c)}
-                className={`mb-1 flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left transition ${
+                className={`group mb-1 flex items-center gap-1 rounded-xl pr-1 transition ${
                   active
                     ? 'bg-accent-50 ring-1 ring-accent-100 dark:bg-accent-600/15 dark:ring-accent-500/30'
                     : 'hover:bg-slate-50 dark:hover:bg-slate-800'
                 }`}
               >
-                <span
-                  className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg text-sm font-semibold ${
-                    active
-                      ? 'bg-accent-600 text-white'
-                      : 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300'
-                  }`}
+                <button
+                  type="button"
+                  onClick={() => onSelect(c)}
+                  className="flex min-w-0 flex-1 items-center gap-3 rounded-xl px-3 py-2.5 text-left"
                 >
-                  {c.title?.charAt(0).toUpperCase() || '#'}
-                </span>
-                <span className="min-w-0 flex-1">
-                  <span className="block truncate text-sm font-medium text-slate-800 dark:text-slate-200">
-                    {c.title}
+                  <span
+                    className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg text-sm font-semibold ${
+                      active
+                        ? 'bg-accent-600 text-white'
+                        : 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300'
+                    }`}
+                  >
+                    {c.title?.charAt(0).toUpperCase() || '#'}
                   </span>
-                  <span className="block truncate text-xs text-slate-400 dark:text-slate-500">
-                    Conversation #{c.id}
+                  <span className="min-w-0 flex-1">
+                    <span className="block truncate text-sm font-medium text-slate-800 dark:text-slate-200">
+                      {c.title}
+                    </span>
+                    <span className="block truncate text-xs text-slate-400 dark:text-slate-500">
+                      Conversation #{c.id}
+                    </span>
                   </span>
-                </span>
-              </button>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onLeave?.(c);
+                  }}
+                  className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-slate-400 opacity-0 transition hover:bg-red-50 hover:text-red-500 focus:opacity-100 group-hover:opacity-100 dark:text-slate-500 dark:hover:bg-red-500/10 dark:hover:text-red-400"
+                  title="Quitter la conversation"
+                  aria-label="Quitter la conversation"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.7} stroke="currentColor" className="h-4 w-4" aria-hidden="true">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.02-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
+                  </svg>
+                </button>
+              </div>
             );
           })
         )}

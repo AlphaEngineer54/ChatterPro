@@ -242,6 +242,7 @@ export default function ChatPage() {
         onSelect={openConversation}
         onNew={() => setModal('new')}
         onJoin={() => setModal('join')}
+        onLeave={handleLeave}
         onLogout={logout}
       />
 

@@ -14,11 +14,18 @@ function mapStatus(status) {
  * Construit le corps Conversation attendu par le DataExportService à partir
  * d'une conversation MessageService (mapping senderId -> userId, statut).
  */
+// Une date absente ou égale à la sentinelle DateTime.MinValue (année 0001) est
+// remplacée par la date du jour, pour ne jamais exporter une date invalide.
+function safeDate(value) {
+  if (!value || String(value).startsWith('0001-01-01')) return new Date().toISOString();
+  return value;
+}
+
 function toExportConversation(conversation) {
   return {
     id: conversation.id,
     title: conversation.title,
-    date: conversation.date ?? new Date().toISOString(),
+    date: safeDate(conversation.date),
     messages: (conversation.messages ?? []).map((m) => ({
       id: m.id,
       content: m.content,
