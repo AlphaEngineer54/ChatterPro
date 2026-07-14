@@ -136,16 +136,17 @@ namespace MessageService.Services
             {
                 return false; // L'utilisateur n'est pas membre de cette conversation
             }
-            // Delete conversation if no user exist
+            _context.UserConversations.Remove(membership);
+            await _context.SaveChangesAsync();
+
+                // Delete conversation if no user exist
             var userCount = await _context.UserConversations
                 .CountAsync(uc => uc.ConversationId == conversationId);
             
             if(userCount <= 0) {
               await DeleteConversationAsync(conversationId);
             }
-
-            _context.UserConversations.Remove(membership);
-            await _context.SaveChangesAsync();
+            
             return true;
         }
 
