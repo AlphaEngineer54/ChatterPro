@@ -105,7 +105,7 @@ export default function NotificationBell({ userId }) {
       </button>
 
       {open && (
-        <div className="absolute right-0 z-30 mt-2 w-72 overflow-hidden rounded-xl border border-slate-200 bg-white shadow-lg dark:border-slate-700 dark:bg-slate-800">
+        <div className="absolute left-0 z-40 mt-2 w-80 max-w-[calc(100vw-2rem)] overflow-hidden rounded-xl border border-slate-200 bg-white shadow-xl dark:border-slate-700 dark:bg-slate-800">
           <div className="flex items-center justify-between border-b border-slate-100 px-3 py-2 dark:border-slate-700">
             <span className="text-sm font-semibold text-slate-700 dark:text-slate-200">Notifications</span>
             {count > 0 && (
