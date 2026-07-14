@@ -211,6 +211,28 @@ namespace MessagingApp_Test
             Assert.False(await service.DeleteConversationAsync(12345));
         }
 
+        [Fact]
+        public async Task RemoveUserFromConversationAsync_RemovesMembership_ButKeepsConversation()
+        {
+            using var context = NewInMemoryContext();
+            var service = new ConversationService(context, Mock.Of<IProducer>());
+            var conv = await service.CreateConversationAsync(new Conversation
+            {
+                Title = "Groupe", OwnerId = 1, JoinCode = "LEAVE-CODE", Date = DateTime.Now
+            });
+            await service.AddUserToConversationAsync("LEAVE-CODE", 2);
+            Assert.Equal(2, await context.UserConversations.CountAsync());
+
+            var left = await service.RemoveUserFromConversationAsync(conv.Id, 2);
+
+            Assert.True(left);
+            Assert.False(await context.UserConversations.AnyAsync(uc => uc.UserId == 2));
+            // La conversation existe toujours (seul le lien d'appartenance est supprimé)
+            Assert.NotNull(await context.Conversations.FindAsync(conv.Id));
+            // Retirer à nouveau → false (plus membre)
+            Assert.False(await service.RemoveUserFromConversationAsync(conv.Id, 2));
+        }
+
         // ─────────────────── JoinCodeConversationService ───────────────────
 
         [Fact]

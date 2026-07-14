@@ -59,9 +59,11 @@ Points clés :
 - 🔐 Authentification (login / signup) avec session persistée et **JWT porté sur toutes les requêtes**
 - 💬 Chat de groupe temps réel (création de conversation, join par code, historique, envoi)
 - ✏️ **Édition & suppression** de ses propres messages
+- 🚪 **Quitter une conversation** sans la supprimer
 - 📤 **Export** d'une conversation en **PDF / CSV / JSON** (DataExportService)
 - 🔔 **Notifications** (cloche + badge, near real-time par polling REST)
-- 👤 **Profil utilisateur** (voir/mettre à jour) et recherche d'un contact par pseudo
+- 👤 **Profil utilisateur** (voir/mettre à jour), recherche d'un contact, et **suppression de compte** (danger zone)
+- 🌗 **Mode clair / sombre** (persisté, respecte la préférence système)
 - 📁 Code dans [`./frontend`](./frontend) — voir son [README](./frontend/README.md)
 
 ---
@@ -260,8 +262,8 @@ cd frontend && npm install && npm run dev    # http://localhost:3000
 3. Dans un **second navigateur**, créez un autre compte, puis « **Rejoindre** » avec ce code.
 4. Ouvrez la conversation des deux côtés : les messages arrivent **en temps réel**.
 5. Survolez un de vos messages → **Éditer** / **Supprimer**.
-6. En-tête de conversation → **Exporter** en PDF / CSV / JSON.
-7. Barre latérale → **🔔** notifications, **👤** profil (mise à jour + recherche d'un contact).
+6. En-tête de conversation → **Exporter** (PDF/CSV/JSON) ou **Quitter** la conversation.
+7. Barre latérale → **🌙/☀️** thème, **🔔** notifications, **👤** profil (mise à jour, recherche de contact, suppression de compte).
 8. Rechargez la page → la session est conservée et l'historique est rechargé.
 
 ---

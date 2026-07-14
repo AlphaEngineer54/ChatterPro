@@ -7,9 +7,11 @@ groupe et messagerie temps réel via SignalR.
 - 🔐 Authentification (login / signup), session persistée, JWT sur toutes les requêtes
 - 💬 Chat de groupe temps réel (création, join par code, historique, envoi)
 - ✏️ Édition & suppression de ses propres messages
+- 🚪 Quitter une conversation sans la supprimer
 - 📤 Export d'une conversation en PDF / CSV / JSON
 - 🔔 Notifications (cloche + badge, polling REST)
-- 👤 Profil (voir/mettre à jour) + recherche d'un contact par pseudo
+- 👤 Profil (voir/mettre à jour), recherche de contact, suppression de compte (danger zone)
+- 🌗 Mode clair / sombre (persisté, suit la préférence système)
 
 ## Stack
 - Vite + React 18 (JavaScript)

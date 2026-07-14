@@ -78,7 +78,7 @@ export default function NotificationBell({ userId }) {
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
-        className="relative flex h-8 w-8 items-center justify-center rounded-lg text-slate-500 hover:bg-slate-100"
+        className="relative flex h-8 w-8 items-center justify-center rounded-lg text-slate-500 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800"
         title="Notifications"
         aria-label="Notifications"
       >
@@ -91,28 +91,28 @@ export default function NotificationBell({ userId }) {
       </button>
 
       {open && (
-        <div className="absolute right-0 z-30 mt-2 w-72 overflow-hidden rounded-xl border border-slate-200 bg-white shadow-lg">
-          <div className="flex items-center justify-between border-b border-slate-100 px-3 py-2">
-            <span className="text-sm font-semibold text-slate-700">Notifications</span>
+        <div className="absolute right-0 z-30 mt-2 w-72 overflow-hidden rounded-xl border border-slate-200 bg-white shadow-lg dark:border-slate-700 dark:bg-slate-800">
+          <div className="flex items-center justify-between border-b border-slate-100 px-3 py-2 dark:border-slate-700">
+            <span className="text-sm font-semibold text-slate-700 dark:text-slate-200">Notifications</span>
             {count > 0 && (
-              <button type="button" className="text-xs text-slate-400 hover:text-slate-600" onClick={clearAll}>
+              <button type="button" className="text-xs text-slate-400 hover:text-slate-600 dark:text-slate-500 dark:hover:text-slate-300" onClick={clearAll}>
                 Tout effacer
               </button>
             )}
           </div>
           <div className="max-h-80 overflow-y-auto">
             {count === 0 ? (
-              <p className="px-3 py-6 text-center text-sm text-slate-400">Aucune notification.</p>
+              <p className="px-3 py-6 text-center text-sm text-slate-400 dark:text-slate-500">Aucune notification.</p>
             ) : (
               items.map((n) => (
-                <div key={n.id} className="flex items-start gap-2 border-b border-slate-50 px-3 py-2.5 last:border-0">
+                <div key={n.id} className="flex items-start gap-2 border-b border-slate-50 px-3 py-2.5 last:border-0 dark:border-slate-700/60">
                   <div className="min-w-0 flex-1">
-                    <p className="break-words text-sm text-slate-700">{n.message}</p>
-                    <p className="mt-0.5 text-[11px] text-slate-400">{formatTime(n.createdAt)}</p>
+                    <p className="break-words text-sm text-slate-700 dark:text-slate-200">{n.message}</p>
+                    <p className="mt-0.5 text-[11px] text-slate-400 dark:text-slate-500">{formatTime(n.createdAt)}</p>
                   </div>
                   <button
                     type="button"
-                    className="text-slate-300 hover:text-slate-500"
+                    className="text-slate-300 hover:text-slate-500 dark:text-slate-600 dark:hover:text-slate-400"
                     onClick={() => dismiss(n.id)}
                     aria-label="Supprimer"
                   >

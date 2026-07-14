@@ -5,12 +5,8 @@ using MessageService.Services;
 using Microsoft.AspNetCore.SignalR;
 using System.ComponentModel.DataAnnotations;
 
-
 namespace MessageService.Hubs
 {
-    /// <summary>
-    /// SignalR Hub that enables real-time chat messaging between clients.
-    /// </summary>
     public class ChatHub : Hub
     {
         private readonly MsgService _messageService;
@@ -22,9 +18,6 @@ namespace MessageService.Hubs
             _conversationService = conversationService;
         }
         
-        /// <summary>
-        /// Broadcast a message to all connected clients.
-        /// </summary>
         public async Task SendMessage(NewMessageDTO newMessage)
         {
             if (await ValidateAndRejectIfInvalid(newMessage)) return;
@@ -33,9 +26,6 @@ namespace MessageService.Hubs
             await Clients.All.SendAsync("ReceiveMessage", createdMessage);
         }
 
-        /// <summary>
-        /// Send a message directly to a specific user.
-        /// </summary>
         public async Task SendMessageToUser(NewMessageDTO newMessage)
         {
             if (await ValidateAndRejectIfInvalid(newMessage)) return;
@@ -45,9 +35,6 @@ namespace MessageService.Hubs
                          .SendAsync("ReceiveMessage", createdMessage);
         }
 
-        /// <summary>
-        /// Add a new user to a SignalR group representing a conversation.
-        /// </summary>
         public async Task JoinGroup(JoinConversationDTO newUser)
         {
             if (await ValidateAndRejectIfInvalid(newUser)) return;
@@ -57,25 +44,29 @@ namespace MessageService.Hubs
             {
                 await Clients.Caller.SendAsync("Error", "Failed to join conversation. Invalid JoinCode or UserId.");
                 return;
-            }                                       
+            }
 
             await Groups.AddToGroupAsync(Context.ConnectionId, conversation.Id.ToString());
-            await Clients.Caller.SendAsync("JoinedGroup", conversation);
+
+            var dto = MapConversationToDto(conversation);
+            await Clients.Caller.SendAsync("JoinedGroup", dto);
         }
 
-        /// <summary>
-        ///  Connect to a conversation group by its ID.
-        /// </summary>
         public async Task ConnectToGroup(int conversationId)
         {
             var conversation = await _conversationService.GetConversationByIdAsync(conversationId, 25);
+            if (conversation == null)
+            {
+                await Clients.Caller.SendAsync("Error", "Conversation not found.");
+                return;
+            }
+
             await Groups.AddToGroupAsync(Context.ConnectionId, conversationId.ToString());
-            await Clients.Caller.SendAsync("ConnectedToGroup", conversation);
+
+            var dto = MapConversationToDto(conversation);
+            await Clients.Caller.SendAsync("ConnectedToGroup", dto);
         }
 
-        /// <summary>
-        /// Send a message to all members of a SignalR group (conversation).
-        /// </summary>
         public async Task SendMessageToGroup(NewMessageDTO newMessage)
         {
             if (await ValidateAndRejectIfInvalid(newMessage)) return;
@@ -85,25 +76,17 @@ namespace MessageService.Hubs
                          .SendAsync("ReceiveMessage", createdMessage);
         }
 
-        /// <summary>
-        /// Validate an object and send validation errors to the caller if invalid.
-        /// </summary>
         private async Task<bool> ValidateAndRejectIfInvalid(object model)
         {
             IList<string> errors = ValidateModel(model);
             if (errors.Count > 0)
             {
                 await Clients.Caller.SendAsync("ValidationError", errors);
-                // Optional logging:
-                // _logger.LogWarning("Validation failed: {@Errors}", errors);
                 return true;
             }
             return false;
         }
 
-        /// <summary>
-        /// Validate a DTO object using DataAnnotations.
-        /// </summary>
         private IList<string> ValidateModel(object model)
         {
             var validationResults = new List<ValidationResult>();
@@ -113,9 +96,6 @@ namespace MessageService.Hubs
             return validationResults.Select(vr => vr.ErrorMessage!).ToList();
         }
 
-        /// <summary>
-        /// Convert and persist a DTO as a Message entity in the database.
-        /// </summary>
         private async Task<MessageResponseDTO> CreateAndPersistMessageAsync(NewMessageDTO dto)
         {
             var message = new Message
@@ -141,5 +121,32 @@ namespace MessageService.Hubs
             };
         }
 
+        private ConversationDTO MapConversationToDto(Conversation conversation)
+        {
+            return new ConversationDTO
+            {
+                Id = conversation.Id,
+                Title = conversation.Title,
+                Date = conversation.Date,
+                JoinCode = conversation.JoinCode,
+                OwnerId = conversation.OwnerId,
+                // Les navigations ne sont pas toujours chargées selon l'appelant
+                // (JoinGroup charge Users, GetConversationById charge Messages) → null-safe.
+                Messages = (conversation.Messages ?? new List<Message>())
+                    .OrderBy(m => m.Date)
+                    .Select(m => new MessageResponseDTO
+                    {
+                        Id = m.Id,
+                        Content = m.Content,
+                        Date = m.Date,
+                        SenderId = m.SenderId,
+                        ReceiverId = m.ReceiverId,
+                        Status = m.Status
+                    }).ToList(),
+                ParticipantIds = (conversation.Users ?? new List<UserConversation>())
+                    .Select(u => u.UserId)
+                    .ToList()
+            };
+        }
     }
 }

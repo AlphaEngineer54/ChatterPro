@@ -3,7 +3,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 vi.mock('./client', () => ({ apiFetch: vi.fn() }));
 
 import { apiFetch } from './client';
-import { getUser, getUserByUsername, updateUser } from './users';
+import { getUser, getUserByUsername, updateUser, deleteUser } from './users';
 
 describe('api/users', () => {
   beforeEach(() => apiFetch.mockReset());
@@ -32,5 +32,11 @@ describe('api/users', () => {
       method: 'PUT',
       body: { id: 5, userName: 'neo', email: 'n@o.c', password: 'secret' },
     });
+  });
+
+  it('deleteUser envoie un DELETE sur /user/{id}', async () => {
+    apiFetch.mockResolvedValue(null);
+    await deleteUser(9);
+    expect(apiFetch).toHaveBeenCalledWith('/user/9', { method: 'DELETE' });
   });
 });

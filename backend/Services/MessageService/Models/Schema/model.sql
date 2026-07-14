@@ -4,7 +4,7 @@ USE message_db;
 
 CREATE TABLE Conversation (
     id INT NOT NULL AUTO_INCREMENT,
-    date DATE,
+    date DATETIME,
     join_code VARCHAR(40) NOT NULL,
     owner_id INT,
     title VARCHAR(255),
@@ -15,7 +15,7 @@ CREATE TABLE Message (
     id INT NOT NULL AUTO_INCREMENT,
     content VARCHAR(255),
     conversation_id INT,
-    date DATE,
+    date DATETIME,
     status VARCHAR(100),
     sender_id INT,
     receiver_id INT,

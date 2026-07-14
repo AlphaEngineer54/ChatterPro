@@ -5,6 +5,7 @@ import {
   createConversation,
   getConversation,
   listConversationsByUser,
+  leaveConversation,
 } from '../api/conversations.js';
 import { updateMessage, deleteMessage } from '../api/messages.js';
 import { exportConversation } from '../api/export.js';
@@ -216,8 +217,23 @@ export default function ChatPage() {
     [flash]
   );
 
+  // Quitter une conversation (retire l'utilisateur sans la supprimer).
+  const handleLeave = useCallback(
+    async (conversation) => {
+      try {
+        await leaveConversation(conversation.id, user.id);
+        setConversations((prev) => prev.filter((c) => c.id !== conversation.id));
+        setActive((prev) => (prev?.id === conversation.id ? null : prev));
+        flash('Vous avez quitté la conversation.');
+      } catch (err) {
+        flash(err.message || 'Échec (impossible de quitter).');
+      }
+    },
+    [user.id, flash]
+  );
+
   return (
-    <div className="flex h-full">
+    <div className="flex h-full bg-white dark:bg-slate-950">
       <ConversationSidebar
         conversations={conversations}
         activeId={active?.id}
@@ -237,6 +253,7 @@ export default function ChatPage() {
         onExport={handleExport}
         onEditMessage={handleEditMessage}
         onDeleteMessage={handleDeleteMessage}
+        onLeave={handleLeave}
       />
 
       {modal === 'new' && (
@@ -247,7 +264,7 @@ export default function ChatPage() {
       )}
 
       {toast && (
-        <div className="fixed bottom-6 left-1/2 z-[60] -translate-x-1/2 rounded-xl bg-slate-900 px-4 py-2.5 text-sm text-white shadow-lg">
+        <div className="fixed bottom-6 left-1/2 z-[60] -translate-x-1/2 rounded-xl bg-slate-900 px-4 py-2.5 text-sm text-white shadow-lg dark:bg-slate-700">
           {toast}
         </div>
       )}

@@ -33,3 +33,11 @@ export async function listConversationsByUser(userId, limit = DEFAULT_LIMIT) {
 export function getConversation(conversationId, limit = DEFAULT_LIMIT) {
   return apiFetch(`/conversation/${conversationId}?limit=${limit}`);
 }
+
+/**
+ * Quitte une conversation (retire l'utilisateur sans supprimer la conversation).
+ * @returns null (204 No Content)
+ */
+export function leaveConversation(conversationId, userId) {
+  return apiFetch(`/conversation/${conversationId}/members/${userId}`, { method: 'DELETE' });
+}

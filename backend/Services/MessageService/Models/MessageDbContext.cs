@@ -31,7 +31,7 @@ public partial class MessageDbContext : DbContext
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Date)
-                .HasColumnType("date")
+                .HasColumnType("datetime")
                 .HasColumnName("date");
             entity.Property(e => e.Title)
                 .HasMaxLength(255)
@@ -57,7 +57,7 @@ public partial class MessageDbContext : DbContext
                 .HasColumnName("content");
             entity.Property(e => e.ConversationId).HasColumnName("conversation_id");
             entity.Property(e => e.Date)
-                .HasColumnType("date")
+                .HasColumnType("datetime")
                 .HasColumnName("date");
             entity.Property(e => e.Status).HasMaxLength(100);
             entity.Property(e => e.SenderId).HasColumnName("sender_id");

@@ -34,3 +34,12 @@ export function updateUser(userId, { userName, email, password }) {
     body: { id: userId, userName, email, password },
   });
 }
+
+/**
+ * Supprime définitivement le compte utilisateur (204).
+ * Le UserService publie un événement `user-deleted` → suppression en cascade
+ * des identifiants côté AuthService.
+ */
+export function deleteUser(userId) {
+  return apiFetch(`/user/${userId}`, { method: 'DELETE' });
+}

@@ -43,7 +43,7 @@ export default function SignupPage() {
     >
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label className="mb-1.5 block text-sm font-medium text-slate-700">Pseudo</label>
+          <label className="mb-1.5 block text-sm font-medium text-slate-700 dark:text-slate-300">Pseudo</label>
           <input
             type="text"
             className="input"
@@ -57,7 +57,7 @@ export default function SignupPage() {
           />
         </div>
         <div>
-          <label className="mb-1.5 block text-sm font-medium text-slate-700">Email</label>
+          <label className="mb-1.5 block text-sm font-medium text-slate-700 dark:text-slate-300">Email</label>
           <input
             type="email"
             className="input"
@@ -68,7 +68,7 @@ export default function SignupPage() {
           />
         </div>
         <div>
-          <label className="mb-1.5 block text-sm font-medium text-slate-700">Mot de passe</label>
+          <label className="mb-1.5 block text-sm font-medium text-slate-700 dark:text-slate-300">Mot de passe</label>
           <input
             type="password"
             className="input"
@@ -82,7 +82,7 @@ export default function SignupPage() {
         </div>
 
         {error && (
-          <p className="rounded-xl bg-red-50 px-3 py-2 text-sm text-red-600">{error}</p>
+          <p className="rounded-xl bg-red-50 px-3 py-2 text-sm text-red-600 dark:bg-red-500/10 dark:text-red-400">{error}</p>
         )}
 
         <button type="submit" className="btn-primary w-full" disabled={loading}>

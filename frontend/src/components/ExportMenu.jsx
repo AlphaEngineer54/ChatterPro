@@ -36,12 +36,12 @@ export default function ExportMenu({ onExport }) {
         Exporter ▾
       </button>
       {open && (
-        <div className="absolute right-0 z-20 mt-1 w-40 overflow-hidden rounded-xl border border-slate-200 bg-white shadow-lg">
+        <div className="absolute right-0 z-20 mt-1 w-40 overflow-hidden rounded-xl border border-slate-200 bg-white shadow-lg dark:border-slate-700 dark:bg-slate-800">
           {FORMATS.map((f) => (
             <button
               key={f.key}
               type="button"
-              className="flex w-full items-center justify-between px-4 py-2.5 text-sm text-slate-700 hover:bg-slate-50 disabled:opacity-50"
+              className="flex w-full items-center justify-between px-4 py-2.5 text-sm text-slate-700 hover:bg-slate-50 disabled:opacity-50 dark:text-slate-200 dark:hover:bg-slate-700"
               onClick={() => handle(f.key)}
               disabled={busy !== null}
             >

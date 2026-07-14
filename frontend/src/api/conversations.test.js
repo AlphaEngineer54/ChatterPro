@@ -3,7 +3,12 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 vi.mock('./client', () => ({ apiFetch: vi.fn() }));
 
 import { apiFetch } from './client';
-import { createConversation, getConversation, listConversationsByUser } from './conversations';
+import {
+  createConversation,
+  getConversation,
+  listConversationsByUser,
+  leaveConversation,
+} from './conversations';
 
 describe('api/conversations', () => {
   beforeEach(() => {
@@ -47,5 +52,11 @@ describe('api/conversations', () => {
     apiFetch.mockResolvedValue({ id: 5, messages: [] });
     await getConversation(5);
     expect(apiFetch).toHaveBeenCalledWith('/conversation/5?limit=50');
+  });
+
+  it('leaveConversation envoie un DELETE sur /members/{userId}', async () => {
+    apiFetch.mockResolvedValue(null);
+    await leaveConversation(5, 7);
+    expect(apiFetch).toHaveBeenCalledWith('/conversation/5/members/7', { method: 'DELETE' });
   });
 });

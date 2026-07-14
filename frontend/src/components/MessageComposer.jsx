@@ -21,7 +21,7 @@ export default function MessageComposer({ onSend, disabled }) {
   }
 
   return (
-    <div className="border-t border-slate-200 bg-white p-4">
+    <div className="border-t border-slate-200 bg-white p-4 dark:border-slate-800 dark:bg-slate-900">
       <div className="flex items-end gap-3">
         <textarea
           className="input max-h-40 min-h-[46px] flex-1 resize-none"
@@ -43,7 +43,7 @@ export default function MessageComposer({ onSend, disabled }) {
         </button>
       </div>
       {value.length > MAX_LENGTH - 30 && (
-        <p className="mt-1 text-right text-xs text-slate-400">
+        <p className="mt-1 text-right text-xs text-slate-400 dark:text-slate-500">
           {value.length}/{MAX_LENGTH}
         </p>
       )}

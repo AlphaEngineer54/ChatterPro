@@ -170,6 +170,25 @@ namespace MessageService.Controllers
         }
 
         /// <summary>
+        /// Removes a user from a conversation without deleting the conversation itself (leave).
+        /// </summary>
+        /// <param name="conversationId">ID of the conversation to leave.</param>
+        /// <param name="userId">ID of the user leaving.</param>
+        /// <returns>No content if the user was removed.</returns>
+        /// <response code="204">User successfully removed from the conversation.</response>
+        /// <response code="404">Membership not found.</response>
+        [HttpDelete("{conversationId}/members/{userId}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> LeaveConversation(int conversationId, int userId)
+        {
+            var removed = await _conversationService.RemoveUserFromConversationAsync(conversationId, userId);
+            return removed
+                ? NoContent()
+                : NotFound(new { Message = "Membership not found" });
+        }
+
+        /// <summary>
         /// Maps a Conversation entity to a simple DTO.
         /// </summary>
         private ConversationResponseDTO MapToSimpleDTO(Conversation conversation)

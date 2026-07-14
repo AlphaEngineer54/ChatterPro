@@ -125,6 +125,22 @@ namespace MessageService.Services
             return conversation;
         }
 
+        // UPDATE : Retirer un utilisateur d'une conversation (quitter sans supprimer la conversation)
+        public async Task<bool> RemoveUserFromConversationAsync(int conversationId, int userId)
+        {
+            var membership = await _context.UserConversations
+                .FirstOrDefaultAsync(uc => uc.ConversationId == conversationId && uc.UserId == userId);
+
+            if (membership == null)
+            {
+                return false; // L'utilisateur n'est pas membre de cette conversation
+            }
+
+            _context.UserConversations.Remove(membership);
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
         // UPDATE: Modifier une conversation existante
         public async Task<Conversation?> UpdateConversationAsync(int conversationId, UpdatedConversationDTO updatedConversation)
         {
