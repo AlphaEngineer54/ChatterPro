@@ -162,128 +162,94 @@ En envoi de groupe, `receiverId` est requis par le DTO (placeholder `0`).
 
 ---
 
-## 📦 Démarrage local
+## 🚀 Lancer l'application
+
+> **En 3 commandes, sans aucune configuration.** Docker installe et démarre tout pour vous
+> (services, bases de données, messagerie). Aucun fichier à éditer : des valeurs par défaut
+> sont déjà incluses.
 
 ### Prérequis
-- Docker & Docker Compose
-- Node.js 20+ (pour lancer le frontend en mode développement)
+- **[Docker Desktop](https://www.docker.com/products/docker-desktop/)** installé et **démarré**
+- **[Git](https://git-scm.com/downloads)**
 
-### 1. Configuration (`.env`)
-Le `docker-compose.yaml` s'appuie sur des variables d'environnement (ports, identifiants,
-`JWT_SECRET`, chaînes de connexion). Créez un fichier `.env` à la racine `ChatterPro/` avec
-notamment :
-
-```env
-GATEWAY_PORT=5000
-AUTHSERVICE_PORT=5001
-USERSERVICE_PORT=5002
-MESSAGESERVICE_PORT=5003
-DATAEXPORT_PORT=5004
-NOTIFSERVICE_PORT=5005
-
-JWT_SECRET=<une_clé_secrète_longue_et_identique_partout>
-# + identifiants MySQL / RabbitMQ et chaînes de connexion (voir docker-compose.yaml)
-```
-
-> 🔐 `JWT_SECRET` **doit être identique** pour l'AuthService (émission) et la Gateway
-> (validation), sinon tous les appels authentifiés échoueront en 401.
-
-### 2. Backend
+### Étapes
 ```bash
+# 1) Récupérer le code
 git clone https://github.com/AlphaEngineer54/ChatterPro.git
 cd ChatterPro
-docker-compose up -d --build
+
+# 2) Télécharger les images prêtes à l'emploi (dépôt Docker Hub public dev329)
+docker compose pull
+
+# 3) Démarrer toute l'application
+docker compose up -d
 ```
 
-### 3. Frontend
-```bash
-cd frontend
-npm install
-npm run dev      # http://localhost:3000
-```
+Ouvrez ensuite votre navigateur sur **<http://localhost:3000>** 🎉
+Créez un compte et commencez à discuter — voir le [parcours de démonstration](#-parcours-de-démonstration).
 
-> ⚠️ Le dev server **doit** rester sur le **port 3000** : c'est la seule origine autorisée
-> par le CORS de la Gateway et du MessageService (`WithOrigins("http://localhost:3000")`).
+> ⏳ **Au tout premier lancement**, laissez ~30 secondes aux bases de données pour s'initialiser.
+> Vérifiez l'avancement avec `docker compose ps` (colonne *STATUS* → `healthy`).
 
-Le frontend peut aussi être conteneurisé via son `Dockerfile` (build Vite → NGINX) :
+### Arrêter / réinitialiser
 ```bash
-cd frontend
-docker build -t chatterpro-frontend .
-docker run -p 3000:3000 chatterpro-frontend
+docker compose down        # arrête l'application (conserve les données)
+docker compose down -v      # arrête ET efface les données (bases remises à zéro)
 ```
 
 ---
 
-## 🐳 Exécuter depuis Docker Hub (images pré-construites)
+## 🐳 Détails Docker & dépannage
 
-Le pipeline CI/CD publie automatiquement une image par service sur le dépôt Docker Hub
-**public [`dev329`](https://hub.docker.com/u/dev329)** à chaque push sur `dev`/`main`. Cette
-méthode **ne compile rien localement** : on récupère les images et on lance toute la stack
-(services, bases MySQL, RabbitMQ, gateway, frontend) avec Docker Compose.
+### Images publiées — dépôt public [`dev329`](https://hub.docker.com/u/dev329)
+Le pipeline CI/CD publie une image par service à chaque push. Le dépôt étant **public**,
+aucun `docker login` n'est nécessaire pour les récupérer.
 
-### Images publiées (dépôt public `dev329`)
-| Image Docker Hub                          | Rôle                     | Port |
-|-------------------------------------------|--------------------------|------|
-| `dev329/chatterpro-gateway:latest`        | API Gateway Ocelot       | 5000 |
-| `dev329/chatterpro-authservice:latest`    | Authentification / JWT   | 5001 |
-| `dev329/chatterpro-userservice:latest`    | Utilisateurs             | 5002 |
-| `dev329/chatterpro-messageservice:latest` | Messages + Hub SignalR   | 5003 |
-| `dev329/chatterpro-dataexportservice:latest` | Export PDF/CSV/JSON   | 5004 |
-| `dev329/chatterpro-notificationservice:latest` | Notifications       | 5005 |
-| `dev329/chatterpro-frontend:latest`       | Frontend React (NGINX)   | 3000 |
+| Image                                   | Rôle                   | Port |
+|-----------------------------------------|------------------------|------|
+| `dev329/chatterpro-frontend`            | Frontend React (NGINX) | 3000 |
+| `dev329/chatterpro-gateway`             | API Gateway Ocelot     | 5000 |
+| `dev329/chatterpro-authservice`         | Authentification / JWT | 5001 |
+| `dev329/chatterpro-userservice`         | Utilisateurs           | 5002 |
+| `dev329/chatterpro-messageservice`      | Messages + Hub SignalR | 5003 |
+| `dev329/chatterpro-dataexportservice`   | Export PDF/CSV/JSON    | 5004 |
+| `dev329/chatterpro-notificationservice` | Notifications          | 5005 |
 
-> Le dépôt est **public** : aucun `docker login` n'est nécessaire pour tirer ces images.
-> MySQL (`mysql:8`) et RabbitMQ (`rabbitmq:3-management`) proviennent des images officielles.
+MySQL (`mysql:8`) et RabbitMQ (`rabbitmq:3-management`) proviennent des images officielles.
 
-### Prérequis
-- Docker + Docker Compose v2 (`docker compose`)
-- Les fichiers `docker-compose.yaml` et `.env.example` (à la racine du dépôt)
-
-### 1. Préparer le `.env`
-Le compose utilise déjà `dev329` par défaut ; il suffit de fournir les autres variables
-(ports, `JWT_SECRET`, identifiants MySQL/RabbitMQ) :
+### Personnalisation (optionnel)
+Aucune configuration n'est requise pour démarrer. Pour changer un port, une clé `JWT_SECRET`
+ou un identifiant, copiez le modèle et éditez-le :
 ```bash
 cp .env.example .env
-# éditez .env : JWT_SECRET, identifiants MySQL/RabbitMQ, ports…
-# (DOCKER_USERNAME est optionnel — laissé vide, les images dev329/* sont utilisées)
 ```
 
-### 2. Tirer les images depuis Docker Hub
+### Dépannage
+- **Vérifier l'état / lire les logs :**
+  ```bash
+  docker compose ps                    # statut + santé de chaque service
+  docker compose logs -f <service>     # ex. : docker compose logs -f gateway
+  ```
+- **Un service reste `unhealthy` au premier lancement :** patientez ~30 s (initialisation des
+  bases MySQL), puis réessayez.
+- **Une table de base de données manque après une mise à jour du schéma :** les scripts SQL
+  d'initialisation ne s'exécutent qu'à la **toute première** création du volume de la base.
+  Réinitialisez les données pour les rejouer :
+  ```bash
+  docker compose down -v && docker compose up -d
+  ```
+
+### Pour les développeurs
+Reconstruire les images localement (au lieu de les tirer) :
 ```bash
-docker compose pull
+docker compose up -d --build
 ```
-Cela télécharge les 7 images applicatives `dev329/*` + MySQL + RabbitMQ (aucune compilation locale).
-
-### 3. Créer et démarrer les conteneurs
+Lancer le frontend en mode développement (hot-reload), backend en conteneurs :
 ```bash
-docker compose up -d --no-build      # démarre à partir des images tirées, en arrière-plan
+cd frontend && npm install && npm run dev    # http://localhost:3000
 ```
-> `--no-build` garantit l'utilisation des images Docker Hub (et non un build local).
-
-### 4. Vérifier l'état (healthchecks)
-```bash
-docker compose ps          # statut + colonne "health" de chaque service
-docker compose logs -f gateway   # suivre les logs d'un service
-```
-Attendez que les services passent `healthy` (les bases MySQL mettent quelques secondes à s'initialiser).
-
-### 5. Accéder à l'application
-- Frontend : <http://localhost:3000>
-- API Gateway : <http://localhost:5000>
-
-### 6. Arrêter / nettoyer
-```bash
-docker compose down          # arrête et supprime les conteneurs
-docker compose down -v       # + supprime les volumes (efface les données MySQL)
-```
-
-### (Optionnel) Tirer / lancer une seule image
-```bash
-docker pull dev329/chatterpro-frontend:latest
-docker run -p 3000:3000 dev329/chatterpro-frontend:latest   # frontend statique autonome
-```
-> Les microservices ont besoin de leurs bases et de RabbitMQ : préférez `docker compose`
-> pour un lancement complet plutôt que des `docker run` isolés.
+> ⚠️ Le dev server **doit** rester sur le **port 3000** : seule origine autorisée par le CORS
+> de la Gateway et du MessageService.
 
 ---
 
