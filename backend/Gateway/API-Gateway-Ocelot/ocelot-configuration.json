@@ -103,7 +103,7 @@
       }
     },
     {
-      "DownstreamPathTemplate": "/api/notification/{everything}",
+      "DownstreamPathTemplate": "/api/notifications/{everything}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -112,7 +112,7 @@
         }
       ],
       "UpstreamPathTemplate": "/notification/{everything}",
-      "UpstreamHttpMethod": [ "GET", "POST", "DELETE", "UPDATE" ],
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "UPDATE" ],
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer"
       }
