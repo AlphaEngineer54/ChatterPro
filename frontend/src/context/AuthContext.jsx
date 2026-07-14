@@ -6,10 +6,18 @@ const USER_KEY = 'chatterpro.user';
 
 const AuthContext = createContext(null);
 
+// Garantit que l'id est bien un entier (le backend peut le renvoyer en string
+// selon la sérialisation) → évite tout souci de parsing côté requêtes/URL.
+function normalizeUser(user) {
+  if (!user) return null;
+  const id = Number(user.id);
+  return { ...user, id: Number.isNaN(id) ? user.id : id };
+}
+
 function loadStoredUser() {
   try {
     const raw = localStorage.getItem(USER_KEY);
-    return raw ? JSON.parse(raw) : null;
+    return raw ? normalizeUser(JSON.parse(raw)) : null;
   } catch {
     return null;
   }
@@ -20,10 +28,11 @@ export function AuthProvider({ children }) {
   const [token, setTokenState] = useState(() => getToken());
 
   const applySession = useCallback((nextUser, nextToken) => {
-    setUser(nextUser);
+    const normalized = normalizeUser(nextUser);
+    setUser(normalized);
     setTokenState(nextToken);
     persistToken(nextToken);
-    if (nextUser) localStorage.setItem(USER_KEY, JSON.stringify(nextUser));
+    if (normalized) localStorage.setItem(USER_KEY, JSON.stringify(normalized));
     else localStorage.removeItem(USER_KEY);
   }, []);
 

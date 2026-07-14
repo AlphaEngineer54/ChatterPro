@@ -77,13 +77,24 @@ namespace NotificationService.Services
                         return;
                     }
 
+                    // La notification appartient au DESTINATAIRE (ReceiverId). Un ReceiverId
+                    // invalide (<= 0, ex. placeholder de groupe) ne doit jamais créer de
+                    // notification « user 0 » : le MessageService envoie un événement par
+                    // membre réel de la conversation (voir MsgService.NotifyRecipientsAsync).
+                    if (message.ReceiverId <= 0)
+                    {
+                        _logger.LogWarning($"Notification ignorée : ReceiverId invalide ({message.ReceiverId}).");
+                        await _channel.BasicAckAsync(ea.DeliveryTag, false);
+                        return;
+                    }
+
                     scope = _scopeFactory.CreateScope();;
 
                     var notificationService = scope.ServiceProvider.GetRequiredService<NotificationManagerService>();
 
                     var notification = new Notification
                     {
-                        UserId = message.ReceiverId,
+                        UserId = message.ReceiverId, // = destinataire (ReceiverId)
                         Message = $"User-{message.SenderId}: {message.Message}",
                         CreatedAt = DateTime.Now,
                     };
