@@ -23,19 +23,42 @@ namespace MessageService.Services
             _dbContext.Messages.Add(newMessage);
             await _dbContext.SaveChangesAsync();
 
-            // Créer l'événement de message
-            var messageEvent = new CreatedMessageEvent()
-            {
-                Message = newMessage.Content,
-                ReceiverId = newMessage.ReceiverId,
-                SenderId = newMessage.SenderId,
-            };
+            // Publier une notification par destinataire (voir NotifyRecipientsAsync)
+            await NotifyRecipientsAsync(newMessage);
 
-            // Publier le message dans RabbitMQ
-            _producer.Send(messageEvent, "new-message-event");
-            
             // Retourner le message au client
             return newMessage;
+        }
+
+        /// <summary>
+        /// Publie un événement de notification par destinataire réel du message.
+        /// En chat de groupe, le ReceiverId vaut 0 (placeholder) : on cible donc tous
+        /// les membres de la conversation sauf l'expéditeur, chacun avec son vrai UserId
+        /// (sinon la notification serait créée pour l'utilisateur 0 et jamais affichée).
+        /// </summary>
+        private async Task NotifyRecipientsAsync(Message message)
+        {
+            var recipientIds = await _dbContext.UserConversations
+                .Where(uc => uc.ConversationId == message.ConversationId && uc.UserId != message.SenderId)
+                .Select(uc => uc.UserId)
+                .Distinct()
+                .ToListAsync();
+
+            // Repli : destinataire explicite (messagerie 1-à-1) si aucun membre trouvé.
+            if (recipientIds.Count == 0 && message.ReceiverId > 0)
+            {
+                recipientIds.Add(message.ReceiverId);
+            }
+
+            foreach (var recipientId in recipientIds)
+            {
+                _producer.Send(new CreatedMessageEvent
+                {
+                    Message = message.Content,
+                    SenderId = message.SenderId,
+                    ReceiverId = recipientId,
+                }, "new-message-event");
+            }
         }
 
         // READ: Récupérer tous les messages

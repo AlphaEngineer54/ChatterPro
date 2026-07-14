@@ -2,6 +2,10 @@ import { Link } from 'react-router-dom';
 import NotificationBell from './NotificationBell.jsx';
 import ThemeToggle from './ThemeToggle.jsx';
 
+const iconBtn =
+  'flex h-8 w-8 items-center justify-center rounded-lg text-slate-500 transition ' +
+  'hover:bg-slate-100 hover:text-slate-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-200';
+
 /** Colonne de gauche : identité, actions et liste des conversations. */
 export default function ConversationSidebar({
   conversations,
@@ -16,37 +20,34 @@ export default function ConversationSidebar({
   return (
     <aside className="flex w-80 flex-col border-r border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900">
       {/* En-tête / identité */}
-      <div className="flex items-center justify-between border-b border-slate-200 px-4 py-4 dark:border-slate-800">
-        <div className="flex min-w-0 items-center gap-2">
-          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-accent-600 text-sm font-bold text-white">
-            C
-          </span>
-          <div className="min-w-0 leading-tight">
-            <p className="text-sm font-semibold text-slate-900 dark:text-slate-100">ChatterPro</p>
-            <p className="max-w-[120px] truncate text-xs text-slate-400 dark:text-slate-500">{user?.email}</p>
+      <div className="border-b border-slate-200 px-4 py-3 dark:border-slate-800">
+        <div className="flex items-center justify-between gap-2">
+          <div className="flex min-w-0 items-center gap-2">
+            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-accent-600 text-sm font-bold text-white">
+              C
+            </span>
+            <span className="truncate text-sm font-semibold text-slate-900 dark:text-slate-100">
+              ChatterPro
+            </span>
+          </div>
+          <div className="flex shrink-0 items-center gap-0.5">
+            <ThemeToggle />
+            {user?.id != null && <NotificationBell userId={user.id} />}
+            <Link to="/profile" className={iconBtn} title="Profil" aria-label="Profil">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.7} stroke="currentColor" className="h-[18px] w-[18px]" aria-hidden="true">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+              </svg>
+            </Link>
+            <button type="button" onClick={onLogout} className={iconBtn} title="Déconnexion" aria-label="Déconnexion">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.7} stroke="currentColor" className="h-[18px] w-[18px]" aria-hidden="true">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9" />
+              </svg>
+            </button>
           </div>
         </div>
-        <div className="flex items-center gap-1">
-          <ThemeToggle />
-          {user?.id != null && <NotificationBell userId={user.id} />}
-          <Link
-            to="/profile"
-            className="flex h-8 w-8 items-center justify-center rounded-lg text-slate-500 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800"
-            title="Profil"
-            aria-label="Profil"
-          >
-            <span className="text-lg">👤</span>
-          </Link>
-          <button
-            type="button"
-            onClick={onLogout}
-            className="flex h-8 w-8 items-center justify-center rounded-lg text-slate-500 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800"
-            title="Déconnexion"
-            aria-label="Déconnexion"
-          >
-            <span className="text-base">⏻</span>
-          </button>
-        </div>
+        {user?.email && (
+          <p className="mt-1.5 truncate text-xs text-slate-400 dark:text-slate-500">{user.email}</p>
+        )}
       </div>
 
       {/* Actions */}

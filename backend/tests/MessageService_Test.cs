@@ -25,19 +25,26 @@ namespace MessagingApp_Test
         // ───────────────────────── MsgService ─────────────────────────
 
         [Fact]
-        public async Task CreateMessageAsync_PersistsMessageAndPublishesEvent()
+        public async Task CreateMessageAsync_PersistsMessage_AndNotifiesOtherMembers()
         {
             // Arrange
             using var context = NewInMemoryContext();
             var producerMock = new Mock<IProducer>();
             var service = new MsgService(context, producerMock.Object);
 
+            // Conversation 42 : expéditeur 1 + deux autres membres (2 et 3).
+            context.UserConversations.AddRange(
+                new UserConversation { ConversationId = 42, UserId = 1 },
+                new UserConversation { ConversationId = 42, UserId = 2 },
+                new UserConversation { ConversationId = 42, UserId = 3 });
+            await context.SaveChangesAsync();
+
             var message = new Message
             {
                 Content = "Bonjour",
                 Status = "sent",
                 SenderId = 1,
-                ReceiverId = 0,
+                ReceiverId = 0, // placeholder de groupe
                 ConversationId = 42
             };
 
@@ -47,7 +54,13 @@ namespace MessagingApp_Test
             // Assert
             Assert.True(created.Id > 0);
             Assert.Equal(1, await context.Messages.CountAsync());
-            producerMock.Verify(p => p.Send(It.IsAny<CreatedMessageEvent>(), "new-message-event"), Times.Once);
+            // Une notification par membre SAUF l'expéditeur (2 et 3), jamais pour UserId 0.
+            producerMock.Verify(p => p.Send(
+                It.Is<CreatedMessageEvent>(e => e.ReceiverId == 2), "new-message-event"), Times.Once);
+            producerMock.Verify(p => p.Send(
+                It.Is<CreatedMessageEvent>(e => e.ReceiverId == 3), "new-message-event"), Times.Once);
+            producerMock.Verify(p => p.Send(
+                It.Is<CreatedMessageEvent>(e => e.ReceiverId == 1 || e.ReceiverId == 0), "new-message-event"), Times.Never);
         }
 
         [Fact]
