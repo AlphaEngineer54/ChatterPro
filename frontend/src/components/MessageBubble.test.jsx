@@ -16,9 +16,15 @@ describe('MessageBubble', () => {
     expect(screen.getByText('Bonjour tout le monde')).toBeInTheDocument();
   });
 
-  it('affiche l’expéditeur pour un message reçu', () => {
+  it('affiche l’expéditeur (repli sur l’id) pour un message reçu', () => {
     render(<MessageBubble message={baseMessage} isOwn={false} />);
     expect(screen.getByText('Utilisateur #7')).toBeInTheDocument();
+  });
+
+  it('affiche le pseudo (UserService) quand il est fourni', () => {
+    render(<MessageBubble message={baseMessage} isOwn={false} senderName="alice" />);
+    expect(screen.getByText('alice')).toBeInTheDocument();
+    expect(screen.queryByText('Utilisateur #7')).not.toBeInTheDocument();
   });
 
   it('masque l’expéditeur pour un message émis par soi', () => {

@@ -15,7 +15,7 @@ function formatTime(dateStr) {
  * Bulle de message : alignée à droite (accent) si émise, à gauche sinon.
  * Les messages émis exposent au survol des actions Éditer / Supprimer.
  */
-export default function MessageBubble({ message, isOwn, onEdit, onDelete }) {
+export default function MessageBubble({ message, isOwn, senderName, onEdit, onDelete }) {
   const [editing, setEditing] = useState(false);
   const [draft, setDraft] = useState(message.content);
   const [busy, setBusy] = useState(false);
@@ -47,7 +47,7 @@ export default function MessageBubble({ message, isOwn, onEdit, onDelete }) {
         >
           {!isOwn && (
             <p className="mb-0.5 text-xs font-medium text-slate-500 dark:text-slate-400">
-              Utilisateur #{message.senderId}
+              {senderName || `Utilisateur #${message.senderId}`}
             </p>
           )}
 

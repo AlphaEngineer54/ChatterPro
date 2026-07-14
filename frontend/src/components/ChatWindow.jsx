@@ -1,7 +1,8 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import MessageBubble from './MessageBubble.jsx';
 import MessageComposer from './MessageComposer.jsx';
 import ExportMenu from './ExportMenu.jsx';
+import { useUsernames } from '../hooks/useUsernames.js';
 
 /** Panneau principal : en-tête de la conversation, fil de messages, composer. */
 export default function ChatWindow({
@@ -18,6 +19,34 @@ export default function ChatWindow({
   const [copied, setCopied] = useState(false);
 
   const messages = conversation?.messages ?? [];
+
+  // Résolution des pseudos (UserService) : owner + expéditeurs des messages.
+  // Le backend n'exposant pas de liste de membres, on reconstitue les
+  // participants à partir des ids disponibles côté conversation.
+  const participantIds = useMemo(() => {
+    const ids = messages.map((m) => m.senderId);
+    if (conversation?.ownerId != null) ids.push(conversation.ownerId);
+    return ids;
+  }, [messages, conversation?.ownerId]);
+  const usernames = useUsernames(participantIds);
+
+  // Liste ordonnée et dédupliquée des participants pour l'en-tête du groupe.
+  const participants = useMemo(() => {
+    const seen = new Set();
+    const list = [];
+    for (const id of participantIds) {
+      const key = String(id);
+      if (seen.has(key)) continue;
+      seen.add(key);
+      list.push({
+        id,
+        name: usernames[key] || `Utilisateur #${id}`,
+        isOwner: conversation?.ownerId === id,
+        isSelf: id === currentUserId,
+      });
+    }
+    return list;
+  }, [participantIds, usernames, conversation?.ownerId, currentUserId]);
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -66,6 +95,7 @@ export default function ChatWindow({
         key={m.id}
         message={m}
         isOwn={m.senderId === currentUserId}
+        senderName={usernames[String(m.senderId)]}
         onEdit={onEditMessage}
         onDelete={onDeleteMessage}
       />
@@ -75,9 +105,17 @@ export default function ChatWindow({
   return (
     <div className="flex flex-1 flex-col bg-slate-50 dark:bg-slate-950">
       <header className="flex items-center justify-between border-b border-slate-200 bg-white px-6 py-4 dark:border-slate-800 dark:bg-slate-900">
-        <div>
+        <div className="min-w-0">
           <h2 className="font-semibold text-slate-900 dark:text-slate-100">{conversation.title}</h2>
-          <p className="text-xs text-slate-400 dark:text-slate-500">Conversation #{conversation.id}</p>
+          {participants.length > 0 ? (
+            <p className="truncate text-xs text-slate-400 dark:text-slate-500">
+              {participants
+                .map((p) => (p.isSelf ? 'Vous' : p.name) + (p.isOwner ? ' (owner)' : ''))
+                .join(', ')}
+            </p>
+          ) : (
+            <p className="text-xs text-slate-400 dark:text-slate-500">Conversation #{conversation.id}</p>
+          )}
         </div>
         <div className="flex items-center gap-2">
           <button

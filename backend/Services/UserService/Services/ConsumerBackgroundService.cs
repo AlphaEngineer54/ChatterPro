@@ -25,6 +25,10 @@ namespace UserService.Services
             consumer.ConsumeEvent("user-created");
             consumer.ConsumeEvent("get-user-event");
 
+            // Force l'initialisation de l'orchestrateur SAGA (ouvre son canal RPC et
+            // commence à écouter les réponses dès le démarrage du service).
+            scope.ServiceProvider.GetRequiredService<AccountUpdateSaga>();
+
             return Task.CompletedTask; // Garde le service actif
         }
     }

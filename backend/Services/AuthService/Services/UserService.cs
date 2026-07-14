@@ -68,5 +68,53 @@ namespace AuthService.Services
             return await _userRepository.GetByIdAsync(id)
                    ?? throw new ArgumentNullException($"User with ID {id} not found.");
         }
+
+        /// <summary>
+        /// Étape « valider &amp; préparer » du SAGA de mise à jour de compte.
+        /// Vérifie que <paramref name="authPassword"/> correspond bien au mot de passe
+        /// actuel (preuve d'identité), contrôle l'unicité de l'email (en excluant
+        /// l'utilisateur lui-même), puis applique le nouvel email — le mot de passe
+        /// restant inchangé. Renvoie l'issue et l'ancien email (pour compensation).
+        /// </summary>
+        public async Task<(AccountUpdateOutcome Outcome, string? OldEmail)> PrepareAccountUpdate(
+            int userId, string? newEmail, string? authPassword)
+        {
+            var user = await _userRepository.GetByIdAsync(userId);
+            if (user == null)
+                return (AccountUpdateOutcome.NotFound, null);
+
+            // Le vrai filtre de sécurité qui manquait : on prouve l'identité avant tout.
+            if (string.IsNullOrEmpty(authPassword) || !_passwordHasher.Verify(user.Password!, authPassword))
+                return (AccountUpdateOutcome.InvalidCredentials, null);
+
+            var oldEmail = user.Email;
+
+            if (!string.IsNullOrWhiteSpace(newEmail) && newEmail != oldEmail)
+            {
+                // Conflit uniquement si l'email appartient à un AUTRE utilisateur.
+                var owner = await _userRepository.GetByEmailAsync(newEmail);
+                if (owner != null && owner.Id != userId)
+                    return (AccountUpdateOutcome.EmailConflict, null);
+
+                // Entité suivie (FindAsync) : on ne touche qu'à l'email, le hash reste intact.
+                user.Email = newEmail;
+                await _userRepository.UpdateAsync(user);
+            }
+
+            return (AccountUpdateOutcome.Confirmed, oldEmail);
+        }
+
+        /// <summary>
+        /// Compensation du SAGA : restaure l'email d'origine (le mot de passe n'ayant
+        /// jamais été modifié, il n'y a rien à compenser de ce côté).
+        /// </summary>
+        public async Task RevertAccountEmail(int userId, string oldEmail)
+        {
+            var user = await _userRepository.GetByIdAsync(userId);
+            if (user == null) return;
+
+            user.Email = oldEmail;
+            await _userRepository.UpdateAsync(user);
+        }
     }
 }

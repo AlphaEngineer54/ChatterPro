@@ -19,7 +19,7 @@ builder.Services.AddSwaggerGen(options =>
         Description = "API for managing user profiles and non-sensitive user information, including retrieval, update, and deletion operations."
     });
 
-    // Optionnel : activer les commentaires XML si générés
+    // Optionnel : activer les commentaires XML si gï¿½nï¿½rï¿½s
     var xmlFile = $"{System.Reflection.Assembly.GetExecutingAssembly().GetName().Name}.xml";
     var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
     if (File.Exists(xmlPath))
@@ -35,13 +35,16 @@ builder.Services.AddDbContext<UserDbContext>(options =>
     options.UseMySQL(connectionString);
 });
 
-// Injecter les dépendances au conteneur
+// Injecter les dï¿½pendances au conteneur
 builder.Services.AddScoped<IProducer, ProducerService>();
 builder.Services.AddScoped<AccountService>();
 builder.Services.AddScoped<IEventHandler, MultiEventHandler>();
 
 builder.Services.AddSingleton<RabbitMQConnection>();
 builder.Services.AddSingleton<IConsumer, ConsumerService>();
+
+// SAGA (orchestrateur) : canal RPC + consommateur de rÃ©ponses, actif en continu.
+builder.Services.AddSingleton<AccountUpdateSaga>();
 
 // Injecter les services asynchrones
 builder.Services.AddHostedService<ConsumerBackgroundService>();

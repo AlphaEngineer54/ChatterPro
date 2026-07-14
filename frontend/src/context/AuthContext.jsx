@@ -40,6 +40,17 @@ export function AuthProvider({ children }) {
     applySession(null, null);
   }, [applySession]);
 
+  // Synchronise le profil local (email/pseudo) après une mise à jour réussie,
+  // sans toucher au token : évite d'afficher des infos périmées jusqu'à la
+  // reconnexion.
+  const updateUser = useCallback((patch) => {
+    setUser((prev) => {
+      const next = normalizeUser({ ...prev, ...patch });
+      if (next) localStorage.setItem(USER_KEY, JSON.stringify(next));
+      return next;
+    });
+  }, []);
+
   const login = useCallback(
     async (credentials) => {
       const { user: u, jwtToken } = await authApi.login(credentials);
@@ -66,8 +77,8 @@ export function AuthProvider({ children }) {
   }, [logout]);
 
   const value = useMemo(
-    () => ({ user, token, isAuthenticated: Boolean(token), login, signup, logout }),
-    [user, token, login, signup, logout]
+    () => ({ user, token, isAuthenticated: Boolean(token), login, signup, logout, updateUser }),
+    [user, token, login, signup, logout, updateUser]
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

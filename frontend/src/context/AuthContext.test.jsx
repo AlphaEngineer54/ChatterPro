@@ -67,6 +67,25 @@ describe('context/AuthContext', () => {
     await waitFor(() => expect(result.current.isAuthenticated).toBe(false));
   });
 
+  it('updateUser synchronise le profil (state + localStorage) sans toucher au token', async () => {
+    authApi.login.mockResolvedValue({ user: { id: 1, email: 'old@b.c' }, jwtToken: 'jwt-1' });
+    const { result } = renderHook(() => useAuth(), { wrapper });
+
+    await act(async () => {
+      await result.current.login({ email: 'old@b.c', password: 'secret' });
+    });
+
+    act(() => result.current.updateUser({ userName: 'neo', email: 'new@b.c' }));
+
+    expect(result.current.user).toEqual({ id: 1, email: 'new@b.c', userName: 'neo' });
+    expect(JSON.parse(localStorage.getItem('chatterpro.user'))).toEqual({
+      id: 1,
+      email: 'new@b.c',
+      userName: 'neo',
+    });
+    expect(result.current.token).toBe('jwt-1'); // token inchangé
+  });
+
   it('restaure la session depuis le localStorage au montage', () => {
     localStorage.setItem('chatterpro.token', 'jwt-persisted');
     localStorage.setItem('chatterpro.user', JSON.stringify({ id: 9, email: 'z@z.z' }));

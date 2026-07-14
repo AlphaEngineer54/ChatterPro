@@ -71,16 +71,26 @@ namespace UserService.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> UpdateUser([FromBody] UserUpdateDTO user)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var updated = await _userService.UpdateUser(user);
-            if (updated)
-                return NoContent();
+            // Le SAGA valide l'identité (mot de passe) côté AuthService avant tout commit.
+            var result = await _userService.UpdateUser(user);
 
-            return NotFound(new { Message = "User not found." });
+            return result switch
+            {
+                AccountUpdateResult.Ok => NoContent(),
+                // 400 (et non 401) : un 401 déclencherait la déconnexion automatique
+                // du client alors que l'utilisateur reste authentifié.
+                AccountUpdateResult.InvalidCredentials => BadRequest(new { Message = "Mot de passe incorrect." }),
+                AccountUpdateResult.EmailConflict => Conflict(new { Message = "Cet email est déjà utilisé." }),
+                AccountUpdateResult.NotFound => NotFound(new { Message = "Utilisateur introuvable." }),
+                _ => StatusCode(StatusCodes.Status500InternalServerError, new { Message = "Échec de la mise à jour." })
+            };
         }
 
         /// <summary>

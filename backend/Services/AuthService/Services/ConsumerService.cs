@@ -45,6 +45,8 @@ namespace AuthService.Services
                     {
                         "user-updated" => typeof(UserUpdatedEvent),
                         "user-deleted" => typeof(UserDeletedEvent),
+                        "account-update-requested" => typeof(AccountUpdateRequested),
+                        "account-update-compensate" => typeof(AccountUpdateCompensate),
                         _ => throw new ArgumentException($"Unhandled queue name: {queueName}")
                     };
 

@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext.jsx';
-import { getUser, getUserByUsername, updateUser, deleteUser } from '../api/users.js';
+import { getUser, getUserByUsername, updateUser as apiUpdateUser, deleteUser } from '../api/users.js';
 import ThemeToggle from '../components/ThemeToggle.jsx';
 
 export default function ProfilePage() {
-  const { user, logout } = useAuth();
+  const { user, logout, updateUser } = useAuth();
   const navigate = useNavigate();
 
   const [userName, setUserName] = useState('');
@@ -47,7 +47,10 @@ export default function ProfilePage() {
     setFeedback(null);
     setSaving(true);
     try {
-      await updateUser(user.id, { userName, email, password });
+      await apiUpdateUser(user.id, { userName, email, password });
+      // Synchronise le client : le pseudo/email affichés (sidebar, en-tête profil)
+      // reflètent immédiatement les nouvelles valeurs sans reconnexion.
+      updateUser({ userName, email });
       setPassword('');
       setFeedback({ type: 'ok', text: 'Profil mis à jour.' });
     } catch (err) {

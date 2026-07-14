@@ -6,11 +6,11 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Configuration base de données
+// Configuration base de donnï¿½es
 builder.Services.AddDbContext<AuthDbContext>(options =>
 {
     var connectionString = Environment.GetEnvironmentVariable("AUTHSERVICE_DB_CONNECTION")
-        ?? throw new ArgumentNullException("AUTHSERVICE_DB_CONNECTION", "La chaîne de connexion à la base de données est manquante.");
+        ?? throw new ArgumentNullException("AUTHSERVICE_DB_CONNECTION", "La chaï¿½ne de connexion ï¿½ la base de donnï¿½es est manquante.");
     options.UseMySQL(connectionString);
 });
 
@@ -22,9 +22,13 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IPasswordHasher, PasswordHasherService>();
 
 // RabbitMQ
-builder.Services.AddTransient<RabbitMQConnection>(); 
+builder.Services.AddTransient<RabbitMQConnection>();
 builder.Services.AddScoped<IConsumer, ConsumerService>();
 builder.Services.AddScoped<ProducerService>();
+builder.Services.AddScoped<IProducer, ProducerService>();
+
+// SAGA (participant) : snapshots de compensation partagÃ©s entre messages
+builder.Services.AddSingleton<AccountUpdateSnapshotStore>();
 
 // BackgroundService
 builder.Services.AddHostedService<EventCatchingService>();

@@ -26,6 +26,8 @@ namespace AuthService.Services
 
                 await consumer.ConsumeEvent("user-updated");
                 await consumer.ConsumeEvent("user-deleted");
+                await consumer.ConsumeEvent("account-update-requested");
+                await consumer.ConsumeEvent("account-update-compensate");
 
                 await Task.Delay(Timeout.Infinite, stoppingToken);
             }
