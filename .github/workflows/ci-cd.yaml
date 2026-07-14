@@ -66,7 +66,7 @@ jobs:
               username: ${{ secrets.DOCKER_USERNAME }}
               password: ${{ secrets.DOCKER_PASSWORD }}
 
-          - name: Build and push images (docker compose)
+          - name: Build images (docker compose)
             env:
               # Utilisé pour taguer les images (image: ${DOCKER_USERNAME}/chatterpro-*).
               DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
@@ -74,5 +74,9 @@ jobs:
               # Fournit les variables requises par l'interpolation du compose (ports, connexions).
               cp .env.example .env
               docker compose -f docker-compose.yaml build
+
+          - name: Push images (docker compose)
+            env:
+              DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+            run: |
               docker compose -f docker-compose.yaml push
-    
